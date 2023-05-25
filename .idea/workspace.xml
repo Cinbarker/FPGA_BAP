@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="512ee52c-ca05-43dd-ab03-3f2c93f48cd7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/fpga-bap-project.cache/wt/project.wpc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/fpga-bap-project.hw/fpga-bap-project.lpr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/fpga-bap-project.xpr" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/vivado.jou" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/vivado.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vivado_project/vivado_pid30848.str" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/design/control_module.vhd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vivado_project/fpga-bap-project.xpr" beforeDir="false" afterPath="$PROJECT_DIR$/vivado_project/fpga-bap-project.xpr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vivado_project/vivado.jou" beforeDir="false" afterPath="$PROJECT_DIR$/vivado_project/vivado.jou" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vivado_project/vivado.log" beforeDir="false" afterPath="$PROJECT_DIR$/vivado_project/vivado.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vivado_project/vivado_pid30848.str" beforeDir="false" afterPath="$PROJECT_DIR$/vivado_project/vivado_pid30848.str" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +41,7 @@
       <option name="presentableId" value="Default" />
       <updated>1685024880097</updated>
       <workItem from="1685024881260" duration="407000" />
-      <workItem from="1685025592109" duration="422000" />
+      <workItem from="1685025592109" duration="2035000" />
     </task>
     <servers />
   </component>

@@ -23,6 +23,18 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/control_module.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"]"\
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
@@ -221,20 +233,6 @@ set obj [get_filesets sim_1]
 set_property -name "top" -value "uart_communication" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
-# Create 'control_tb' fileset (if not found)
-if {[string equal [get_filesets -quiet control_tb] ""]} {
-  create_fileset -simset control_tb
-}
-
-# Set 'control_tb' fileset object
-set obj [get_filesets control_tb]
-# Empty (no sources present)
-
-# Set 'control_tb' fileset properties
-set obj [get_filesets control_tb]
-set_property -name "top" -value "uart_communication" -objects $obj
-set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
-
 # Create 'integration_tbs' fileset (if not found)
 if {[string equal [get_filesets -quiet integration_tbs] ""]} {
   create_fileset -simset integration_tbs
@@ -244,11 +242,23 @@ if {[string equal [get_filesets -quiet integration_tbs] ""]} {
 set obj [get_filesets integration_tbs]
 set files [list \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_and_control_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'integration_tbs' fileset file properties for remote files
 set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -260,6 +270,87 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
 set_property -name "top" -value "uart_control_and_siggen_tb" -objects $obj
+set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
+
+# Create 'individual_tbs' fileset (if not found)
+if {[string equal [get_filesets -quiet individual_tbs] ""]} {
+  create_fileset -simset individual_tbs
+}
+
+# Set 'individual_tbs' fileset object
+set obj [get_filesets individual_tbs]
+set files [list \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/DDS_TB.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_communication_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Feature_Gen_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/control_module_tb.vhd"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'individual_tbs' fileset file properties for remote files
+set file "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+
+# Set 'individual_tbs' fileset file properties for local files
+# None
+
+# Set 'individual_tbs' fileset properties
+set obj [get_filesets individual_tbs]
+set_property -name "top" -value "DDS_TB" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
 # Set 'utils_1' fileset object

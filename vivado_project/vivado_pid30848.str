@@ -439,3 +439,227 @@ dismissDialog("Tcl Command Line"); // bq
 // TclEventType: DG_GRAPH_STALE
 // TclEventType: FILE_SET_CHANGE
 // TclEventType: DG_GRAPH_STALE
+// Elapsed time: 226 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git reset --hard HEAD~1", true); // h.a
+// Tcl Command: 'git reset --hard HEAD~1'
+// Tcl Command: 'git reset --hard HEAD~1'
+// Tcl Message: git reset --hard HEAD~1 
+// Tcl Message: fatal: ambiguous argument 'HEAD~1': unknown revision or path not in the working tree. Use '--' to separate paths from revisions, like this: 'git <command> [<revision>...] -- [<file>...]' 
+// [Engine Memory]: 1,026 MB (+3592kb) [00:15:14]
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git reset --soft HEAD~1", true); // h.a
+// Tcl Command: 'git reset --soft HEAD~1'
+// Tcl Command: 'git reset --soft HEAD~1'
+// Tcl Message: git reset --soft HEAD~1 
+// Tcl Message: fatal: ambiguous argument 'HEAD~1': unknown revision or path not in the working tree. Use '--' to separate paths from revisions, like this: 'git <command> [<revision>...] -- [<file>...]' 
+// Elapsed time: 18 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git reset --hard origin", true); // h.a
+// Tcl Command: 'git reset --hard origin'
+// Tcl Command: 'git reset --hard origin'
+// Tcl Message: git reset --hard origin 
+// Tcl Message: fatal: ambiguous argument 'origin': unknown revision or path not in the working tree. Use '--' to separate paths from revisions, like this: 'git <command> [<revision>...] -- [<file>...]' 
+// Tcl Command: 'rdi::info_commands {git*}'
+// Elapsed time: 10 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git"); // h.a
+// Tcl Command: 'rdi::info_commands {git*}'
+// Elapsed time: 73 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git push", true); // h.a
+// Tcl Command: 'git push'
+// Tcl Command: 'git push'
+// Tcl Message: git push 
+// Tcl Message: Everything up-to-date 
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, (String) null); // h.a
+// Elapsed time: 80 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git pull", true); // h.a
+// Tcl Command: 'git pull'
+// Tcl Command: 'git pull'
+// Tcl Message: git pull 
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, (String) null); // h.a
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Elapsed time: 198 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, control_module(Behavioral) (control_module.vhd)]", 1, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true); // D - Node
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // B
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN, "Add or create design sources"); // a
+selectButton("NEXT", "Next >"); // JButton
+selectButton(PAResourceQtoS.SrcChooserPanel_ADD_DIRECTORIES, "Add Directories"); // a
+setFolderChooser("C:/Users/Nicolas/Desktop/FPGA_BAP/src/design");
+selectButton("FINISH", "Finish"); // JButton
+// 'f' command handler elapsed time: 11 seconds
+dismissDialog("Add Sources"); // c
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files {C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart_communication.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/my_types_pkg.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart.vhd} 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 20 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, control_module(Behavioral) (control_module.vhd)]", 8, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, uart_communication(rtl) (uart_communication.vhd)]", 7, true); // D - Node
+expandTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files]", 6); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false, false, false, false, false, true); // D - Double Click
+selectButton(PAResourceOtoP.OpenFileAction_OK, "OK"); // a
+dismissDialog("Unable to Open File"); // Q.a
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, Non-module Files, uart_control_and_siggen_tb.vhd]", 7, false, false, false, false, true, false); // D - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_DELETE, "Remove File from Project..."); // ao
+// Run Command: RDIResourceCommand.RDICommands_DELETE
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Remove Sources"); // U
+// Tcl Message: export_ip_user_files -of_objects  [get_files C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd] -no_script -reset -force -quiet 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: remove_files  -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd 
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, uart_communication(rtl) (uart_communication.vhd)]", 8, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs]", 5, true); // D - Node
+selectButton(PAResourceCommand.PACommandNames_ADD_SOURCES, "Sources_add_sources"); // B
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectButton("NEXT", "Next >"); // JButton
+selectComboBox(PAResourceQtoS.SrcChooserPanel_ADD_FILES_BELOW_TO_THIS_SIMULATION_SET, "integration_tbs", 1); // at.g
+selectButton(PAResourceQtoS.SrcChooserPanel_CREATE_FILE, "Create File"); // a
+selectComboBox(PAResourceAtoD.CreateSrcFileDialog_FILE_LOCATION, "Choose Location...", 1); // d
+// Elapsed time: 31 seconds
+dismissFolderChooser();
+selectComboBox(PAResourceAtoD.CreateSrcFileDialog_FILE_LOCATION, "Choose Location...", 1); // d
+setFolderChooser("C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs");
+setText(PAResourceAtoD.CreateSrcFileDialog_FILE_NAME, "uart_control_and_siggen_tb"); // Q
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+dismissDialog("Create Source File"); // m
+selectButton("FINISH", "Finish"); // JButton
+// 'f' command handler elapsed time: 56 seconds
+dismissDialog("Add Sources"); // c
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// Tcl Message: set_property SOURCE_SET sources_1 [get_filesets integration_tbs] 
+// Tcl Message: close [ open C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd w ] 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: add_files -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd 
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+selectButton("OptionPane.button", "Yes"); // JButton
+// TclEventType: FILE_SET_CHANGE
+dismissDialog("Define Module"); // p
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset integration_tbs 
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, uart_control_and_siggen_tb(Behavioral) (uart_control_and_siggen_tb.vhd)]", 8, false); // D
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Simulation Sources, integration_tbs, uart_control_and_siggen_tb(Behavioral) (uart_control_and_siggen_tb.vhd)]", 8, false, false, false, false, false, true); // D - Double Click
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 164, 88); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 204, 140); // ac
+typeControlKey((HResource) null, "uart_control_and_siggen_tb.vhd", 'v'); // ac
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: update_compile_order -fileset integration_tbs 
+// Elapsed time: 12 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git add .", true); // h.a
+// Tcl Command: 'git add .'
+// Tcl Command: 'git add .'
+// Tcl Message: git add . 
+// Tcl Message: warning: LF will be replaced by CRLF in .idea/workspace.xml. The file will have its original line endings in your working directory warning: LF will be replaced by CRLF in vivado_project/vivado.jou. The file will have its original line endings in your working directory warning: LF will be replaced by CRLF in vivado_project/vivado.log. The file will have its original line endings in your working directory warning: LF will be replaced by CRLF in vivado_project/vivado_pid30848.str. The file will have its original line endings in your working directory 
+// Tcl Command: 'rdi::match_options {git} { }'
+// Tcl Command: 'rdi::match_options {git} {}'
+// Tcl Command: 'rdi::match_options {git} {m}'
+// Elapsed time: 17 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git commit -m \"Adding existing files\"", true); // h.a
+// Tcl Command: 'git commit -m "Adding existing files"'
+// Tcl Command: 'git commit -m "Adding existing files"'
+// TclEventType: PROJECT_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: git commit -m "Adding existing files" 
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: PROJECT_CHANGE
+// TclEventType: FILE_SET_CHANGE
+// Tcl Message: INFO: [Vivado-projutils-8] Tcl script 'fpga-bap-project.tcl' generated in output directory 'C:/Users/Nicolas/Desktop/FPGA_BAP'  INFO: [Vivado-projutils-15] The file paths for the project source files were set relative to the location of the generated script. 
+// Tcl Message: fpga-bap-project.tcl [master 24fce4f] Adding existing files  12 files changed, 1631 insertions(+), 5 deletions(-)  delete mode 100644 .gitignore  create mode 100644 .idea/workspace.xml  create mode 100644 src/design/my_types_pkg.vhd  create mode 100644 src/design/uart.vhd  create mode 100644 src/design/uart_communication.vhd  create mode 100644 vivado_project/fpga-bap-project.cache/wt/project.wpc  create mode 100644 vivado_project/fpga-bap-project.hw/fpga-bap-project.lpr  create mode 100644 vivado_project/fpga-bap-project.xpr  create mode 100644 vivado_project/vivado.jou  create mode 100644 vivado_project/vivado.log  create mode 100644 vivado_project/vivado_pid30848.str 
+dismissDialog("Tcl Command Line"); // bq
+// Elapsed time: 11 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, "git push", true); // h.a
+// Tcl Command: 'git push'
+// Tcl Command: 'git push'
+// Tcl Message: git push 
+// Tcl Message: remote: Resolving deltas:   0% (0/1)         remote: Resolving deltas: 100% (1/1)         remote: Resolving deltas: 100% (1/1), completed with 1 local object.         To https://github.com/Cinbarker/FPGA_BAP.git    311167b..24fce4f  master -> master 
+// HMemoryUtils.trashcanNow. Engine heap size: 1,034 MB. GUI used memory: 71 MB. Current time: 5/25/23, 7:18:44 PM CEST
+// Elapsed time: 9855 seconds
+setText(RDIResource.CommandsInput_TYPE_TCL_COMMAND_HERE, (String) null); // h.a
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 87, 504); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 101, 490); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 104, 503); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 119, 476); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 142, 456); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 143, 466); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 151, 424); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 232, 390); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 244, 360); // ac
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 247, 346); // ac
+// Elapsed time: 37 seconds
+selectCodeEditor("uart_control_and_siggen_tb.vhd", 340, 252); // ac
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true); // D - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources]", 0, true, false, false, false, true, false); // D - Popup Trigger - Node
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // al
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // al
+selectMenuItem(PAResourceCommand.PACommandNames_ADD_SOURCES, "Add Sources..."); // ao
+// Run Command: PAResourceCommand.PACommandNames_ADD_SOURCES
+selectRadioButton(PAResourceAtoD.AddSrcWizard_SPECIFY_HDL_NETLIST_BLOCK_DESIGN, "Add or create design sources"); // a
+selectButton("NEXT", "Next >"); // JButton
+// Elapsed time: 11 seconds
+selectButton("CANCEL", "Cancel"); // JButton
+// 'f' command handler elapsed time: 15 seconds
+dismissDialog("Add Sources"); // c

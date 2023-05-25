@@ -32,3 +32,22 @@ git add .
 git commit -m "initial"
 update_compile_order -fileset sources_1
 update_compile_order -fileset integration_tbs
+git reset --hard HEAD~1
+git reset --soft HEAD~1
+git reset --hard origin
+git push
+git pull
+update_compile_order -fileset sources_1
+add_files {C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart_communication.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/my_types_pkg.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart.vhd}
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd] -no_script -reset -force -quiet
+remove_files  -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
+set_property SOURCE_SET sources_1 [get_filesets integration_tbs]
+close [ open C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd w ]
+add_files -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
+update_compile_order -fileset integration_tbs
+update_compile_order -fileset integration_tbs
+git add .
+git commit -m "Adding existing files"
+git push

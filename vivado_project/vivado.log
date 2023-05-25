@@ -143,3 +143,84 @@ fpga-bap-project.tcl
  create mode 100644 vivado_project/vivado_pid30848.str
 update_compile_order -fileset sources_1
 update_compile_order -fileset integration_tbs
+git reset --hard HEAD~1
+fatal: ambiguous argument 'HEAD~1': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+git reset --soft HEAD~1
+fatal: ambiguous argument 'HEAD~1': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+git reset --hard origin
+fatal: ambiguous argument 'origin': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]'
+git push
+Everything up-to-date
+git pull
+Updating 132c300..311167b
+Fast-forward
+ .idea/.gitignore                               |  8 --------
+ .idea/FPGA_BAP.iml                             |  8 --------
+ .idea/inspectionProfiles/Project_Default.xml   | 26 --------------------------
+ .idea/inspectionProfiles/profiles_settings.xml |  6 ------
+ .idea/misc.xml                                 |  4 ----
+ .idea/modules.xml                              |  8 --------
+ .idea/vcs.xml                                  |  6 ------
+ 7 files changed, 66 deletions(-)
+ delete mode 100644 .idea/.gitignore
+ delete mode 100644 .idea/FPGA_BAP.iml
+ delete mode 100644 .idea/inspectionProfiles/Project_Default.xml
+ delete mode 100644 .idea/inspectionProfiles/profiles_settings.xml
+ delete mode 100644 .idea/misc.xml
+ delete mode 100644 .idea/modules.xml
+ delete mode 100644 .idea/vcs.xml
+From https://github.com/Cinbarker/FPGA_BAP
+   132c300..311167b  master     -> origin/master
+update_compile_order -fileset sources_1
+add_files {C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart_communication.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/my_types_pkg.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart.vhd}
+WARNING: [filemgmt 56-12] File 'C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd' cannot be added to the project because it already exists in the project, skipping this file
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+export_ip_user_files -of_objects  [get_files C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd] -no_script -reset -force -quiet
+remove_files  -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
+set_property SOURCE_SET sources_1 [get_filesets integration_tbs]
+close [ open C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd w ]
+add_files -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
+update_compile_order -fileset integration_tbs
+update_compile_order -fileset integration_tbs
+git add .
+warning: LF will be replaced by CRLF in .idea/workspace.xml.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in vivado_project/vivado.jou.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in vivado_project/vivado.log.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in vivado_project/vivado_pid30848.str.
+The file will have its original line endings in your working directory
+git commit -m "Adding existing files"
+WARNING: [Vivado 12-818] No files matched '*.bd'
+WARNING: [Vivado 12-818] No files matched '*.bd'
+INFO: [Vivado-projutils-8] Tcl script 'fpga-bap-project.tcl' generated in output directory 'C:/Users/Nicolas/Desktop/FPGA_BAP'
+
+INFO: [Vivado-projutils-15] The file paths for the project source files were set relative to the location of the generated script.
+fpga-bap-project.tcl
+[master 24fce4f] Adding existing files
+ 12 files changed, 1631 insertions(+), 5 deletions(-)
+ delete mode 100644 .gitignore
+ create mode 100644 .idea/workspace.xml
+ create mode 100644 src/design/my_types_pkg.vhd
+ create mode 100644 src/design/uart.vhd
+ create mode 100644 src/design/uart_communication.vhd
+ create mode 100644 vivado_project/fpga-bap-project.cache/wt/project.wpc
+ create mode 100644 vivado_project/fpga-bap-project.hw/fpga-bap-project.lpr
+ create mode 100644 vivado_project/fpga-bap-project.xpr
+ create mode 100644 vivado_project/vivado.jou
+ create mode 100644 vivado_project/vivado.log
+ create mode 100644 vivado_project/vivado_pid30848.str
+git push
+remote: Resolving deltas:   0% (0/1)        
+remote: Resolving deltas: 100% (1/1)        
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.        
+To https://github.com/Cinbarker/FPGA_BAP.git
+   311167b..24fce4f  master -> master
