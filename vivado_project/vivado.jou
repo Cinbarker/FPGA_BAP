@@ -2,52 +2,31 @@
 # Vivado v2022.2 (64-bit)
 # SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
 # IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
-# Start of session at: Thu May 25 16:25:06 2023
-# Process ID: 30848
-# Current directory: C:/Users/Nicolas/Desktop/FPGA_BAP/vivado_project
-# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent30656 C:\Users\Nicolas\Desktop\FPGA_BAP\vivado_project\fpga-bap-project.xpr
-# Log file: C:/Users/Nicolas/Desktop/FPGA_BAP/vivado_project/vivado.log
-# Journal file: C:/Users/Nicolas/Desktop/FPGA_BAP/vivado_project\vivado.jou
-# Running On: LAPTOP-JIRJDU7E, OS: Windows, CPU Frequency: 1797 MHz, CPU Physical cores: 16, Host memory: 16499 MB
+# Start of session at: Fri May 26 14:12:01 2023
+# Process ID: 26660
+# Current directory: C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/vivado_project
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent26232 C:\Users\thoma\OneDrive - Delft University of Technology\Documenten\UNI\BAP\VHDL\FPGA_4.0\vivado_project\fpga-bap-project.xpr
+# Log file: C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/vivado_project/vivado.log
+# Journal file: C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/vivado_project\vivado.jou
+# Running On: Thomas, OS: Windows, CPU Frequency: 2688 MHz, CPU Physical cores: 14, Host memory: 16849 MB
 #-----------------------------------------------------------
 start_gui
-open_project C:/Users/Nicolas/Desktop/FPGA_BAP/vivado_project/fpga-bap-project.xpr
-git init
-add_files C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd
+open_project {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/vivado_project/fpga-bap-project.xpr}
 update_compile_order -fileset sources_1
-set_property SOURCE_SET sources_1 [get_filesets sim_1]
-create_fileset -simset control_tb
-set_property SOURCE_SET sources_1 [get_filesets control_tb]
-create_fileset -simset integration_tbs
-set_property SOURCE_SET sources_1 [get_filesets integration_tbs]
-set_property SOURCE_SET sources_1 [get_filesets integration_tbs]
-close [ open C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd w ]
-add_files -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
-update_compile_order -fileset integration_tbs
-update_compile_order -fileset integration_tbs
-git add .
-git add .
-git commit -m "initial"
-git add .
-git commit -m "initial"
+source {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/fpga-bap-project.tcl}
+current_fileset -simset [ get_filesets individual_tbs ]
+launch_simulation -simset [get_filesets individual_tbs ]
+add_files {{C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/System_Phasor_Calc.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Phasor_Calc_Toplevel.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Vector_Vector_Scalar_multiplier.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/vector_scalar_multiplier.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/project_toplevel.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Multiple_time_signal_generation.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/control_module.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/my_types_pkg.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/uart_communication.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Map_inputs_DDS.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/uart.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Feature_Gen.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Time_Signal_Generation.vhd} {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/src/design/Control_Phasor_Generation.vhd}}
 update_compile_order -fileset sources_1
-update_compile_order -fileset integration_tbs
-git reset --hard HEAD~1
-git reset --soft HEAD~1
-git reset --hard origin
-git push
-git pull
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top Feature_Gen_tb [get_filesets individual_tbs]
+set_property top_lib xil_defaultlib [get_filesets individual_tbs]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode All [current_project]
+update_compile_order -fileset individual_tbs
+launch_simulation -simset [get_filesets individual_tbs ]
+close_project
+open_project {C:/Users/thoma/OneDrive - Delft University of Technology/Documenten/UNI/BAP/VHDL/FPGA_4.0/vivado_project/fpga-bap-project.xpr}
 update_compile_order -fileset sources_1
-add_files {C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart_communication.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/control_module.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/my_types_pkg.vhd C:/Users/Nicolas/Desktop/FPGA_BAP/src/design/uart.vhd}
-update_compile_order -fileset sources_1
-update_compile_order -fileset sources_1
-export_ip_user_files -of_objects  [get_files C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd] -no_script -reset -force -quiet
-remove_files  -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
-set_property SOURCE_SET sources_1 [get_filesets integration_tbs]
-close [ open C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd w ]
-add_files -fileset integration_tbs C:/Users/Nicolas/Desktop/FPGA_BAP/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd
-update_compile_order -fileset integration_tbs
-update_compile_order -fileset integration_tbs
-git add .
-git commit -m "Adding existing files"
-git push
+launch_simulation -simset [get_filesets individual_tbs ]

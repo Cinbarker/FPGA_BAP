@@ -14,7 +14,7 @@ architecture Behavioral of Map_inputs_DDS_tb is
     signal input_Map_inputs_DDS_valid: std_logic := '0';
     signal Control_Phase: std_logic_vector(FP_SIZE-1 downto 0);
     signal Control_Gain: std_logic_vector(FP_SIZE-1 downto 0);
-    signal DDS_Phase: std_logic_vector(27 downto 0);
+    signal DDS_Phase: std_logic_vector(31 downto 0);
     signal DDS_Gain: std_logic_vector(15 downto 0);
     signal output_Map_inputs_DDS_valid: std_logic;
 
@@ -25,7 +25,7 @@ architecture Behavioral of Map_inputs_DDS_tb is
             input_Map_inputs_DDS_valid : in std_logic;
             Control_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
             Control_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
-            DDS_Phase: out  std_logic_vector(27 downto 0);
+            DDS_Phase: out  std_logic_vector(31 downto 0);
             DDS_Gain : out std_logic_vector(15 downto 0);
             output_Map_inputs_DDS_valid: out std_logic
         );
@@ -62,8 +62,8 @@ begin
         -- Insert test stimuli here
         -- Example:
         input_Map_inputs_DDS_valid <= '0';
-        Control_Phase <= "0100010111011100"; -- Example value, adjust as needed
-        Control_Gain <=  "0100010011001100"; -- Example value, adjust as needed
+        Control_Phase <= x"C4CC";--"0100010111011100"; -- Example value, adjust as needed
+        Control_Gain <=  x"C4CC"; -- Example value, adjust as needed
 
         wait for 50 ns;
         input_Map_inputs_DDS_valid <= '1';

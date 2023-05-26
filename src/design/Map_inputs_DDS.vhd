@@ -37,7 +37,7 @@ end Map_inputs_DDS;
 
 architecture Behavioral of Map_inputs_DDS is
 
-component float_to_fixed     Port (
+component float_to_fixed_32_bit     Port (
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     m_axis_result_tvalid : out STD_LOGIC;
@@ -45,14 +45,7 @@ component float_to_fixed     Port (
   );
   end component;
 
-  component float_to_fixed_16_bit   Port (
-    s_axis_a_tvalid : in STD_LOGIC;
-    s_axis_a_tdata : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    m_axis_result_tvalid : out STD_LOGIC;
-    m_axis_result_tdata : out STD_LOGIC_VECTOR ( 15 downto 0 )
-  );
 
-  end component;
   component fp_16_to_32 is
   Port (
     s_axis_a_tvalid : in STD_LOGIC;
@@ -114,7 +107,7 @@ Divide_by_2pi: floating_point_mult_32_bit port map(
     m_axis_result_tvalid => Control_Phase_div_2pi_32_valid,
     m_axis_result_tdata => Control_Phase_div_2pi_32
 );
-to_fixed_get_DDS_phase: float_to_fixed port map(
+to_fixed_get_DDS_phase: float_to_fixed_32_bit port map(
     s_axis_a_tvalid => Control_Phase_div_2pi_32_valid,
     s_axis_a_tdata  => Control_Phase_div_2pi_32,
     m_axis_result_tvalid  => DDS_phase_valid,

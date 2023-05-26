@@ -37,11 +37,11 @@ component fp_divider_X_bit is
   Port (
     aclk : in STD_LOGIC;
     s_axis_a_tvalid : in STD_LOGIC;
-    s_axis_a_tdata : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    s_axis_a_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
-    s_axis_b_tdata : in STD_LOGIC_VECTOR ( 15 downto 0 );
+    s_axis_b_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1  downto 0 );
     m_axis_result_tvalid : out STD_LOGIC;
-    m_axis_result_tdata : out STD_LOGIC_VECTOR ( 15 downto 0 )
+    m_axis_result_tdata : out STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 )
   );
 
 end component;
