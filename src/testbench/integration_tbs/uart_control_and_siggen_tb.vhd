@@ -75,6 +75,23 @@ architecture bench of uart_control_and_siggen_tb is
             DAC_IN : out std_logic_vector(15 downto 0)
         );
     end component;
+    
+      component Phasor_Calc_Toplevel
+  port(
+        clk : in std_logic;
+        reset : in std_logic;
+        input_Phasor_calc_valid: in std_logic;
+        input_features : in   custom_fp_array((POLY_DIM-1) downto 0);
+        extra_feature_value : in  std_logic_vector(FP_SIZE-1 downto 0);
+        weights_gain : in custom_fp_array(POLY_DIM*EXTRA_DIM-1 downto 0);
+        weights_phase : in custom_fp_array(POLY_DIM*EXTRA_DIM-1 downto 0);
+        input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
+        input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
+        Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
+        Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
+    	Control_Phasor_valid : out std_logic
+  	);
+  end component;
   -- ctrl signals
   signal clk                        : std_logic;
   signal reset                      : std_logic;
@@ -197,15 +214,27 @@ rst_n <= NOT(reset);
             Control_Gain => gen_phasor_magnitudes,
             phase_increase => gen_frequencies,
             DAC_IN => DAC_IN);
-  
+      
+      math: Phasor_Calc_Toplevel port map ( 
+           clk                  => clk,
+           reset                   => reset,
+           input_Phasor_calc_valid => math_start,
+           input_features          => math_polynomial_features,
+           extra_feature_value     => math_extra_feature,
+           weights_gain            => math_magnitude_weights,
+           weights_phase           => math_phase_weights,
+           input_Phase             => math_phasor_phase,
+           input_Gain              => math_phasor_magnitude,
+           Control_Phase           => math_result_phasor_phase,
+           Control_Gain            => math_result_phasor_magnitude,
+           Control_Phasor_valid    => math_valid);
+           
   stimulus: process
   begin
     -- Put initialisation code here
     
     -- Initialize Math
-    math_valid <= '0';
-    math_result_phasor_magnitude <= (others => '0');
-    math_result_phasor_phase <= (others => '0');
+
 
     reset <= '1';
     wait for clock_period;
@@ -357,41 +386,9 @@ rst_n <= NOT(reset);
     -- Process math
     wait for clock_period*4;
         
-    -- Math freq 0 done -- 268436138 => 0.06250015879
-    math_result_phasor_magnitude <= x"7C00"; -- 100000
-    math_result_phasor_phase <= x"2AAA"; -- 0.05207
-    math_valid <= '1';
-    wait for clock_period;
-    math_result_phasor_magnitude <= (others => '0');
-    math_result_phasor_phase <= (others => '0');
-    math_valid <= '0';
-    
-    -- Process math
-    wait for clock_period*4;
-    
-    -- Math freq 1 done -- 268436138 => 0.06250015879
-    math_result_phasor_magnitude <= x"7A1A"; -- 49984
-    math_result_phasor_phase <= x"2AAA"; -- 0.05207
-    math_valid <= '1';
-    wait for clock_period;
-    math_result_phasor_magnitude <= (others => '0');
-    math_result_phasor_phase <= (others => '0');
-    math_valid <= '0';
-    
-    -- Process math
-    wait for clock_period*4;
-    
-    -- Math freq 2 done -- 402653866 => 0.09375015879
-    math_result_phasor_magnitude <= x"E100"; -- -640
-    math_result_phasor_phase <= x"2FAA"; -- 0.1198
-    math_valid <= '1';
-    wait for clock_period;
-    math_result_phasor_magnitude <= (others => '0');
-    math_result_phasor_phase <= (others => '0');
-    math_valid <= '0';
     
     
-    wait for clock_period*2500;
+    wait for clock_period*3000;
     stop_the_clock <= TRUE;
     wait;
   end process;
