@@ -7,9 +7,9 @@ port(
     clk : in std_logic;
   	reset : in std_logic;
   	input_valid : in std_logic;
-  	Control_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
-  	Control_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
-  	phase_increase : in std_logic_vector(31 downto 0); -- sent by PC
+  	Control_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0); --16 bit float that represents phase increase
+  	Control_Gain : in std_logic_vector(FP_SIZE-1 downto 0); --16 bit float turns into 16 bit signed
+  	phase_increase : in std_logic_vector(31 downto 0); -- 32 bit unsigned represents phase increase wehre 2^32 is 2*pi
 
     single_freq_sig : out std_logic_vector(15 downto 0);
     time_sig_valid: out std_logic
@@ -65,7 +65,7 @@ end component;
 component X_X_Multiplier is
     Port (
     A : in STD_LOGIC_VECTOR ( 15 downto 0 );
-    B : in STD_LOGIC_VECTOR ( 16 downto 0 );
+    B : in STD_LOGIC_VECTOR ( 15 downto 0 );
     P : out STD_LOGIC_VECTOR ( 15 downto 0 )
   );
 
@@ -78,7 +78,7 @@ signal output_Map_inputs_DDS_valid, DDS_output_valid, DDS_output_valid_delayed: 
 signal single_freq_sig_temp, DDS_output: std_logic_vector(15 downto 0);
 signal DDS_Phase_padded: std_logic_vector(31 downto 0);
 signal DDS_output_padded: std_logic_vector(15 downto 0);
-signal DDS_gain_padded: std_logic_vector(16 downto 0);
+
 begin
 
 map_inputs_dds1: Map_inputs_DDS port map(
@@ -104,13 +104,12 @@ Attach_DDS: dds_compiler_0 Port map (
   );
 
   DDS_output <= DDS_output_padded(15 downto 0);
-  DDS_gain_padded(15 downto 0) <= DDS_Gain;
-  DDS_gain_padded(16) <= '0';
+
 multiply_with_gain: X_X_Multiplier
   Port map(
 
     A => DDS_output,
-    B => DDS_gain_padded,
+    B => DDS_gain,
     P => single_freq_sig_temp
   );
 

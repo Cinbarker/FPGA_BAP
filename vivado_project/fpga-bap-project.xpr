@@ -44,7 +44,7 @@
     <Option Name="SimulatorGccVersionActiveHdl" Val="9.3.0"/>
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val=""/>
-    <Option Name="ActiveSimSet" Val="individual_tbs"/>
+    <Option Name="ActiveSimSet" Val="integration_tbs"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -58,7 +58,7 @@
     <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
-    <Option Name="WTXSimLaunchSim" Val="46"/>
+    <Option Name="WTXSimLaunchSim" Val="56"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -90,134 +90,98 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sources_1/imports/design/my_types_pkg.vhd">
+      <File Path="$PPRDIR/../src/design/my_types_pkg.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/my_types_pkg.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/uart.vhd">
+      <File Path="$PPRDIR/../src/design/uart.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/uart.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/uart_communication.vhd">
+      <File Path="$PPRDIR/../src/design/uart_communication.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/uart_communication.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/control_module.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/control_module.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/System_Phasor_Calc.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/System_Phasor_Calc.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Phasor_Calc_Toplevel.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Phasor_Calc_Toplevel.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Vector_Vector_Scalar_multiplier.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Vector_Vector_Scalar_multiplier.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/vector_scalar_multiplier.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/vector_scalar_multiplier.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/project_toplevel.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/project_toplevel.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Multiple_time_signal_generation.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Multiple_time_signal_generation.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Map_inputs_DDS.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Map_inputs_DDS.vhd"/>
-          <Attr Name="ImportTime" Val="1685106540"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Feature_Gen.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Feature_Gen.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Time_Signal_Generation.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Time_Signal_Generation.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/sources_1/imports/design/Control_Phasor_Generation.vhd">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/design/Control_Phasor_Generation.vhd"/>
-          <Attr Name="ImportTime" Val="1685104571"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../src/IP/adder_16_bit/adder_16_bit.xci">
+      <File Path="$PPRDIR/../src/design/System_Phasor_Calc.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Phasor_Calc_Toplevel.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Vector_Vector_Scalar_multiplier.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/vector_scalar_multiplier.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/project_toplevel.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Multiple_time_signal_generation.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/control_module.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Map_inputs_DDS.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Feature_Gen.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Time_Signal_Generation.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../src/design/Control_Phasor_Generation.vhd">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
@@ -238,8 +202,9 @@
       <Filter Type="Srcs"/>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="uart_communication"/>
+        <Option Name="TopModule" Val="Multiple_time_signal_generation"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
@@ -258,36 +223,31 @@
     </FileSet>
     <FileSet Name="integration_tbs" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/integration_tbs" RelGenDir="$PGENDIR/integration_tbs">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/integration_tbs/imports/integration_tbs/control_and_math_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/integration_tbs/control_and_math_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/integration_tbs/imports/integration_tbs/uart_control_and_siggen_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/integration_tbs/uart_and_control_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/integration_tbs/imports/integration_tbs/uart_and_control_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/integration_tbs/control_and_math_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/integration_tbs/uart_and_control_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="control_and_math_tb"/>
+        <Option Name="TopModule" Val="uart_control_and_siggen_tb"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
@@ -300,99 +260,80 @@
     </FileSet>
     <FileSet Name="individual_tbs" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/individual_tbs" RelGenDir="$PGENDIR/individual_tbs">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/Phasor_Calc_Toplevel_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/DDS_TB.vhd">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/Multiple_time_signal_generation_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/control_module_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/DDS_TB.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/DDS_TB.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/Map_inputs_DDS_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/Feature_Gen_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685107119"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/System_Phasor_Calc_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/Feature_Gen_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/Feature_Gen_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/uart_communication_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/uart_communication_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/uart_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/uart_communication_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/uart_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/individual_tbs/imports/individual_tbs/control_module_tb.vhd">
+      <File Path="$PPRDIR/../src/testbench/individual_tbs/uart_tb.vhd">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../src/testbench/individual_tbs/control_module_tb.vhd"/>
-          <Attr Name="ImportTime" Val="1685103025"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="Phasor_Calc_Toplevel_tb"/>
+        <Option Name="TopModule" Val="DDS_TB"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
+        <Option Name="TopAutoSet" Val="TRUE"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
         <Option Name="SelectedSimModel" Val="rtl"/>
@@ -579,6 +520,22 @@
         <Option Name="UseBlackboxStub" Val="1"/>
       </Config>
     </FileSet>
+    <FileSet Name="adder_16_bit" Type="BlockSrcs" RelSrcDir="$PSRCDIR/adder_16_bit" RelGenDir="$PGENDIR/adder_16_bit">
+      <File Path="$PPRDIR/../src/IP/adder_16_bit/adder_16_bit.xci">
+        <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <Config>
+        <Option Name="TopModule" Val="adder_16_bit"/>
+        <Option Name="ElabLinkDCPs" Val="0"/>
+        <Option Name="dataflowViewerSettings" Val="min_width=16"/>
+        <Option Name="UseBlackboxStub" Val="1"/>
+      </Config>
+    </FileSet>
   </FileSets>
   <Simulators>
     <Simulator Name="XSim">
@@ -711,6 +668,18 @@
     <Run Id="fp_mult_16_bit_synth_1" Type="Ft3:Synth" SrcSet="fp_mult_16_bit" Part="xc7a100tftg256-1" ConstrsSet="fp_mult_16_bit" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/fp_mult_16_bit_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/fp_mult_16_bit_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/fp_mult_16_bit_synth_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022"/>
+        <Step Id="synth_design"/>
+      </Strategy>
+      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
+      <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2022"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="adder_16_bit_synth_1" Type="Ft3:Synth" SrcSet="adder_16_bit" Part="xc7a100tftg256-1" ConstrsSet="adder_16_bit" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/adder_16_bit_synth_1" IncludeInArchive="true" IsChild="false" AutoIncrementalDir="$PSRCDIR/utils_1/imports/adder_16_bit_synth_1" AutoRQSDir="$PSRCDIR/utils_1/imports/adder_16_bit_synth_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2022">
+          <Desc>Vivado Synthesis Defaults</Desc>
+        </StratHandle>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -908,6 +877,25 @@
     <Run Id="fp_mult_16_bit_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tftg256-1" ConstrsSet="fp_mult_16_bit" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="fp_mult_16_bit_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/fp_mult_16_bit_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/fp_mult_16_bit_impl_1">
       <Strategy Version="1" Minor="2">
         <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022"/>
+        <Step Id="init_design"/>
+        <Step Id="opt_design"/>
+        <Step Id="power_opt_design"/>
+        <Step Id="place_design"/>
+        <Step Id="post_place_power_opt_design"/>
+        <Step Id="phys_opt_design"/>
+        <Step Id="route_design"/>
+        <Step Id="post_route_phys_opt_design"/>
+        <Step Id="write_bitstream"/>
+      </Strategy>
+      <ReportStrategy Name="Vivado Implementation Default Reports" Flow="Vivado Implementation 2022"/>
+      <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
+      <RQSFiles/>
+    </Run>
+    <Run Id="adder_16_bit_impl_1" Type="Ft2:EntireDesign" Part="xc7a100tftg256-1" ConstrsSet="adder_16_bit" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="adder_16_bit_synth_1" IncludeInArchive="false" IsChild="false" GenFullBitstream="true" AutoIncrementalDir="$PSRCDIR/utils_1/imports/adder_16_bit_impl_1" AutoRQSDir="$PSRCDIR/utils_1/imports/adder_16_bit_impl_1">
+      <Strategy Version="1" Minor="2">
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2022">
+          <Desc>Default settings for Implementation.</Desc>
+        </StratHandle>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
