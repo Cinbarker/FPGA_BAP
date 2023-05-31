@@ -22,6 +22,16 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart.vhd"]"\
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/control_module.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Feature_Gen.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Time_Signal_Generation.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Map_inputs_DDS.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Multiple_time_signal_generation.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Control_Phasor_Generation.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Vector_Vector_Scalar_multiplier.vhd"]"\
+ "[file normalize "$origin_dir/src/design/System_Phasor_Calc.vhd"]"\
+ "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
+ "[file normalize "$origin_dir/src/design/Phasor_Calc_Toplevel.vhd"]"\
+ "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
@@ -173,6 +183,16 @@ set files [list \
  [file normalize "${origin_dir}/src/design/uart.vhd"] \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/control_module.vhd"] \
+ [file normalize "${origin_dir}/src/design/Feature_Gen.vhd"] \
+ [file normalize "${origin_dir}/src/design/Time_Signal_Generation.vhd"] \
+ [file normalize "${origin_dir}/src/design/Map_inputs_DDS.vhd"] \
+ [file normalize "${origin_dir}/src/design/Multiple_time_signal_generation.vhd"] \
+ [file normalize "${origin_dir}/src/design/Control_Phasor_Generation.vhd"] \
+ [file normalize "${origin_dir}/src/design/Vector_Vector_Scalar_multiplier.vhd"] \
+ [file normalize "${origin_dir}/src/design/System_Phasor_Calc.vhd"] \
+ [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
+ [file normalize "${origin_dir}/src/design/Phasor_Calc_Toplevel.vhd"] \
+ [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
@@ -193,6 +213,56 @@ set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/design/control_module.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Feature_Gen.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Time_Signal_Generation.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Map_inputs_DDS.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Multiple_time_signal_generation.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Control_Phasor_Generation.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Vector_Vector_Scalar_multiplier.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/System_Phasor_Calc.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/project_toplevel.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/Phasor_Calc_Toplevel.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/vector_scalar_multiplier.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
