@@ -204,6 +204,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'sources_1' fileset properties
 set obj [get_filesets sources_1]
 set_property -name "top" -value "uart_communication" -objects $obj
+set_property -name "top_auto_set" -value "0" -objects $obj
 
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {
@@ -231,6 +232,7 @@ set obj [get_filesets sim_1]
 # Set 'sim_1' fileset properties
 set obj [get_filesets sim_1]
 set_property -name "top" -value "uart_communication" -objects $obj
+set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
 # Create 'integration_tbs' fileset (if not found)
@@ -270,6 +272,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
 set_property -name "top" -value "uart_control_and_siggen_tb" -objects $obj
+set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
 # Create 'individual_tbs' fileset (if not found)
@@ -351,6 +354,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'individual_tbs' fileset properties
 set obj [get_filesets individual_tbs]
 set_property -name "top" -value "DDS_TB" -objects $obj
+set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
 # Set 'utils_1' fileset object
