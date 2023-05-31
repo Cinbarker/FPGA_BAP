@@ -5,7 +5,7 @@ use work.my_types_pkg.all;
 
 entity uart_control_and_siggen_tb is
 end;
-
+--Thomas git fun
 architecture bench of uart_control_and_siggen_tb is
 
   component uart_communication
