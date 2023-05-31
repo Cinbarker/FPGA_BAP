@@ -4,8 +4,10 @@ use work.my_types_pkg.all;
 
 entity project_toplevel is
   Port (clk                 : in std_logic;
+        rst_n               : in std_logic;
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
+        led                 : out std_logic_vector(7 downto 0);
         DAC_IN              : out std_logic_vector(15 downto 0)
          );
 end project_toplevel;
@@ -131,13 +133,10 @@ component uart_communication
   
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
-  signal rst_n : std_logic;
-  signal led: std_logic_vector(7 downto 0);
   signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
   
   -- siggen signals
 
-  
 type variable_array is array (natural range <>) of std_logic_vector(7 downto 0);
 -- phase_incr = [429496729, 128849018, 214748364]
 constant phase_incr_cmds: variable_array(FREQ_DIM*4 downto 0) := ("01100011", "00011001", "10011001", "10011001", "10011001", "00000111", "10101110", "00010100", "01111010", "00001100", "11001100", "11001100", "11001100") ;
@@ -158,7 +157,7 @@ constant model_id_cmds: variable_array(2 downto 0) := ("01101010", "00000100", "
 
 
 begin
-rst_n <= NOT(reset);
+reset <= NOT(rst_n);
 
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud                => 115200,
@@ -218,7 +217,7 @@ rst_n <= NOT(reset);
             DAC_IN => DAC_IN);
       
       math: Phasor_Calc_Toplevel port map ( 
-           clk                  => clk,
+           clk                     => clk,
            reset                   => reset,
            input_Phasor_calc_valid => math_start,
            input_features          => math_polynomial_features,
