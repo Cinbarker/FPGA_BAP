@@ -8,7 +8,7 @@ entity project_toplevel is
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
         led                 : out std_logic_vector(7 downto 0);
-        DAC_IN              : out std_logic_vector(15 downto 0)
+        dac_in              : out std_logic_vector(15 downto 0)
          );
 end project_toplevel;
 
@@ -216,7 +216,7 @@ reset <= NOT(rst_n);
             phase_increase => gen_frequencies,
             DAC_IN => DAC_IN);
       
-      math: Phasor_Calc_Toplevel port map ( 
+  math: Phasor_Calc_Toplevel port map ( 
            clk                     => clk,
            reset                   => reset,
            input_Phasor_calc_valid => math_start,

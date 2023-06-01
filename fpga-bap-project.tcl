@@ -299,6 +299,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 # Set 'sources_1' fileset properties
 set obj [get_filesets sources_1]
 set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
+set_property -name "elab_link_dcps" -value "0" -objects $obj
 set_property -name "top" -value "project_toplevel" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 
@@ -572,7 +573,9 @@ set_property -name "file_type" -value "XDC" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
+set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -757,6 +760,7 @@ if { $obj != "" } {
 
 }
 set obj [get_runs synth_1]
+set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/project_toplevel.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
@@ -981,6 +985,7 @@ set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
 set obj [get_runs impl_1]
+set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
 set_property -name "steps.write_bitstream.args.readback_file" -value "0" -objects $obj
