@@ -35,11 +35,10 @@ use work.my_types_pkg.all;
 --use UNISIM.VComponents.all;
 
 entity Vector_Vector_Scalar_multiplier is
-
     port(
     clk : in std_logic;
     reset: in std_logic;
-    input_scalar_mult_valid : std_logic;
+    input_scalar_mult_valid : in std_logic;
   	input_mult_vect_a : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
 	input_mult_vect_b : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
   	output_scalar_mult: out std_logic_vector(FP_SIZE-1 downto 0);
@@ -52,7 +51,8 @@ architecture Behavioral of Vector_Vector_Scalar_multiplier is
 signal output_mult : custom_fp_array(VECTOR_WIDTH -1 downto 0);
 signal intermediate_sums : custom_fp_array(VECTOR_WIDTH*2 -2 downto 0);
 signal intermediate_valid: std_logic_vector(VECTOR_WIDTH*2 -2 downto  0);
-signal reset_mult: std_logic;
+signal aresetn: std_logic;
+
 component fp_mult_16_bit
     Port (
     aclk: in std_logic;
@@ -69,6 +69,7 @@ component fp_mult_16_bit
 COMPONENT fp_adder_16_bit
   PORT (
     aclk: IN STD_LOGIC;
+    aresetn : in STD_LOGIC;
     s_axis_a_tvalid : IN STD_LOGIC;
     s_axis_a_tdata : IN STD_LOGIC_VECTOR(FP_SIZE-1 DOWNTO 0);
     s_axis_b_tvalid : IN STD_LOGIC;
@@ -79,12 +80,14 @@ COMPONENT fp_adder_16_bit
   end component;
 
 begin
-reset_mult <= (input_scalar_mult_valid or (not reset));
+
+aresetn <= (input_scalar_mult_valid and (not reset));
+
 gen_multipliers: for i in 0 to VECTOR_WIDTH -1 generate
   
   mult :  fp_mult_16_bit port map(
         aclk => clk,
-        aresetn => reset_mult,
+        aresetn => aresetn,
         s_axis_a_tvalid =>input_scalar_mult_valid,
         s_axis_a_tdata =>input_mult_vect_a(i),
         s_axis_b_tvalid => input_scalar_mult_valid,
@@ -102,6 +105,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k),
             s_axis_a_tdata => intermediate_sums(2*k),
             s_axis_b_tvalid => intermediate_valid(2*k+1),
@@ -116,6 +120,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR),
@@ -129,6 +134,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
@@ -142,6 +148,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
@@ -156,6 +163,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
@@ -169,6 +177,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
             adder: fp_adder_16_bit port map(
             aclk => clk,
+            aresetn => aresetn,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),
             s_axis_b_tvalid =>intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),
@@ -185,6 +194,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
 
 --            adder: fp_adder_16_bit port map(
 --            aclk => clk,
+--            aresetn => aresetn,
 --            s_axis_a_tvalid => '1',
 --            s_axis_a_tdata => intermediate_sums(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)+2**(ADDER_TREE_DEPTH_SCALAR-5)),
 --            s_axis_b_tvalid => '1',

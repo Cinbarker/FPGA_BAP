@@ -25,6 +25,7 @@ component Vector_Vector_Scalar_multiplier is
 
     port(
     clk : in std_logic;
+    reset : in std_logic;
     input_scalar_mult_valid : in std_logic;
   	input_mult_vect_a : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
 	input_mult_vect_b : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
@@ -131,6 +132,7 @@ update_state: process (clk, reset, input_ready)
 multiplier_feat_weight: Vector_Vector_Scalar_multiplier
 		port map(
     clk =>clk,
+    reset => reset,
     input_scalar_mult_valid=>input_scalar_mult_valid,
   	input_mult_vect_a=>input_mult_vect_a,
 	input_mult_vect_b=>input_mult_vect_b,

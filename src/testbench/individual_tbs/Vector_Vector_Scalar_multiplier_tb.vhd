@@ -12,6 +12,7 @@ architecture bench of Vector_Vector_Scalar_multiplier_tb is
   component Vector_Vector_Scalar_multiplier
       port(
     clk : in std_logic;
+    reset : in std_logic;
     input_scalar_mult_valid : std_logic;
   	input_mult_vect_a : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
 	input_mult_vect_b : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
@@ -21,7 +22,7 @@ architecture bench of Vector_Vector_Scalar_multiplier_tb is
         );
   end component;
 
-  signal clk: std_logic;
+  signal clk, reset: std_logic;
   signal input_mult_vect_a: custom_fp_array(VECTOR_WIDTH -1 downto 0);
   signal input_mult_vect_b: custom_fp_array(VECTOR_WIDTH -1 downto 0);
   signal output_scalar_mult: std_logic_vector(FP_SIZE-1 downto 0);
@@ -33,6 +34,7 @@ architecture bench of Vector_Vector_Scalar_multiplier_tb is
 begin
 
   uut: Vector_Vector_Scalar_multiplier port map ( clk                => clk,
+                                                  reset => reset,
                                                   input_scalar_mult_valid => input_scalar_mult_valid,
                                                   input_mult_vect_a  => input_mult_vect_a,
                                                   input_mult_vect_b  => input_mult_vect_b,
@@ -43,6 +45,7 @@ begin
   begin
 
     -- Put initialisation code here
+    reset <= '1';
     input_scalar_mult_valid <= '0';
     for i in VECTOR_WIDTH-1 downto 0 loop
         input_mult_vect_a(i) <= "0000000000000000";--0000000000000000" ;
@@ -58,8 +61,15 @@ begin
         input_mult_vect_b(i) <= "0011101111101111";--0011010011010111" ;
     end loop;
     wait for 20 ns;
+    reset <= '0';
     input_scalar_mult_valid <= '1';
 
+    wait for 300ns;
+    reset <= '1';
+    input_scalar_mult_valid <= '1';
+    wait for 50 ns;
+    reset <= '0';
+    input_scalar_mult_valid <= '1';
     wait for 300ns;
     stop_the_clock <= true;
 
