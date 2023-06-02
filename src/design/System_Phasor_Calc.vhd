@@ -94,7 +94,11 @@ update_state: process (clk, reset, input_ready)
             when gain_done =>
                     gain_sum <= output_scalar_mult;
                     input_scalar_mult_valid <= '0';
+                if(output_scalar_mult_valid = '1')then
+                    next_state <= gain_done;
+                else
                     next_state <=calc_phase;
+                end if;
             when calc_phase =>
                  input_mult_vect_a(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0)<=in_features;
 	             input_mult_vect_b(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0)<=weights_phase;
