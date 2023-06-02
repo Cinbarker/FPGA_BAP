@@ -13,7 +13,7 @@ architecture bench of control_and_math_tb is
           clk                     : in std_logic;
           reset                   : in std_logic;
 
-          new_frequencies         : in custom_fp_array(FREQ_DIM-1 downto 0);
+          new_frequencies         : in custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
           new_update              : in std_logic;
           new_polynomial_features : in custom_fp_array_2D(FREQ_DIM-1 downto 0, POLY_DIM-1 downto 0);
           new_extra_feature       : in std_logic_vector(FP_SIZE-1 downto 0);
@@ -34,7 +34,7 @@ architecture bench of control_and_math_tb is
           math_result_phasor_phase     : in std_logic_vector(FP_SIZE-1 downto 0);
           math_valid                   : in std_logic;
 
-          gen_frequencies              : out custom_fp_array(FREQ_DIM-1 downto 0);
+          gen_frequencies              : out custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
           gen_phasor_magnitudes        : out custom_fp_array(FREQ_DIM-1 downto 0);
           gen_phasor_phases            : out custom_fp_array(FREQ_DIM-1 downto 0);
           bin_update                   : out std_logic;
@@ -167,25 +167,29 @@ begin
     wait for clock_period*2;
 
     -- Send new data meanwhile - it should not be processed yet
-    new_frequencies <= (others => (others => '0'));
+    new_frequencies <= (others => (x"80000000"));
     new_model_id <= (others => '0');
 
     for i in POLY_DIM*EXTRA_DIM-1 downto 0 loop
-        new_magnitude_weights(i) <=  "0100000000000000"; --1000100001100110" ;
-        new_phase_weights(i) <= "0110000000000000";--0011010011010111" ;
+        new_magnitude_weights(i) <=  x"3C00"; --1 ;
+        new_phase_weights(i) <= x"251E";--0.02 ;
     end loop;
 
     for i in FREQ_DIM-1 downto 0 loop
-        new_phasor_phase(i) <= "0110000000000000";
-        new_phasor_magnitude(i)  <= "0100000101010001";
+        new_phasor_phase(i) <= x"3C00"; --1 ;
+        new_phasor_magnitude(i)  <= x"70E2"; --10000
         for j in POLY_DIM-1 downto 0 loop
-            new_polynomial_features(i, j) <= "0011100000000000"; --0011010011010111" ;
+            new_polynomial_features(i, j)<=  x"4200"; --3 ;
         end loop;
     end loop;
-    new_extra_feature <= "0011110000000100";
+    new_extra_feature <= x"3C66"; --1.1
 
     -- Process math
     wait for clock_period*100;
+
+
+
+
 
 
     -- RX new features and weights

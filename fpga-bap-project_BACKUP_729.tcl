@@ -18,7 +18,7 @@
 proc checkRequiredFiles { origin_dir} {
   set status true
   set files [list \
- "[file normalize "$origin_dir/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp"]"\
+ "[file normalize "$origin_dir/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/project_toplevel.dcp"]"\
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
@@ -42,32 +42,39 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
- "[file normalize "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fp_16_to_32/fp_16_to_32.xci"]"\
  "[file normalize "$origin_dir/src/IP/X_X_Multiplier/X_X_Multiplier.xci"]"\
  "[file normalize "$origin_dir/src/IP/float_to_fixed_32bit_to_16_bit/float_to_fixed_32bit_to_16_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/fp_16_to_32/fp_16_to_32.xci"]"\
  "[file normalize "$origin_dir/src/IP/float_to_fixed_32_bit/float_to_fixed_32_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/adder_17_bit/adder_17_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/adder_16_bit/adder_16_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/adder_17_bit/adder_17_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
- "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
+<<<<<<< .merge_file_6JUUnJ
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"]"\
+=======
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
+>>>>>>> .merge_file_zxxIJl
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"]"\
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
@@ -194,7 +201,11 @@ set_property -name "simulator.xsim_version" -value "2022.2" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "VHDL" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "217" -objects $obj
+<<<<<<< .merge_file_6JUUnJ
+set_property -name "webtalk.xsim_launch_sim" -value "210" -objects $obj
+=======
+set_property -name "webtalk.xsim_launch_sim" -value "64" -objects $obj
+>>>>>>> .merge_file_zxxIJl
 
 # Create 'sources_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sources_1] ""]} {
@@ -306,12 +317,12 @@ set_property -name "top_auto_set" -value "0" -objects $obj
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/dds_compiler_0/dds_compiler_0.xci"] \
+ [file normalize "${origin_dir}/src/IP/fp_16_to_32/fp_16_to_32.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"
+set file "$origin_dir/src/IP/fp_16_to_32/fp_16_to_32.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -369,75 +380,12 @@ if { ![get_property "is_locked" $file_obj] } {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/fp_16_to_32/fp_16_to_32.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fp_16_to_32/fp_16_to_32.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
  [file normalize "${origin_dir}/src/IP/float_to_fixed_32_bit/float_to_fixed_32_bit.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
 set file "$origin_dir/src/IP/float_to_fixed_32_bit/float_to_fixed_32_bit.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/adder_17_bit/adder_17_bit.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/adder_17_bit/adder_17_bit.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -474,12 +422,54 @@ if { ![get_property "is_locked" $file_obj] } {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"] \
+ [file normalize "${origin_dir}/src/IP/adder_16_bit/adder_16_bit.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"
+set file "$origin_dir/src/IP/adder_16_bit/adder_16_bit.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+
+# Set 'sources_1' fileset file properties for local files
+# None
+
+# Set 'sources_1' fileset object
+set obj [get_filesets sources_1]
+set files [list \
+ [file normalize "${origin_dir}/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/floating_point_mult_32_bit/floating_point_mult_32_bit.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+
+# Set 'sources_1' fileset file properties for local files
+# None
+
+# Set 'sources_1' fileset object
+set obj [get_filesets sources_1]
+set files [list \
+ [file normalize "${origin_dir}/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -516,12 +506,12 @@ if { ![get_property "is_locked" $file_obj] } {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/adder_16_bit/adder_16_bit.xci"] \
+ [file normalize "${origin_dir}/src/IP/adder_17_bit/adder_17_bit.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/adder_16_bit/adder_16_bit.xci"
+set file "$origin_dir/src/IP/adder_17_bit/adder_17_bit.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -537,12 +527,33 @@ if { ![get_property "is_locked" $file_obj] } {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"] \
+ [file normalize "${origin_dir}/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"
+set file "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+
+# Set 'sources_1' fileset file properties for local files
+# None
+
+# Set 'sources_1' fileset object
+set obj [get_filesets sources_1]
+set files [list \
+ [file normalize "${origin_dir}/src/IP/dds_compiler_0/dds_compiler_0.xci"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -573,7 +584,9 @@ set_property -name "file_type" -value "XDC" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
+set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -598,19 +611,19 @@ if {[string equal [get_filesets -quiet integration_tbs] ""]} {
 # Set 'integration_tbs' fileset object
 set obj [get_filesets integration_tbs]
 set files [list \
- [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_and_control_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'integration_tbs' fileset file properties for remote files
-set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
+set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
+set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -626,7 +639,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
-set_property -name "top" -value "control_and_math_tb" -objects $obj
+set_property -name "top" -value "uart_control_and_siggen_tb" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
@@ -638,56 +651,55 @@ if {[string equal [get_filesets -quiet individual_tbs] ""]} {
 # Set 'individual_tbs' fileset object
 set obj [get_filesets individual_tbs]
 set files [list \
+<<<<<<< .merge_file_6JUUnJ
  [file normalize "${origin_dir}/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/Feature_Gen_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"] \
+=======
  [file normalize "${origin_dir}/src/testbench/individual_tbs/DDS_TB.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/control_module_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"] \
+>>>>>>> .merge_file_zxxIJl
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_communication_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Feature_Gen_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/control_module_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'individual_tbs' fileset file properties for remote files
+<<<<<<< .merge_file_6JUUnJ
+set file "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"
+=======
+set file "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"
+>>>>>>> .merge_file_zxxIJl
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 set file "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
+<<<<<<< .merge_file_6JUUnJ
 set file "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
+=======
 set file "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"
+>>>>>>> .merge_file_zxxIJl
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"
+<<<<<<< .merge_file_6JUUnJ
+set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
+=======
+set file "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"
+>>>>>>> .merge_file_zxxIJl
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -702,13 +714,37 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 
 # Set 'individual_tbs' fileset file properties for local files
 # None
 
 # Set 'individual_tbs' fileset properties
 set obj [get_filesets individual_tbs]
+<<<<<<< .merge_file_6JUUnJ
 set_property -name "top" -value "Phasor_Calc_Toplevel_tb" -objects $obj
+=======
+set_property -name "top" -value "DDS_TB" -objects $obj
+>>>>>>> .merge_file_zxxIJl
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
@@ -716,7 +752,7 @@ set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 set obj [get_filesets utils_1]
 # Add local files from the original project (-no_copy_sources specified)
 set files [list \
- [file normalize "${origin_dir}/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" ]\
+ [file normalize "${origin_dir}/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/project_toplevel.dcp" ]\
 ]
 set added_files [add_files -fileset utils_1 $files]
 
@@ -724,7 +760,7 @@ set added_files [add_files -fileset utils_1 $files]
 # None
 
 # Set 'utils_1' fileset file properties for local files
-set file "synth_1/uart_communication.dcp"
+set file "synth_1/project_toplevel.dcp"
 set file_obj [get_files -of_objects [get_filesets utils_1] [list "*$file"]]
 set_property -name "netlist_only" -value "0" -objects $file_obj
 
@@ -760,7 +796,7 @@ if { $obj != "" } {
 set obj [get_runs synth_1]
 set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
-set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" -objects $obj
+set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/project_toplevel.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
 set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
 

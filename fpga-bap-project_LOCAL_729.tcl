@@ -55,9 +55,9 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/IP/adder_16_bit/adder_16_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
- "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
@@ -194,7 +194,7 @@ set_property -name "simulator.xsim_version" -value "2022.2" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "VHDL" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "217" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "210" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sources_1] ""]} {
@@ -598,18 +598,13 @@ if {[string equal [get_filesets -quiet integration_tbs] ""]} {
 # Set 'integration_tbs' fileset object
 set obj [get_filesets integration_tbs]
 set files [list \
- [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_and_control_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'integration_tbs' fileset file properties for remote files
-set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
@@ -620,13 +615,18 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 
 # Set 'integration_tbs' fileset file properties for local files
 # None
 
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
-set_property -name "top" -value "control_and_math_tb" -objects $obj
+set_property -name "top" -value "project_toplevel" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
