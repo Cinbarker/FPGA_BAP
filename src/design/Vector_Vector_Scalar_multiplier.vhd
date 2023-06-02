@@ -38,6 +38,7 @@ entity Vector_Vector_Scalar_multiplier is
 
     port(
     clk : in std_logic;
+    reset: in std_logic;
     input_scalar_mult_valid : std_logic;
   	input_mult_vect_a : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
 	input_mult_vect_b : in custom_fp_array(VECTOR_WIDTH -1 downto 0);
@@ -51,10 +52,11 @@ architecture Behavioral of Vector_Vector_Scalar_multiplier is
 signal output_mult : custom_fp_array(VECTOR_WIDTH -1 downto 0);
 signal intermediate_sums : custom_fp_array(VECTOR_WIDTH*2 -2 downto 0);
 signal intermediate_valid: std_logic_vector(VECTOR_WIDTH*2 -2 downto  0);
-
+signal reset_mult: std_logic;
 component fp_mult_16_bit
     Port (
     aclk: in std_logic;
+    aresetn : in STD_LOGIC;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
@@ -77,9 +79,12 @@ COMPONENT fp_adder_16_bit
   end component;
 
 begin
+reset_mult <= (input_scalar_mult_valid or (not reset));
 gen_multipliers: for i in 0 to VECTOR_WIDTH -1 generate
+  
   mult :  fp_mult_16_bit port map(
         aclk => clk,
+        aresetn => reset_mult,
         s_axis_a_tvalid =>input_scalar_mult_valid,
         s_axis_a_tdata =>input_mult_vect_a(i),
         s_axis_b_tvalid => input_scalar_mult_valid,

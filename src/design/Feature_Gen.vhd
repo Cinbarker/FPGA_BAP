@@ -21,6 +21,7 @@ architecture behavior of Feature_Gen is
   component vector_scalar_multiplier
     port (
     clk : in std_logic;
+    reset : in STD_LOGIC;
     input_valid : in STD_LOGIC;
   	input_mult_vect : in custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0); -- partial features
 	input_mult1 : in std_logic_vector(FP_SIZE-1 downto 0);
@@ -35,7 +36,7 @@ architecture behavior of Feature_Gen is
 	signal count, next_count : unsigned(4 downto 0);
 	signal input_mult_vect : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0); -- partial features
 	signal input_mult1 : std_logic_vector(FP_SIZE-1 downto 0);                  -- the extra feature
-	signal feat_partial : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
+	signal feat_partial, temp_feat_partial : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
     signal output_features_next: custom_fp_array(INPUT_FEATURE_LENGTH*2*ORDER_EXTRA_FEATURE-1 downto 0);
     signal output_features_temp:  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
     signal mult_valid, input_mult_valid: std_logic;
@@ -88,6 +89,7 @@ begin
     		  		next_count <= count + 1;
                     output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
                     output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
+                    temp_feat_partial <= feat_partial;
                     input_mult_valid <= '0';
                     
                     if(count<ORDER_EXTRA_FEATURE)then
@@ -99,7 +101,7 @@ begin
                     
                 else
                     next_state <= calc;
-                    input_mult_vect <= feat_partial;
+                    input_mult_vect <= temp_feat_partial;
                     input_mult1 <= extra_feature_value;
                     input_mult_valid <= '1';
                 end if;
@@ -116,10 +118,11 @@ begin
 
 uu1: vector_scalar_multiplier port map(
     clk => clk,
+    reset => reset,
     input_valid=>input_mult_valid,
     input_mult_vect=>input_mult_vect,
 	input_mult1=>input_mult1,
   	output_mult=>feat_partial,
-  	mult_valid=>mult_valid);
+  	mult_valid=>mult_valid );
 
 end behavior;
