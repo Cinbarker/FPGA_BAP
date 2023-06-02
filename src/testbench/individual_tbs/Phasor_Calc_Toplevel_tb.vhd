@@ -83,17 +83,17 @@ begin
        input_Phasor_calc_valid <= '0';
 
     for i in INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0 loop
-        weights_gain(i) <=  "0100000000000000"; --1000100001100110" ;
-        weights_phase(i) <= "0110000000000000";--0011010011010111" ;
+        weights_gain(i) <=  x"3C00"; --1 ;
+        weights_phase(i) <= x"251E";--0.02 ;
 
     end loop;
     for i in INPUT_FEATURE_LENGTH-1 downto 0 loop
-        input_features(i)<=    "0011100000000000";--0011010011010111" ;
+        input_features(i)<=    x"4200"; --3 ;
     end loop;
 
-    extra_feature_value <= "0011110000000100";
-    input_Phase <= "0110000000000000";--0000000000000000" ;
-    input_Gain  <= "0100000101010001";
+    extra_feature_value <= x"3C66"; --1.1
+    input_Phase <= x"3C00"; --1 ;
+    input_Gain  <= x"70E2"; --10000
 
     wait for 20 ns;
     input_Phasor_calc_valid <= '1';
@@ -101,7 +101,9 @@ begin
     reset <= '1';
     wait for 20ns;
     reset <= '0';
-    wait for 300 ns;
+    wait for 600 ns;
+    input_Phasor_calc_valid <= '0';
+    wait for 100 ns;
     stop_the_clock <= true;
     wait;
 

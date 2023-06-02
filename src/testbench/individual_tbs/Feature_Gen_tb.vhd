@@ -51,16 +51,17 @@ begin
 
     wait for 100ns;
 
-    input_feature_init : for k in 0 to INPUT_FEATURE_LENGTH-1  loop
-        input_features(k) <= "0100000101010000";--0111100001101100";
-    end loop input_feature_init;
-    extra_feature_value <=   "0011110011000011";--1100100111101111";
+    for i in INPUT_FEATURE_LENGTH-1 downto 0 loop
+        input_features(i)<=    x"4200"; --3 ;
+    end loop;
+
+    extra_feature_value <= x"3C66"; --1.1
     wait for 100ns;
     -- Put test bench stimulus code here
     reset <= '0';
     Generate_Features    <= '1';
 
-    wait for 200ns;
+    wait for 800ns;
     stop_the_clock <= true;
     wait;
   end process;

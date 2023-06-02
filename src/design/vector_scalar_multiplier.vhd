@@ -47,7 +47,7 @@ end vector_scalar_multiplier;
 architecture Behavioral of vector_scalar_multiplier is
 component fp_mult_16_bit
     Port (
-    --aclk : in STD_LOGIC;
+    aclk : in STD_LOGIC;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
@@ -60,7 +60,7 @@ component fp_mult_16_bit
 begin
 gen_multipliers: for i in 0 to VECTOR_WIDTH-1 generate
   mult :  fp_mult_16_bit port map(
-        --aclk => clk,
+        aclk => clk,
         s_axis_a_tvalid =>input_valid,
         s_axis_a_tdata =>input_mult_vect(i),
         s_axis_b_tvalid => input_valid,

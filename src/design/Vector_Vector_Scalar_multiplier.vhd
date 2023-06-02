@@ -54,7 +54,7 @@ signal intermediate_valid: std_logic_vector(VECTOR_WIDTH*2 -2 downto  0);
 
 component fp_mult_16_bit
     Port (
-    --aclk: in std_logic;
+    aclk: in std_logic;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
@@ -66,7 +66,7 @@ component fp_mult_16_bit
 
 COMPONENT fp_adder_16_bit
   PORT (
-    --aclk: IN STD_LOGIC;
+    aclk: IN STD_LOGIC;
     s_axis_a_tvalid : IN STD_LOGIC;
     s_axis_a_tdata : IN STD_LOGIC_VECTOR(FP_SIZE-1 DOWNTO 0);
     s_axis_b_tvalid : IN STD_LOGIC;
@@ -79,7 +79,7 @@ COMPONENT fp_adder_16_bit
 begin
 gen_multipliers: for i in 0 to VECTOR_WIDTH -1 generate
   mult :  fp_mult_16_bit port map(
-        --aclk => clk,
+        aclk => clk,
         s_axis_a_tvalid =>input_scalar_mult_valid,
         s_axis_a_tdata =>input_mult_vect_a(i),
         s_axis_b_tvalid => input_scalar_mult_valid,
@@ -96,7 +96,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
     gen_adders6:for k in 0 to (2**(ADDER_TREE_DEPTH_SCALAR-1))-1 generate
         begin
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k),
             s_axis_a_tdata => intermediate_sums(2*k),
             s_axis_b_tvalid => intermediate_valid(2*k+1),
@@ -110,7 +110,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
 
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR),
@@ -123,7 +123,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
 
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)),
@@ -136,7 +136,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
 
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)),
@@ -150,7 +150,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
 
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
             s_axis_b_tvalid => intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)),
@@ -163,7 +163,7 @@ intermediate_sums(VECTOR_WIDTH -1 downto 0) <= output_mult;
         begin
 
             adder: fp_adder_16_bit port map(
-            --aclk => clk,
+            aclk => clk,
             s_axis_a_tvalid => intermediate_valid(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),
             s_axis_a_tdata => intermediate_sums(2*k+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),
             s_axis_b_tvalid =>intermediate_valid(2*k+1+2**ADDER_TREE_DEPTH_SCALAR+2**(ADDER_TREE_DEPTH_SCALAR-1)+2**(ADDER_TREE_DEPTH_SCALAR-2)+2**(ADDER_TREE_DEPTH_SCALAR-3)+2**(ADDER_TREE_DEPTH_SCALAR-4)),

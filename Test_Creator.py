@@ -21,14 +21,14 @@ cmd = { "set_led": 0b01100001,
         }
 
 frequencies = [0x180002AA, 0x100002AA, 0x100002AA]                  # 32 bit unsigned (Phase increase per clk cycle where 2^32 is 2*pi increase)
-polynomial_features = [[0, 10, 20, 30, 40, 50, 60, 70, 80, 90],
-                       [1, 11, 21, 31, 41, 51, 61, 71, 81, 91],
-                       [2, 12, 22, 32, 42, 52, 62, 72, 82, 92]]     # FP_SIZE bit float
-extra_feature = [222]                                               # FP_SIZE bit float
+polynomial_features = [[1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+                       [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                       [3, 3, 3, 3, 3, 3, 3, 3, 3, 3]]     # FP_SIZE bit float
+extra_feature = [1]                                               # FP_SIZE bit float
 magnitude_weights = [i for i in range(0, POLY_DIM*EXTRA_DIM)]       # FP_SIZE bit float
 phase_weights = [2*i for i in range(0, POLY_DIM*EXTRA_DIM)]         # FP_SIZE bit float
-phasor_magnitude = [1000, 2000, 3000]                               # FP_SIZE bit float (Value between -2^15 to 2^15 -1)
-phasor_phase = [1001, 2002, 3003]                                   # FP_SIZE bit float (Value between 0 to 2*pi)
+phasor_magnitude = [100, 1000, 13000]                               # FP_SIZE bit float (Value between -2^15 to 2^15 -1)
+phasor_phase = [2, 1, 1.5]                                   # FP_SIZE bit float (Value between 0 to 2*pi)
 model_id = [1248]                                                   # 14 bit unsigned (sent as 16 bits)
 
 

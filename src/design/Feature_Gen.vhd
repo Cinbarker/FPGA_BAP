@@ -38,7 +38,7 @@ architecture behavior of Feature_Gen is
 	signal feat_partial : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
     signal output_features_next: custom_fp_array(INPUT_FEATURE_LENGTH*2*ORDER_EXTRA_FEATURE-1 downto 0);
     signal output_features_temp:  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
-    signal mult_valid: std_logic;
+    signal mult_valid, input_mult_valid: std_logic;
 
 begin
 
@@ -47,57 +47,64 @@ begin
   if(reset='1' or Generate_Features='0') then
     current_state <= idle;
     count <= "00000";
-    next_count <= count +1;
     output_features_temp<= (others => (others=>'0'));
   else
- 	if rising_edge(clk) and mult_valid='1'  then
+ 	if rising_edge(clk) then
 
 		if(current_state /= done) then
-		  count <= next_count;
-		  next_count <= count + 1;
 		  output_features_temp <= output_features_next(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
 		else
-		  count <= next_count;
-		  next_count <= count + 1;
 		end if;
-		 current_state <= next_state;
+		count <= next_count;
+		current_state <= next_state;
 
   	end if;
   end if;
   end process update_state;
 
 
-  execute_state: process (reset,count)
+  execute_state: process (reset,current_state,mult_valid)
   begin
    case (current_state) is
             when idle =>
                 next_state <= start;
                 Feature_Gen_Done <= '0';
-
-
+                input_mult_vect <= input_features;
+                input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
+                next_count <= "00000";
+                input_mult_valid <= '0';
 			when start =>
 
                 input_mult_vect <= input_features;
                 input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
-
+                
                 Feature_Gen_Done <= '0';
                 next_state <= calc;
-
-
+                input_mult_valid <= '1';
+                next_count <= count+1;
+                
     		when calc =>
-    		    output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
-    		    output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
-                input_mult_vect <= feat_partial;
-                input_mult1 <= extra_feature_value;
-
-
-                if(count<ORDER_EXTRA_FEATURE+1)then
-                    next_state <= calc;
+    		    if mult_valid='1' then
+    		  		next_count <= count + 1;
+                    output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
+                    output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
+                    input_mult_valid <= '0';
+                    
+                    if(count<ORDER_EXTRA_FEATURE)then
+                        next_state <= calc;
+                    else
+                        next_state <=done;
+                    end if;
+                    Feature_Gen_Done <= '0';
+                    
                 else
-                    next_state <=done;
+                    next_state <= calc;
+                    input_mult_vect <= feat_partial;
+                    input_mult1 <= extra_feature_value;
+                    input_mult_valid <= '1';
                 end if;
-                Feature_Gen_Done <= '0';
-
+                
+                
 			when done =>
 			     final_features <= output_features_temp;
 			     Feature_Gen_Done <= '1';
@@ -109,7 +116,7 @@ begin
 
 uu1: vector_scalar_multiplier port map(
     clk => clk,
-    input_valid=>Generate_Features,
+    input_valid=>input_mult_valid,
     input_mult_vect=>input_mult_vect,
 	input_mult1=>input_mult1,
   	output_mult=>feat_partial,
