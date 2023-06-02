@@ -95,12 +95,12 @@ end component;
 signal final_features: custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
 signal Feature_Gen_Done, output_phasorcalc_ready : std_logic;
 signal System_gain, System_phase : std_logic_vector(FP_SIZE-1 downto 0);
-
+signal sub_reset, sub_reset1, sub_reset2, sub_reset3: std_logic;
 
 begin
 Feature_Gen_map: Feature_Gen port map
                 ( clk                 => clk,
-                  reset               => reset,
+                  reset               => sub_reset,
                   Generate_Features    => input_Phasor_calc_valid,
                   input_features      => input_features,
                   extra_feature_value => extra_feature_value,
@@ -109,7 +109,7 @@ Feature_Gen_map: Feature_Gen port map
 
 System_Phasor_calc_map: System_Phasor_Calc port map
                 ( clk                     => clk,
-                 reset                   => reset,
+                 reset                   => sub_reset,
                  input_ready             => Feature_Gen_Done,
                  in_features             => final_features,
                  weights_gain            => weights_gain,
@@ -120,7 +120,7 @@ System_Phasor_calc_map: System_Phasor_Calc port map
 
 Control_Phasor_Generation_map: Control_Phasor_Generation port map(
                     clk => clk,
-                    reset=> reset,
+                    reset=> sub_reset,
                     input_ready =>output_phasorcalc_ready,
                     System_Phase   => System_phase,
                     System_Gain    => System_gain,
@@ -131,5 +131,14 @@ Control_Phasor_Generation_map: Control_Phasor_Generation port map(
                     Control_Phasor_valid => Control_Phasor_valid
 );
 
+create_reset: process (clk)
+    begin
+    if rising_edge(clk) then
 
+            sub_reset1 <= reset or (not input_Phasor_calc_valid);
+            sub_reset2 <= sub_reset1;
+            sub_reset3 <= sub_reset2 ;
+            sub_reset <= sub_reset3 or sub_reset2 or sub_reset1;
+    end if;
+    end process;
 end Behavioral;

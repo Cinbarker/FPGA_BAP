@@ -81,7 +81,7 @@ COMPONENT fp_adder_16_bit
 
 begin
 
-aresetn <= (input_scalar_mult_valid and (not reset));
+aresetn <= (not reset);
 
 gen_multipliers: for i in 0 to VECTOR_WIDTH -1 generate
   

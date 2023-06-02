@@ -60,8 +60,11 @@ component fp_mult_16_bit
   end component;
   signal valid :  std_logic_vector((INPUT_FEATURE_LENGTH-1) downto 0);
   signal reset_mult_n: std_logic;
+  
 begin
-reset_mult_n <= input_valid and not reset;
+
+reset_mult_n <= not reset;
+
 gen_multipliers: for i in 0 to VECTOR_WIDTH-1 generate
   mult :  fp_mult_16_bit port map(
         aclk => clk,
@@ -75,6 +78,8 @@ gen_multipliers: for i in 0 to VECTOR_WIDTH-1 generate
 );
 
 end generate gen_multipliers;
+
+
 process(valid)
 variable temp_valid:std_logic;
 begin

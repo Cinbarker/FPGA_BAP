@@ -186,11 +186,7 @@ begin
 
     -- Process math
     wait for clock_period*100;
-
-
-
-
-
+    
 
     -- RX new features and weights
     new_update <= '1';

@@ -123,6 +123,7 @@ uu1: vector_scalar_multiplier port map(
     input_mult_vect=>input_mult_vect,
 	input_mult1=>input_mult1,
   	output_mult=>feat_partial,
-  	mult_valid=>mult_valid );
+  	mult_valid=>mult_valid 
+  	);
 
 end behavior;
