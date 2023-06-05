@@ -59,6 +59,18 @@ architecture bench of control_and_math_tb is
     	Control_Phasor_valid : out std_logic
   	);
   end component;
+  
+    component Multiple_time_signal_generation is
+        port(
+            clk : in std_logic;
+            reset : in std_logic;
+            input_valid : in std_logic;
+            Control_Phase : in custom_fp_array(NUM_FREQS-1 downto 0);
+            Control_Gain : in custom_fp_array(NUM_FREQS-1 downto 0);
+            phase_increase : in custom_fp_array_32_bit(NUM_FREQS-1 downto 0);
+            DAC_IN : out std_logic_vector(15 downto 0)
+        );
+    end component;
 
   signal clk                        : std_logic;
   signal reset                      : std_logic;
@@ -90,6 +102,9 @@ architecture bench of control_and_math_tb is
 
   constant clock_period : time := 50 ns;
   signal stop_the_clock : boolean;
+  
+    -- siggen signals
+  signal DAC_IN : std_logic_vector(15 downto 0);
 
 begin
 
@@ -133,6 +148,16 @@ begin
                                        Control_Phase           => math_result_phasor_phase,
                                        Control_Gain            => math_result_phasor_magnitude,
                                        Control_Phasor_valid    => math_valid);
+                                       
+siggen: Multiple_time_signal_generation
+        port map(
+            clk => clk,
+            reset => reset,
+            input_valid => '1',
+            Control_Phase => gen_phasor_phases,
+            Control_Gain => gen_phasor_magnitudes,
+            phase_increase => gen_frequencies,
+            DAC_IN => DAC_IN);
 
   stimulus: process
   begin
@@ -160,14 +185,14 @@ begin
 
     -- RX new features and weights
     new_update <= '1';
-    wait for clock_period;
-    new_update <= '0';
+
 
     -- Process math
-    wait for clock_period*2;
 
     -- Send new data meanwhile - it should not be processed yet
-    new_frequencies <= (others => (x"80000000"));
+    new_frequencies(0) <= (x"10000000"); -- FIXED 
+    new_frequencies(1) <= (x"20000000"); 
+    new_frequencies(2) <= (x"09000000"); 
     new_model_id <= (others => '0');
 
     for i in POLY_DIM*EXTRA_DIM-1 downto 0 loop
@@ -183,9 +208,10 @@ begin
         end loop;
     end loop;
     new_extra_feature <= x"3C66"; --1.1
-
+    wait for clock_period;
+    new_update <= '0';
     -- Process math
-    wait for clock_period*100;
+    wait for clock_period*400;
     
 
     -- RX new features and weights
