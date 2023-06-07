@@ -29,7 +29,7 @@ architecture Behavioral of adc_buffer is
     signal full: std_logic;
     signal empty: std_logic;
     signal rst: std_logic;
-    signal enable: integer := 0;
+    signal enable: integer range 0 to 11 := 0;
     signal wr_en: std_logic := '0';
     signal rd_en: std_logic := '0';
 begin

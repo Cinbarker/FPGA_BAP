@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66c5a335-9892-4f4c-ba9c-99df7f7576e0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/constraints/au_plus_uart_led.xdc" beforeDir="false" afterPath="$PROJECT_DIR$/constraints/au_plus_uart_led.xdc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/design/adc_buffer.vhd" beforeDir="false" afterPath="$PROJECT_DIR$/src/design/adc_buffer.vhd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/design/usb_communication.vhd" beforeDir="false" afterPath="$PROJECT_DIR$/src/design/usb_communication.vhd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,6 +223,7 @@
       <updated>1685776332872</updated>
       <workItem from="1685776335096" duration="734000" />
       <workItem from="1685784077322" duration="302000" />
+      <workItem from="1685809825182" duration="18000" />
     </task>
     <servers />
   </component>
