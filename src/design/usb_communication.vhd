@@ -1,5 +1,6 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.Numeric_Std.all;
 
 entity usb_communication is
     port (  clk         : in std_logic;     -- System clk
@@ -34,24 +35,30 @@ architecture Behavioral of usb_communication is
     signal full     : std_logic;
     signal empty    : std_logic;
     signal rst      : std_logic;
-    signal enable   : integer range 0 to 11 := 0;
+    signal en_count : integer range 0 to 11 := 0;
     signal EN       : std_logic := '0';
     signal rd_en    : std_logic := '0';
     signal wr_en    : std_logic := '0';
     
     signal valid : std_logic;
+    
+    signal was_full : std_logic := '0';
+    signal ft_data_int  : std_logic_vector(15 downto 0);
+    signal ft_data_int_reg  : std_logic_vector(15 downto 0);
+    signal ft_data_reg  : std_logic_vector(15 downto 0);
 begin
     rst <= NOT(rst_n);
-    ft_fifo: fifo_generator_1  port map(rst     => rst,
-                                        wr_clk  => clk,
-                                        rd_clk  => ft_clk,
-                                        din     => usb_data,
-                                        wr_en   => wr_en,
-                                        rd_en   => rd_en,
-                                        dout    => ft_data,
-                                        full    => full,
-                                        empty   => empty,
-                                        valid   => valid);
+    ft_fifo: fifo_generator_1  
+        port map(   rst     => rst,
+                    wr_clk  => clk,
+                    rd_clk  => ft_clk,
+                    din     => usb_data,
+                    wr_en   => wr_en,
+                    rd_en   => rd_en,
+                    dout    => ft_data_int,
+                    full    => full,
+                    empty   => empty,
+                    valid   => valid);
     wr_en   <= EN and usb_write and not(full);
     usb_full <= full;
     
@@ -59,21 +66,37 @@ begin
     ft_be   <= "11";
     ft_oe_n <= '1';
     
-    rd_en <= EN and not(empty) and NOT(ft_txe_n);
-    ft_wr_n <= not(rd_en);
+    rd_en <= EN and NOT(ft_txe_n) and not(was_full);
+    ft_wr_n <= not(EN and not(empty) and NOT(ft_txe_n));
     
     process(ft_clk)
     begin
         -- The FIFO is picky and needs a 5 cycle reset followed by 5 cycles of not using the FIFO
         if rising_edge(ft_clk) then
+            ft_data_reg <= ft_data_reg;
+            ft_data_int_reg <= ft_data_int;
             if rst_n = '0' then
-                enable <= 0;
+                en_count <= 0;
                 EN <= '0';
-            elsif enable > 10 then
+            elsif en_count > 10 then
                 EN <= '1';
             else
-                enable <= enable + 1;
+                en_count <= en_count + 1;
                 EN <= EN;
+            end if;
+            
+            if ft_txe_n = '0' then
+                if was_full = '1' then
+                    ft_data <= ft_data_reg;
+                    was_full <= '0';
+                else 
+                    ft_data <= ft_data_int;
+                end if;
+            else
+                if was_full = '0' then
+                    ft_data_reg <= ft_data_int_reg;
+                end if;
+                was_full <= '1';
             end if;
         end if;
     end process;

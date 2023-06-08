@@ -33,7 +33,7 @@ architecture Behavioral of usb_dip_counter is
               ft_txe_n    : in std_logic);
   end component;
 
-  signal output: integer range 0 to ((2**14) - 1) := 0 ;
+  signal output: std_logic_vector(13 downto 0) := (others => '0');
   
   signal usb_data: std_logic_vector(15 downto 0);
   signal usb_write: std_logic;
@@ -56,18 +56,17 @@ begin
 process(clk)
 begin
     if rising_edge (clk) then
-        usb_write <= '0';
         output <= output;
         if rst_n = '0' then
-            usb_write <= '0';
+            output <= (others => '0');
         elsif usb_full = '0' then
-            usb_write <= '1';
-            output <= output + 1;
+            output <= std_logic_vector(to_unsigned(to_integer(unsigned(output)) + 1, 14));
         end if;
     end if;
 end process;
 
-usb_data <= std_logic_vector(to_unsigned(output, usb_data'length));
+usb_write <= not(usb_full);
+usb_data <= "00" & output;
 led(7) <= usb_full;
 led(6) <= ft_txe_n;
 led(5 downto 0) <= (others => '0');

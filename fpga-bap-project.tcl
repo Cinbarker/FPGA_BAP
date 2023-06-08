@@ -28,6 +28,7 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
+ "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
@@ -59,7 +60,6 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
@@ -207,14 +207,13 @@ set_property -name "simulator.xsim_version" -value "2022.2" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "VHDL" -objects $obj
-set_property -name "webtalk.activehdl_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.modelsim_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.questa_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.riviera_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.vcs_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.xcelium_export_sim" -value "1" -objects $obj
-set_property -name "webtalk.xsim_export_sim" -value "3" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "473" -objects $obj
+set_property -name "webtalk.activehdl_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.modelsim_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.questa_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.riviera_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.vcs_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.xsim_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "595" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -225,6 +224,7 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
  [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
@@ -247,6 +247,15 @@ set files [list \
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
 set file "$origin_dir/src/design/usb_communication.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -609,27 +618,6 @@ add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
 set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
