@@ -28,11 +28,10 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
- "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
- "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
- "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
+ "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
+ "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/design/my_types_pkg.vhd"]"\
  "[file normalize "$origin_dir/src/design/Control_Phasor_Generation.vhd"]"\
  "[file normalize "$origin_dir/src/design/Feature_Gen.vhd"]"\
@@ -60,6 +59,7 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/dds_compiler_0/dds_compiler_0.xci"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
@@ -207,12 +207,13 @@ set_property -name "simulator.xsim_version" -value "2022.2" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "VHDL" -objects $obj
-set_property -name "webtalk.activehdl_export_sim" -value "11" -objects $obj
-set_property -name "webtalk.modelsim_export_sim" -value "11" -objects $obj
-set_property -name "webtalk.questa_export_sim" -value "11" -objects $obj
-set_property -name "webtalk.riviera_export_sim" -value "11" -objects $obj
-set_property -name "webtalk.vcs_export_sim" -value "11" -objects $obj
-set_property -name "webtalk.xsim_export_sim" -value "11" -objects $obj
+set_property -name "webtalk.activehdl_export_sim" -value "12" -objects $obj
+set_property -name "webtalk.modelsim_export_sim" -value "12" -objects $obj
+set_property -name "webtalk.questa_export_sim" -value "12" -objects $obj
+set_property -name "webtalk.riviera_export_sim" -value "12" -objects $obj
+set_property -name "webtalk.vcs_export_sim" -value "12" -objects $obj
+set_property -name "webtalk.xcelium_export_sim" -value "1" -objects $obj
+set_property -name "webtalk.xsim_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.xsim_launch_sim" -value "595" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
@@ -224,11 +225,10 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
- [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
- [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
+ [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
+ [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
  [file normalize "${origin_dir}/src/design/my_types_pkg.vhd"] \
  [file normalize "${origin_dir}/src/design/Control_Phasor_Generation.vhd"] \
  [file normalize "${origin_dir}/src/design/Feature_Gen.vhd"] \
@@ -247,31 +247,22 @@ set files [list \
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
+set file "$origin_dir/src/design/adc_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
+set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/design/usb_communication.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/design/usb_dip_counter.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/design/adc_buffer.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/adc_to_usb_stream.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/usb_dip_counter.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -354,7 +345,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 set obj [get_filesets sources_1]
 set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
 set_property -name "elab_link_dcps" -value "0" -objects $obj
-set_property -name "top" -value "usb_dip_counter" -objects $obj
+set_property -name "top" -value "adc_to_usb_stream" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 
 # Set 'sources_1' fileset object
@@ -630,6 +621,27 @@ if { ![get_property "is_locked" $file_obj] } {
 # Set 'sources_1' fileset file properties for local files
 # None
 
+# Set 'sources_1' fileset object
+set obj [get_filesets sources_1]
+set files [list \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+
+# Set 'sources_1' fileset file properties for local files
+# None
+
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {
   create_fileset -constrset constrs_1
@@ -654,7 +666,6 @@ set file "$origin_dir/constraints/adc_to_usb_stream.xdc"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
-set_property -name "is_enabled" -value "0" -objects $file_obj
 
 # Add/Import constrs file and set constrs file properties
 set file "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"
@@ -663,12 +674,11 @@ set file "$origin_dir/constraints/usb_dip_counter.xdc"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
+set_property -name "is_enabled" -value "0" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
-set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
-set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {

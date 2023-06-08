@@ -1,7 +1,8 @@
 # clk => 100 MHz
 create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports clk]
-create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports ft_clk]
+create_clock -period 10.000 -name clk_1 -waveform {0.000 5.000} [get_ports ft_clk]
 
+set_false_path -from [get_clocks clk_1] -to [get_clocks clk_0]
 set_false_path -from [get_ports rst_n]
 set_false_path -to [get_ports led]
 
