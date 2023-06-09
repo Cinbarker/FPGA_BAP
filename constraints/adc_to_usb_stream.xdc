@@ -1,10 +1,15 @@
 # clk => 100 MHz
 create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports clk]
-create_clock -period 10.000 -name clk_1 -waveform {0.000 5.000} [get_ports ft_clk]
+create_clock -period 10.000 -name clk_ft -waveform {0.000 5.000} [get_ports ft_clk]
+create_clock -period 1000.000 -name clk_adc -waveform {0.000 500.000} [get_ports adc_clk]
 
-set_false_path -from [get_clocks clk_1] -to [get_clocks clk_0]
+# Non timing critial paths
+set_false_path -from [get_clocks clk_ft] -to [get_clocks clk_0]
+set_false_path -from [get_clocks clk_ft] -to [get_clocks clk_adc]
+set_false_path -from [get_clocks clk_0] -to [get_clocks clk_adc]
 set_false_path -from [get_ports rst_n]
 set_false_path -to [get_ports led]
+
 
 set_property PACKAGE_PIN N14 [get_ports clk]
 set_property IOSTANDARD LVCMOS33 [get_ports clk]
@@ -45,8 +50,8 @@ set_property PACKAGE_PIN T3 [get_ports adc_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports adc_clk]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets adc_clk_IBUF]
 
-set_property PACKAGE_PIN F5 [get_ports {ft_clk}]
-set_property IOSTANDARD LVCMOS33 [get_ports {ft_clk}]
+set_property PACKAGE_PIN F5 [get_ports ft_clk]
+set_property IOSTANDARD LVCMOS33 [get_ports ft_clk]
 
 set_property PACKAGE_PIN B7 [get_ports {ft_data[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {ft_data[0]}]
@@ -86,14 +91,18 @@ set_property IOSTANDARD LVCMOS33 [get_ports {ft_be[0]}]
 set_property PACKAGE_PIN H1 [get_ports {ft_be[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {ft_be[1]}]
 
-set_property PACKAGE_PIN H4 [get_ports {ft_rd_n}]
-set_property IOSTANDARD LVCMOS33 [get_ports {ft_rd_n}]
+set_property PACKAGE_PIN H4 [get_ports ft_rd_n]
+set_property IOSTANDARD LVCMOS33 [get_ports ft_rd_n]
 
-set_property PACKAGE_PIN H5 [get_ports {ft_wr_n}]
-set_property IOSTANDARD LVCMOS33 [get_ports {ft_wr_n}]
+set_property PACKAGE_PIN H5 [get_ports ft_wr_n]
+set_property IOSTANDARD LVCMOS33 [get_ports ft_wr_n]
 
-set_property PACKAGE_PIN E5 [get_ports {ft_oe}]
-set_property IOSTANDARD LVCMOS33 [get_ports {ft_oe}]
+set_property PACKAGE_PIN E5 [get_ports ft_oe_n]
+set_property IOSTANDARD LVCMOS33 [get_ports ft_oe_n]
+
+set_property PACKAGE_PIN M6 [get_ports ft_txe_n]
+set_property IOSTANDARD LVCMOS33 [get_ports ft_txe_n]
+
 
 set_property PACKAGE_PIN K13 [get_ports {led[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
@@ -111,4 +120,15 @@ set_property PACKAGE_PIN M12 [get_ports {led[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[6]}]
 set_property PACKAGE_PIN N16 [get_ports {led[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
+
+
+set_input_delay  -clock [get_clocks clk_ft] -min 3.000 [get_ports ft_txe_n]
+set_input_delay  -clock [get_clocks clk_ft] -max -3.500 [get_ports ft_txe_n]
+set_output_delay -clock [get_clocks clk_ft] -min -4.800 [get_ports {ft_data[*]}]
+set_output_delay -clock [get_clocks clk_ft] -max 1.000 [get_ports {ft_data[*]}]
+set_output_delay -clock [get_clocks clk_ft] -min -4.800 [get_ports ft_wr_n]
+set_output_delay -clock [get_clocks clk_ft] -max 1.000 [get_ports ft_wr_n]
+
+#set_input_delay -clock clk_adc -max 3.000 [get_ports adc_data_in]
+#set_input_delay -clock clk_adc -min -3.000 [get_ports adc_data_in]
 

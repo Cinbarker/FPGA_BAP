@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66c5a335-9892-4f4c-ba9c-99df7f7576e0" name="Changes" comment="">
+<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test_Creator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test_Creator.py" afterDir="false" />
+=======
       <change beforePath="$PROJECT_DIR$/src/design/adc_buffer.vhd" beforeDir="false" afterPath="$PROJECT_DIR$/src/design/adc_buffer.vhd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/design/usb_communication.vhd" beforeDir="false" afterPath="$PROJECT_DIR$/src/design/usb_communication.vhd" afterDir="false" />
+>>>>>>> b4bfe5ceb81686389c400fab31994739d86bb792
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,11 +29,28 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="HARD" />
   </component>
+<<<<<<< HEAD
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Qp8QUqrhmPGrqA2xBWaKudqOmx" />
+=======
   <component name="ProjectId" id="2QgXj2KZBKy8m3LXyQ1pjwWtRGf" />
+>>>>>>> b4bfe5ceb81686389c400fab31994739d86bb792
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+<<<<<<< HEAD
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+=======
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
@@ -36,6 +58,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
 }</component>
+>>>>>>> b4bfe5ceb81686389c400fab31994739d86bb792
   <component name="RunManager">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="FPGA_BAP" />
@@ -71,15 +94,16 @@
       <method v="2" />
     </configuration>
     <configuration name="Test_Creator" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="FPGA_BAP" />
+      <module name="FPGA_4.0" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="C:\Program Files\Python310\python.exe" />
+      <option name="SDK_NAME" value="Python 3.10" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -217,6 +241,13 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="66c5a335-9892-4f4c-ba9c-99df7f7576e0" name="Changes" comment="" />
+<<<<<<< HEAD
+      <created>1686039150951</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1686039150951</updated>
+      <workItem from="1686039152386" duration="262000" />
+=======
       <created>1685776332872</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -224,6 +255,7 @@
       <workItem from="1685776335096" duration="734000" />
       <workItem from="1685784077322" duration="302000" />
       <workItem from="1685809825182" duration="18000" />
+>>>>>>> b4bfe5ceb81686389c400fab31994739d86bb792
     </task>
     <servers />
   </component>
@@ -242,7 +274,12 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+<<<<<<< HEAD
+    <SUITE FILE_PATH="coverage/FPGA_BAP$Test_Creator.coverage" NAME="Test_Creator Coverage Results" MODIFIED="1685605672458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/FPGA_4_0$Test_Creator.coverage" NAME="Test_Creator Coverage Results" MODIFIED="1686039317268" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+=======
     <SUITE FILE_PATH="coverage/FPGA_4_0$Test_Creator.coverage" NAME="Test_Creator Coverage Results" MODIFIED="1685546778336" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/FPGA_BAP$Test_Creator.coverage" NAME="Test_Creator Coverage Results" MODIFIED="1685605672458" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+>>>>>>> b4bfe5ceb81686389c400fab31994739d86bb792
   </component>
 </project>

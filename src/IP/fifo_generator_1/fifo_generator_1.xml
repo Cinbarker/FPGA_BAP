@@ -2487,6 +2487,10 @@
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Thu Jun 08 19:24:18 UTC 2023</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
             <spirit:value>9:fbd7fe5f</spirit:value>
           </spirit:parameter>

@@ -28,9 +28,9 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
- "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
+ "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/design/my_types_pkg.vhd"]"\
  "[file normalize "$origin_dir/src/design/Control_Phasor_Generation.vhd"]"\
@@ -212,7 +212,6 @@ set_property -name "webtalk.modelsim_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.questa_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "12" -objects $obj
-set_property -name "webtalk.xcelium_export_sim" -value "1" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.xsim_launch_sim" -value "595" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
@@ -225,9 +224,9 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
+ [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
  [file normalize "${origin_dir}/src/design/my_types_pkg.vhd"] \
  [file normalize "${origin_dir}/src/design/Control_Phasor_Generation.vhd"] \
@@ -247,17 +246,17 @@ set files [list \
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/design/adc_buffer.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/usb_communication.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/design/adc_to_usb_stream.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/adc_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -678,7 +677,9 @@ set_property -name "is_enabled" -value "0" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
+set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {

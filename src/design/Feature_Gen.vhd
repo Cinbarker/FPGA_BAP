@@ -90,7 +90,9 @@ begin
                     output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
                     output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
                     temp_feat_partial <= feat_partial;
+                    input_mult_vect <= feat_partial; --temp_feat_partial;
                     input_mult_valid <= '0';
+                    input_mult1 <= extra_feature_value;
                     
                     if(count<ORDER_EXTRA_FEATURE)then
                         next_state <= calc;
@@ -101,8 +103,8 @@ begin
                     
                 else
                     next_state <= calc;
-                    input_mult_vect <= temp_feat_partial;
-                    input_mult1 <= extra_feature_value;
+--                    input_mult_vect <= temp_feat_partial; Leads to error when first coming from start because input should be input features
+--                    input_mult1 <= extra_feature_value;
                     input_mult_valid <= '1';
                 end if;
                 
