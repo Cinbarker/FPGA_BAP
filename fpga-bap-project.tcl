@@ -28,10 +28,6 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
- "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
- "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
- "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
- "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/design/my_types_pkg.vhd"]"\
  "[file normalize "$origin_dir/src/design/Control_Phasor_Generation.vhd"]"\
  "[file normalize "$origin_dir/src/design/Feature_Gen.vhd"]"\
@@ -46,6 +42,10 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
+ "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
+ "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
+ "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
+ "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/IP/fp_16_to_32/fp_16_to_32.xci"]"\
  "[file normalize "$origin_dir/src/IP/X_X_Multiplier/X_X_Multiplier.xci"]"\
  "[file normalize "$origin_dir/src/IP/float_to_fixed_32bit_to_16_bit/float_to_fixed_32bit_to_16_bit.xci"]"\
@@ -214,7 +214,6 @@ set_property -name "webtalk.riviera_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "12" -objects $obj
 set_property -name "webtalk.xsim_launch_sim" -value "595" -objects $obj
-set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sources_1] ""]} {
@@ -224,10 +223,6 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
- [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
- [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
- [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
  [file normalize "${origin_dir}/src/design/my_types_pkg.vhd"] \
  [file normalize "${origin_dir}/src/design/Control_Phasor_Generation.vhd"] \
  [file normalize "${origin_dir}/src/design/Feature_Gen.vhd"] \
@@ -242,30 +237,14 @@ set files [list \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
+ [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
+ [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
+ [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
+ [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/design/usb_communication.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/design/adc_to_usb_stream.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/design/adc_buffer.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/design/usb_dip_counter.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/my_types_pkg.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -336,6 +315,26 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/src/design/usb_communication.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/adc_to_usb_stream.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/adc_buffer.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/usb_dip_counter.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 
 # Set 'sources_1' fileset file properties for local files
 # None
@@ -344,7 +343,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 set obj [get_filesets sources_1]
 set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
 set_property -name "elab_link_dcps" -value "0" -objects $obj
-set_property -name "top" -value "adc_to_usb_stream" -objects $obj
+set_property -name "top" -value "project_toplevel" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 
 # Set 'sources_1' fileset object

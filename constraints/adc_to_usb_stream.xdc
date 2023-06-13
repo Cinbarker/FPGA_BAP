@@ -46,9 +46,9 @@ set_property IOSTANDARD LVCMOS33 [get_ports {adc_data_in[12]}]
 set_property PACKAGE_PIN T2 [get_ports {adc_data_in[13]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {adc_data_in[13]}]
 
-set_property PACKAGE_PIN T3 [get_ports adc_clk]
+set_property PACKAGE_PIN F4 [get_ports adc_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports adc_clk]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets adc_clk_IBUF]
+# set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets adc_clk_IBUF]
 
 set_property PACKAGE_PIN F5 [get_ports ft_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports ft_clk]
@@ -122,13 +122,14 @@ set_property PACKAGE_PIN N16 [get_ports {led[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
 
 
-set_input_delay  -clock [get_clocks clk_ft] -min 3.000 [get_ports ft_txe_n]
-set_input_delay  -clock [get_clocks clk_ft] -max -3.500 [get_ports ft_txe_n]
+set_input_delay -clock [get_clocks clk_ft] -min 3.000 [get_ports ft_txe_n]
+set_input_delay -clock [get_clocks clk_ft] -max -3.500 [get_ports ft_txe_n]
 set_output_delay -clock [get_clocks clk_ft] -min -4.800 [get_ports {ft_data[*]}]
 set_output_delay -clock [get_clocks clk_ft] -max 1.000 [get_ports {ft_data[*]}]
 set_output_delay -clock [get_clocks clk_ft] -min -4.800 [get_ports ft_wr_n]
 set_output_delay -clock [get_clocks clk_ft] -max 1.000 [get_ports ft_wr_n]
 
-#set_input_delay -clock clk_adc -max 3.000 [get_ports adc_data_in]
-#set_input_delay -clock clk_adc -min -3.000 [get_ports adc_data_in]
+set_input_delay -clock clk_adc -max 3.000 [get_ports adc_data_in]
+set_input_delay -clock clk_adc -min -3.000 [get_ports adc_data_in]
+
 
