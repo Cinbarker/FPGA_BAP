@@ -1,23 +1,6 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 05/19/2023 10:44:15 AM
--- Design Name:
--- Module Name: Map_inputs_DDS - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
+-------------------------------------------------------------------------------
+-- MAP INPUTS DDS
+-------------------------------------------------------------------------------
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
