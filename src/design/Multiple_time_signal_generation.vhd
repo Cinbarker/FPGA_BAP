@@ -1,24 +1,6 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 05/19/2023 03:23:04 PM
--- Design Name:
--- Module Name: Multiple_time_signal_generation - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
-
+-------------------------------------------------------------------------------
+-- MULTIPLE TIME SIGNAL GENERATION
+-------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use work.my_types_pkg.all;
