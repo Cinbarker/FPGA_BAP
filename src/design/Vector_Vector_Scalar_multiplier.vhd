@@ -1,24 +1,6 @@
-----------------------------------------------------------------------------------
--- Company:
--- Engineer:
---
--- Create Date: 05/12/2023 10:10:30 PM
--- Design Name:
--- Module Name: Vector_Vector_Scalar_multiplier - Behavioral
--- Project Name:
--- Target Devices:
--- Tool Versions:
--- Description:
---
--- Dependencies:
---
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
---
-----------------------------------------------------------------------------------
-
-
+-------------------------------------------------------------------------------
+-- VECTOR VECTOR SCALAR MULTIPLIER
+-------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.math_real.all;

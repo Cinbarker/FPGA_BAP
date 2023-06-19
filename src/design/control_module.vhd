@@ -1,7 +1,5 @@
 -------------------------------------------------------------------------------
 -- CONTROL MODULE
--- NOT IMPLEMENTED:
-    -- Sync generator output to external bin counter and output model id
 -------------------------------------------------------------------------------
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
