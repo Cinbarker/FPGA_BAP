@@ -31,6 +31,7 @@ component float_to_fixed_32_bit     Port (
 
   component fp_16_to_32 is
   Port (
+    aclk : in std_logic;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( 15 downto 0 );
     m_axis_result_tvalid : out STD_LOGIC;
@@ -40,6 +41,7 @@ component float_to_fixed_32_bit     Port (
 
   component floating_point_mult_32_bit is
   Port (
+    aclk : in std_logic;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
@@ -76,6 +78,7 @@ signal DDS_phase_pad, DDS_gain_pad:  STD_LOGIC_VECTOR ( 31 downto 0 );
 begin
 
 Control_phase_to32: fp_16_to_32 port map(
+    aclk =>clk,
     s_axis_a_tvalid => input_Map_inputs_DDS_valid,
     s_axis_a_tdata  => Control_Phase,
     m_axis_result_tvalid  => Control_Phase_32_valid,
@@ -83,6 +86,7 @@ Control_phase_to32: fp_16_to_32 port map(
   );
 
 Divide_by_2pi: floating_point_mult_32_bit port map(
+    aclk => clk,
     s_axis_a_tvalid => Control_Phase_32_valid ,
     s_axis_a_tdata => Control_Phase_32 ,
     s_axis_b_tvalid =>Control_Phase_32_valid ,
@@ -99,6 +103,7 @@ to_fixed_get_DDS_phase: float_to_fixed_32_bit port map(
   DDS_phase <= DDS_phase_pad;--(27 downto 0);
 
 DDS_GAIN_TO_32_bit : fp_16_to_32 port map(
+    aclk => clk,
     s_axis_a_tvalid => input_Map_inputs_DDS_valid,
     s_axis_a_tdata  => Control_gain,
     m_axis_result_tvalid  => DDS_gain_pad_valid,
