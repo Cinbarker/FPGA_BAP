@@ -178,6 +178,7 @@ set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "revised_directory_structure" -value "1" -objects $obj
 set_property -name "sim.central_dir" -value "$proj_dir/${_xil_proj_name_}.ip_user_files" -objects $obj
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
+set_property -name "sim.ipstatic.compiled_library_dir" -value "$proj_dir/${_xil_proj_name_}.cache/compile_simlib/xsim/ip" -objects $obj
 set_property -name "simulator.activehdl_gcc_version" -value "9.3.0" -objects $obj
 set_property -name "simulator.activehdl_version" -value "13.0" -objects $obj
 set_property -name "simulator.ies_gcc_version" -value "6.2.0" -objects $obj
@@ -197,6 +198,7 @@ set_property -name "simulator.xsim_version" -value "2022.2" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "target_language" -value "VHDL" -objects $obj
+set_property -name "target_simulator" -value "ModelSim" -objects $obj
 set_property -name "webtalk.xsim_launch_sim" -value "308" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
