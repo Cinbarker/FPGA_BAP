@@ -48,6 +48,8 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
@@ -254,6 +256,8 @@ set files [list \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
@@ -455,6 +459,24 @@ set file "$origin_dir/src/design/usb_dip_counter.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
 
 
 # Set 'sources_1' fileset file properties for local files
