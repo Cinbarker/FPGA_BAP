@@ -10,46 +10,53 @@ architecture bench of control_module_tb is
 
   component control_module
       port (
-          clk                     : in std_logic;
-          reset                   : in std_logic;
-          new_frequencies         : in all_freq_array;
-          new_update              : in std_logic;
-          new_polynomial_features : in all_feat_array;
-          new_extra_feature       : in std_logic_vector(FP_SIZE-1 downto 0);
-          new_magnitude_weights   : in custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
-          new_phase_weights       : in custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
-          new_phasor_magnitude    : in all_freq_array;
-          new_phasor_phase        : in all_freq_array;
-          new_model_id            : in std_logic_vector(13 downto 0);
-          math_start                   : out std_logic;
-          math_polynomial_features     : out custom_fp_array(POLY_DIM-1 downto 0);
-          math_extra_feature           : out std_logic_vector(FP_SIZE-1 downto 0);
-          math_phase_weights           : out custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
-          math_magnitude_weights       : out custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
-          math_phasor_magnitude        : out std_logic_vector(FP_SIZE-1 downto 0);
-          math_phasor_phase            : out std_logic_vector(FP_SIZE-1 downto 0);
-          math_result_phasor_magnitude : in std_logic_vector(FP_SIZE-1 downto 0);
-          math_result_phasor_phase     : in std_logic_vector(FP_SIZE-1 downto 0);
-          math_valid                   : in std_logic;
-          gen_frequencies              : out all_freq_array;
-          gen_phasor_magnitudes        : out all_freq_array;
-          gen_phasor_phases            : out all_freq_array;
-          bin_update                   : out std_logic;
-          bin_extra_feature            : out std_logic_vector(FP_SIZE-1 downto 0);
-          bin_model_id                 : out std_logic_vector(13 downto 0)
+            clk                     : in std_logic;
+            reset                   : in std_logic;
+    
+            -- Inputs from Communication
+            new_frequencies         : in custom_fp_array_32_bit(FREQ_DIM-1 downto 0); -- Array of frequencies used
+            new_update              : in std_logic;
+            new_polynomial_features : in custom_fp_array_2D(FREQ_DIM-1 downto 0, POLY_DIM-1 downto 0);
+            new_extra_feature       : in std_logic_vector(FP_SIZE-1 downto 0);
+            new_magnitude_weights   : in custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
+            new_phase_weights       : in custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
+            new_phasor_magnitude    : in custom_fp_array(FREQ_DIM-1 downto 0);
+            new_phasor_phase        : in custom_fp_array(FREQ_DIM-1 downto 0);
+            new_model_id            : in std_logic_vector(13 downto 0);
+    
+            -- Connections to Math Module
+            math_start                   : out std_logic;    -- Start pulse to start math, data to math module is valid on this pulse
+            math_polynomial_features     : out custom_fp_array(POLY_DIM-1 downto 0);
+            math_extra_feature           : out std_logic_vector(FP_SIZE-1 downto 0);
+            math_phase_weights           : out custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
+            math_magnitude_weights       : out custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
+            math_phasor_magnitude        : out std_logic_vector(FP_SIZE-1 downto 0);
+            math_phasor_phase            : out std_logic_vector(FP_SIZE-1 downto 0);
+            math_result_phasor_magnitude : in std_logic_vector(FP_SIZE-1 downto 0);
+            math_result_phasor_phase     : in std_logic_vector(FP_SIZE-1 downto 0);
+            math_valid                   : in std_logic;
+    
+            -- Connections to Time Signal Generation
+            gen_frequencies       : out custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
+            gen_phasor_magnitudes : out custom_fp_array(FREQ_DIM-1 downto 0);
+            gen_phasor_phases     : out custom_fp_array(FREQ_DIM-1 downto 0);
+    
+            bin_update                   : out std_logic;
+            bin_extra_feature            : out std_logic_vector(FP_SIZE-1 downto 0);
+            bin_model_id                 : out std_logic_vector(13 downto 0)
       );
   end component;
 
   signal clk                        : std_logic;
   signal reset                      : std_logic;
-  signal new_frequencies            : all_freq_array;
+  signal new_frequencies            : custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
   signal new_update                 : std_logic;
-  signal new_polynomial_features    : all_feat_array;
+  signal new_polynomial_features    : custom_fp_array_2D(FREQ_DIM-1 downto 0, POLY_DIM-1 downto 0);
   signal new_extra_feature          : std_logic_vector(FP_SIZE-1 downto 0);
   signal new_magnitude_weights      : custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
   signal new_phase_weights          : custom_fp_array((EXTRA_DIM*POLY_DIM)-1 downto 0);
-  signal new_phasor_magnitude       : all_freq_array;
-  signal new_phasor_phase           : all_freq_array;
+  signal new_phasor_magnitude       : custom_fp_array(FREQ_DIM-1 downto 0);
+  signal new_phasor_phase           : custom_fp_array(FREQ_DIM-1 downto 0);
   signal new_model_id               : std_logic_vector(13 downto 0);
   signal math_start                     : std_logic;
   signal math_polynomial_features       : custom_fp_array(POLY_DIM-1 downto 0);
@@ -61,9 +68,9 @@ architecture bench of control_module_tb is
   signal math_result_phasor_magnitude   : std_logic_vector(FP_SIZE-1 downto 0);
   signal math_result_phasor_phase       : std_logic_vector(FP_SIZE-1 downto 0);
   signal math_valid                     : std_logic;
-  signal gen_frequencies                : all_freq_array;
-  signal gen_phasor_magnitudes          : all_freq_array;
-  signal gen_phasor_phases              : all_freq_array;
+  signal gen_frequencies                : custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
+  signal gen_phasor_magnitudes          : custom_fp_array(FREQ_DIM-1 downto 0);
+  signal gen_phasor_phases              : custom_fp_array(FREQ_DIM-1 downto 0);
   signal bin_update                     : std_logic;
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
@@ -187,7 +194,7 @@ begin
     wait for clock_period;
     new_update <= '0';
 
-    wait for clock_period*1500;
+    wait for clock_period*3500;
     stop_the_clock <= TRUE;
     wait;
   end process;

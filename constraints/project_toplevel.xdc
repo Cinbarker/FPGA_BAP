@@ -33,6 +33,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[7]}]
 
 set_property PACKAGE_PIN T7 [get_ports uart_tx]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_tx]
+
 set_property PACKAGE_PIN T8 [get_ports uart_rx]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_rx]
 
@@ -69,5 +70,4 @@ set_property IOSTANDARD LVCMOS33 [get_ports {dac_in[14]}]
 set_property PACKAGE_PIN K2 [get_ports {dac_in[15]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {dac_in[15]}]
 
-
-
+set_property PACKAGE_PIN B2 [get_ports {dac_in[10]}]
