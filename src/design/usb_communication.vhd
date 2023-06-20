@@ -18,7 +18,7 @@ entity usb_communication is
             ft_be       : out std_logic_vector(1 downto 0);     -- FT600 byte enable (1 = valid)
             ft_oe_n     : out std_logic;    -- FT600 output enable (1 = FPGA outputs data, 0 = FT600 outputs data)
             ft_txe_n    : in std_logic);   -- FT600 Transmit FIFO Empty (1 = FIFO full, 0 = Space available)
-    
+            
 end usb_communication;
 
 architecture Behavioral of usb_communication is
@@ -70,7 +70,7 @@ begin
     ft_oe_n <= '1';
     
     rd_en <= EN and NOT(ft_txe_n) and not(was_full);
-    ft_wr_n <= not(EN and not(empty) and NOT(ft_txe_n));
+    ft_wr_n <= not(EN and NOT(ft_txe_n) and not(empty));
     
     process(ft_clk)
     begin

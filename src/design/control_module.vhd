@@ -192,11 +192,11 @@ begin
         if bin_size_counter >= BIN_SIZE+SETTLING_CYCLES-1 then
             bin_update              <= '1';
             bin_size_counter        <= 0;
-            gen_frequencies         <= reg_next_gen_frequencies;
-            gen_phasor_magnitudes   <= reg_next_gen_phasor_magnitudes;
-            gen_phasor_phases       <= reg_next_gen_phasor_phases;
-            bin_extra_feature       <= reg_next_bin_extra_feature;
-            bin_model_id            <= reg_next_bin_model_id;
+            gen_frequencies         <= reg_gen_frequencies;
+            gen_phasor_magnitudes   <= reg_gen_phasor_magnitudes;
+            gen_phasor_phases       <= reg_gen_phasor_phases;
+            bin_extra_feature       <= reg_bin_extra_feature;
+            bin_model_id            <= reg_bin_model_id;
         else
             bin_update <= '0';
             bin_size_counter <= bin_size_counter + 1;
