@@ -41,6 +41,7 @@ port(
 
   	component adder_16_bit is
   Port (
+    clk: in std_logic;
     A : in STD_LOGIC_VECTOR ( 15 downto 0 );
     B : in STD_LOGIC_VECTOR ( 15 downto 0 );
     S : out STD_LOGIC_VECTOR ( 16 downto 0 )
@@ -49,6 +50,7 @@ port(
 
   component adder_17_bit is
   Port (
+    clk: in std_logic;
     A : in STD_LOGIC_VECTOR ( 16 downto 0 );
     B : in STD_LOGIC_VECTOR ( 16 downto 0 );
     S : out STD_LOGIC_VECTOR ( 17 downto 0 )
@@ -63,7 +65,7 @@ port(
 begin
 
 generate_time_sigs: for i in NUM_FREQS-1 downto 0 generate
-    add_freq: Time_Signal_Generation port map(
+    create_timesig: Time_Signal_Generation port map(
             clk => clk,
             reset => reset,
             input_valid => input_valid,
@@ -75,17 +77,20 @@ generate_time_sigs: for i in NUM_FREQS-1 downto 0 generate
 end generate;
 
 add_freqs1: adder_16_bit port map(
+    clk => clk,
     A => single_freq_sig(0),
     B => single_freq_sig(1),
     S => double_freq_sig1
 );
 add_freqs2: adder_16_bit port map(
+clk => clk,
     A => single_freq_sig(2),
     B => "0000000000000000",
     S => double_freq_sig2
 );
 
 add_freqs3: adder_17_bit port map(
+clk => clk,
     A => double_freq_sig1,
     B => double_freq_sig2,
     S => quad_freq_sig
