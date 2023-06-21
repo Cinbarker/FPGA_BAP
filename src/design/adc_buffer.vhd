@@ -10,6 +10,8 @@ entity adc_buffer is
             adc_clk         : in std_logic;
             adc_data_in     : in std_logic_vector(13 downto 0);
             adc_data_out    : out std_logic_vector(13 downto 0);
+            adc_data_read   : in std_logic;
+            adc_data_empty  : out std_logic;
             data_valid      : out std_logic);
 end adc_buffer;
 
@@ -30,7 +32,6 @@ architecture Behavioral of adc_buffer is
     end component;
 
     signal full: std_logic;
-    signal empty: std_logic;
     signal rst: std_logic;
     signal enable: integer range 0 to 11 := 0;
     signal wr_en: std_logic := '0';
@@ -45,7 +46,7 @@ rst <= NOT(rst_n);
                 enable <= 0;
             elsif enable > 10 then
                 wr_en <= '1';
-                rd_en <= '1';
+                rd_en <= '1' and adc_data_read;
             else
                 enable <= enable + 1;
                 wr_en <= '0';
@@ -61,7 +62,7 @@ rst <= NOT(rst_n);
                                           rd_en     => rd_en,
                                           dout      => adc_data_out,
                                           full      => full,
-                                          empty     => empty,
+                                          empty     => adc_data_empty,
                                           valid     => data_valid);
                                           
 end Behavioral;

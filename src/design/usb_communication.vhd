@@ -43,12 +43,12 @@ architecture Behavioral of usb_communication is
     signal rd_en    : std_logic := '0';
     signal wr_en    : std_logic := '0';
     
-    signal valid : std_logic;
+    signal valid    : std_logic;
     
-    signal was_full : std_logic := '0';
-    signal ft_data_int  : std_logic_vector(15 downto 0);
+    signal was_full         : std_logic := '0';
+    signal ft_data_int      : std_logic_vector(15 downto 0);
     signal ft_data_int_reg  : std_logic_vector(15 downto 0);
-    signal ft_data_reg  : std_logic_vector(15 downto 0);
+    signal ft_data_reg      : std_logic_vector(15 downto 0);
 begin
     rst <= NOT(rst_n);
     ft_fifo: fifo_generator_1  

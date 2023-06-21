@@ -46,9 +46,9 @@ set_property IOSTANDARD LVCMOS33 [get_ports {adc_data_in[12]}]
 set_property PACKAGE_PIN T2 [get_ports {adc_data_in[13]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {adc_data_in[13]}]
 
-set_property PACKAGE_PIN F4 [get_ports adc_clk]
+set_property PACKAGE_PIN T3 [get_ports adc_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports adc_clk]
-# set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets adc_clk_IBUF]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets adc_clk_IBUF]
 
 set_property PACKAGE_PIN F5 [get_ports ft_clk]
 set_property IOSTANDARD LVCMOS33 [get_ports ft_clk]

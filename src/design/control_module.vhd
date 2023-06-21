@@ -38,7 +38,8 @@ entity control_module is
         gen_phasor_magnitudes : out custom_fp_array(FREQ_DIM-1 downto 0);
         gen_phasor_phases     : out custom_fp_array(FREQ_DIM-1 downto 0);
 
-        bin_update                   : out std_logic;
+        bin_update                   : in std_logic;
+        bin_calc_en                  : in std_logic;
         bin_extra_feature            : out std_logic_vector(FP_SIZE-1 downto 0);
         bin_model_id                 : out std_logic_vector(13 downto 0)
     );
@@ -48,8 +49,6 @@ architecture Behavioral of control_module is
 
 type math_states is (WAIT_UPDATE, QUEUE_MATH, EXECUTE_MATH, RX_MATH, SAVE_PARAMS);
 signal state : math_states;
-
-signal bin_size_counter : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
 
 signal current_freq : integer range 0 to (FREQ_DIM-1); -- Which frequency to calculate for
 
@@ -84,7 +83,6 @@ begin
     if reset = '1' then
         -- Reset values
         state               <= WAIT_UPDATE;
-        bin_size_counter    <= 0;
         current_freq        <= 0;
 
         math_start          <= '0';
@@ -150,7 +148,7 @@ begin
                     state <= QUEUE_MATH;
                 end if;
             when QUEUE_MATH =>
-                if bin_size_counter <= SETTLING_CYCLES then
+                if bin_calc_en = '1' then
                     current_freq <= 0; -- Start by updating 0th frequency
                     state <= EXECUTE_MATH;
                 else
@@ -189,17 +187,12 @@ begin
          end case;
 
         -- Bin counter
-        if bin_size_counter >= BIN_SIZE+SETTLING_CYCLES-1 then
-            bin_update              <= '1';
-            bin_size_counter        <= 0;
+        if bin_update = '1' then
             gen_frequencies         <= reg_gen_frequencies;
             gen_phasor_magnitudes   <= reg_gen_phasor_magnitudes;
             gen_phasor_phases       <= reg_gen_phasor_phases;
             bin_extra_feature       <= reg_bin_extra_feature;
             bin_model_id            <= reg_bin_model_id;
-        else
-            bin_update <= '0';
-            bin_size_counter <= bin_size_counter + 1;
         end if;
     end if;
 end process;
