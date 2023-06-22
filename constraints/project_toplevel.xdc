@@ -27,10 +27,10 @@ set_property PACKAGE_PIN M12 [get_ports {led[6]}]
 set_property PACKAGE_PIN N16 [get_ports {led[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports led]
 
-set_property PACKAGE_PIN T7 [get_ports uart_tx]
+set_property PACKAGE_PIN N13 [get_ports uart_tx]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_tx]
 
-set_property PACKAGE_PIN T8 [get_ports uart_rx]
+set_property PACKAGE_PIN P13 [get_ports uart_rx]
 set_property IOSTANDARD LVCMOS33 [get_ports uart_rx]
 
 set_property PACKAGE_PIN F4 [get_ports dac_clk]

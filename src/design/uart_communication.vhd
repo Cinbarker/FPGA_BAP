@@ -41,7 +41,7 @@ entity uart_communication is
     );
 end uart_communication;
 
-architecture rtl of uart_communication is
+8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888architecture rtl of uart_communication is
     component uart is
         generic (
             baud            : positive;
