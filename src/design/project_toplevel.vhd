@@ -11,8 +11,8 @@ entity project_toplevel is
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
         led                 : out std_logic_vector(7 downto 0);
-        dac_in              : out std_logic_vector(15 downto 0)
-         );
+        dac_clk             : in std_logic;
+        dac_out             : out std_logic_vector(13 downto 0));
 end project_toplevel;
 
 architecture behavioral of project_toplevel is
@@ -67,7 +67,8 @@ component uart_communication
           gen_frequencies              : out custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
           gen_phasor_magnitudes        : out custom_fp_array(FREQ_DIM-1 downto 0);  
           gen_phasor_phases            : out custom_fp_array(FREQ_DIM-1 downto 0);
-          bin_update                   : out std_logic;
+          bin_update                   : in std_logic;
+          bin_calc_en                  : in std_logic;
           bin_extra_feature            : out std_logic_vector(FP_SIZE-1 downto 0);
           bin_model_id                 : out std_logic_vector(13 downto 0)
       );
@@ -101,6 +102,16 @@ component uart_communication
     	Control_Phasor_valid : out std_logic
   	);
   end component;
+  
+  component dac_buffer is
+    port (  clk     : in std_logic;
+            rst_n   : in std_logic;
+            dac_clk : in std_logic;
+            dac_data: in std_logic_vector(13 downto 0);
+            dac_out : out std_logic_vector(13 downto 0));
+            
+  end component;
+
   -- ctrl signals
   
   signal reset                      : std_logic;
@@ -127,24 +138,22 @@ component uart_communication
   signal gen_phasor_magnitudes          : custom_fp_array(FREQ_DIM-1 downto 0);
   signal gen_phasor_phases              : custom_fp_array(FREQ_DIM-1 downto 0);
   signal bin_update                     : std_logic;
+  signal bin_calc_en                    : std_logic;
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
-  
-  constant clock_period: time := 10 ns;
-  constant bit_period : time := ((1.0 / real(115200)) * real(1e9)) * 1 ns;
-  signal stop_the_clock : boolean;
   
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
   signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
   
-
+  signal dac_data : std_logic_vector(13 downto 0);
+  signal dac_data_long : std_logic_vector(15 downto 0);
 
 begin
 reset <= NOT(rst_n);
-
+  dac_data <= dac_data_long(15 downto 2);
   -- Insert values for generic parameters !!
-  comm: uart_communication generic map ( baud                => 115200,
+  comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)
                              port map ( clk                 => clk,
                                         rst_n               => rst_n,
@@ -187,6 +196,7 @@ reset <= NOT(rst_n);
                                  gen_phasor_magnitudes        => gen_phasor_magnitudes,
                                  gen_phasor_phases            => gen_phasor_phases,
                                  bin_update                   => bin_update,
+                                 bin_calc_en                  => bin_calc_en,
                                  bin_extra_feature            => bin_extra_feature,
                                  bin_model_id                 => bin_model_id);
 
@@ -198,7 +208,7 @@ reset <= NOT(rst_n);
             Control_Phase => gen_phasor_phases,
             Control_Gain => gen_phasor_magnitudes,
             phase_increase => gen_frequencies,
-            DAC_IN => DAC_IN);
+            DAC_IN => dac_data_long);
       
   math: Phasor_Calc_Toplevel port map ( 
            clk                     => clk,
@@ -214,5 +224,10 @@ reset <= NOT(rst_n);
            Control_Gain            => math_result_phasor_magnitude,
            Control_Phasor_valid    => math_valid);
            
-
+  dac_buff: dac_buffer port map (   clk         => clk,
+                                    rst_n       => rst_n,
+                                    dac_clk     => dac_clk,
+                                    dac_data    => dac_data,
+                                    dac_out     => dac_out);
+                                    
 end behavioral;
