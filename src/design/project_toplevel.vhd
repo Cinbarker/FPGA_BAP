@@ -150,9 +150,18 @@ component uart_communication
   signal dac_data_long : std_logic_vector(15 downto 0);
   
   signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
+  signal eight_empty    : std_logic_vector(7 downto 0);
 begin
 reset <= NOT(rst_n);
-  dac_data <= dac_data_long(15 downto 2);
+
+led <= math_extra_feature(15 downto 8);
+dac_data(13 downto 6) <= new_extra_feature(15 downto 8);
+dac_data(5) <= new_update;
+dac_data(4) <= math_start;
+dac_data(3) <= math_valid;
+dac_data(2) <= bin_update;
+dac_data(1) <= bin_calc_en;
+dac_data(0) <= '1';
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)
@@ -160,7 +169,7 @@ reset <= NOT(rst_n);
                                         rst_n               => rst_n,
                                         uart_tx             => uart_tx,
                                         uart_rx             => uart_rx,
-                                        led                 => led,
+                                        led                 => eight_empty,
                                         frequencies         => new_frequencies,
                                         update              => new_update,
                                         polynomial_features => new_polynomial_features,
