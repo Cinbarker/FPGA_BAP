@@ -103,6 +103,15 @@ component uart_communication
   	);
   end component;
   
+  component clk_wiz_0 is
+  Port ( 
+    clk_out1 : out STD_LOGIC;
+    reset : in STD_LOGIC;
+    locked : out STD_LOGIC;
+    clk_in1 : in STD_LOGIC
+  );
+  end component;
+  
   component dac_buffer is
     port (  clk     : in std_logic;
             rst_n   : in std_logic;
@@ -145,7 +154,7 @@ component uart_communication
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
   signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
-  
+  signal dac_clk_PLL, clock_PLL_locked: std_logic;
   signal dac_data : std_logic_vector(13 downto 0);
   signal dac_data_long : std_logic_vector(15 downto 0);
 
@@ -224,9 +233,16 @@ reset <= NOT(rst_n);
            Control_Gain            => math_result_phasor_magnitude,
            Control_Phasor_valid    => math_valid);
            
+  DACclock_PLL : clk_wiz_0 port map(
+                                        clk_out1 => dac_clk_PLL,
+                                        reset => reset,
+                                        locked => clock_PLL_locked,
+                                        clk_in1 => dac_clk
+                                    );
+  
   dac_buff: dac_buffer port map (   clk         => clk,
                                     rst_n       => rst_n,
-                                    dac_clk     => dac_clk,
+                                    dac_clk     => dac_clk_PLL,
                                     dac_data    => dac_data,
                                     dac_out     => dac_out);
                                     
