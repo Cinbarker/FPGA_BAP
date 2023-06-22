@@ -1,12 +1,12 @@
 # clk => 100 MHz
 create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports clk]
-create_clock -period 10.000 -name clk_dac -waveform {0.000 5.000} [get_ports dac_clk]
+#create_clock -period 10.000 -name clk_dac -waveform {0.000 5.000} [get_ports dac_clk]
 
-set_output_delay -max -clock clk_dac 9  [get_ports dac_out]
-set_output_delay -min -clock clk_dac -1.5  [get_ports dac_out]
-set_multicycle_path -setup -from [get_clocks clk_dac] -to [get_ports dac_out] 2
+set_output_delay -max -clock clk_0 1  [get_ports dac_out]
+set_output_delay -min -clock clk_0 -1  [get_ports dac_out]
+#set_multicycle_path -setup -from [get_clocks clk_dac] -to [get_ports dac_out] 2
 
-set_false_path -from [get_clocks clk_0] -to [get_clocks clk_dac]
+#set_false_path -from [get_clocks clk_0] -to [get_clocks clk_dac]
 set_false_path -from [get_ports rst_n]
 set_false_path -to [get_ports led]
 set_false_path -to [get_ports uart_tx]
