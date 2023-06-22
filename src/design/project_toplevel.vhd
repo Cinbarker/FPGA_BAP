@@ -148,7 +148,8 @@ component uart_communication
   
   signal dac_data : std_logic_vector(13 downto 0);
   signal dac_data_long : std_logic_vector(15 downto 0);
-
+  
+  signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
 begin
 reset <= NOT(rst_n);
   dac_data <= dac_data_long(15 downto 2);
@@ -229,5 +230,23 @@ reset <= NOT(rst_n);
                                     dac_clk     => dac_clk,
                                     dac_data    => dac_data,
                                     dac_out     => dac_out);
-                                    
+  process(clk)
+    begin
+        if rst_n = '0' then                      
+            bin_size_counter    <= 0;
+        elsif rising_edge(clk) then
+            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
+                bin_update <= '1';
+                bin_size_counter <= 0;
+            else
+                bin_update <= '0';
+                bin_size_counter <= bin_size_counter + 1;
+            end if;
+            if bin_size_counter <= SETTLING_CYCLES then
+                bin_calc_en <= '1';
+            else
+                bin_calc_en <= '0';
+            end if;
+        end if;
+    end process;  
 end behavioral;

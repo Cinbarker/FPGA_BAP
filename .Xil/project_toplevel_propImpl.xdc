@@ -1,0 +1,5 @@
+set_property SRC_FILE_INFO {cfile:C:/Users/Nicolas/Desktop/FPGA_BAP/constraints/project_toplevel.xdc rfile:../constraints/project_toplevel.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:52 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN K3 [get_ports {dac_out[14]}]
+set_property src_info {type:XDC file:1 line:53 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN K2 [get_ports {dac_out[15]}]

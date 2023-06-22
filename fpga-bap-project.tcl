@@ -64,9 +64,6 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/usb_stream_headers.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
- "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
- "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
- "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
  "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"]"\
@@ -552,33 +549,6 @@ if {[string equal [get_filesets -quiet constrs_1] ""]} {
 set obj [get_filesets constrs_1]
 
 # Add/Import constrs file and set constrs file properties
-set file "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"
-set file_added [add_files -norecurse -fileset $obj [list $file]]
-set file "$origin_dir/constraints/au_plus_uart_led.xdc"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
-set_property -name "file_type" -value "XDC" -objects $file_obj
-set_property -name "is_enabled" -value "0" -objects $file_obj
-
-# Add/Import constrs file and set constrs file properties
-set file "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"
-set file_added [add_files -norecurse -fileset $obj [list $file]]
-set file "$origin_dir/constraints/adc_to_usb_stream.xdc"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
-set_property -name "file_type" -value "XDC" -objects $file_obj
-set_property -name "is_enabled" -value "0" -objects $file_obj
-
-# Add/Import constrs file and set constrs file properties
-set file "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"
-set file_added [add_files -norecurse -fileset $obj [list $file]]
-set file "$origin_dir/constraints/usb_dip_counter.xdc"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
-set_property -name "file_type" -value "XDC" -objects $file_obj
-set_property -name "is_enabled" -value "0" -objects $file_obj
-
-# Add/Import constrs file and set constrs file properties
 set file "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"
 set file_added [add_files -norecurse -fileset $obj [list $file]]
 set file "$origin_dir/constraints/project_toplevel.xdc"
@@ -588,7 +558,9 @@ set_property -name "file_type" -value "XDC" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
+set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -870,6 +842,34 @@ set obj [get_runs synth_1]
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
+set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
+set_property -name "steps.synth_design.args.retiming" -value "1" -objects $obj
+
+# Create 'synth_1_copy_1' run (if not found)
+if {[string equal [get_runs -quiet synth_1_copy_1] ""]} {
+    create_run -name synth_1_copy_1 -part xc7a100tftg256-1 -flow {Vivado Synthesis 2022} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
+} else {
+  set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1_copy_1]
+  set_property flow "Vivado Synthesis 2022" [get_runs synth_1_copy_1]
+}
+set obj [get_runs synth_1_copy_1]
+set_property set_report_strategy_name 1 $obj
+set_property report_strategy {Vivado Synthesis Default Reports} $obj
+set_property set_report_strategy_name 0 $obj
+# Create 'synth_1_copy_1_synth_report_utilization_0' report (if not found)
+if { [ string equal [get_report_configs -of_objects [get_runs synth_1_copy_1] synth_1_copy_1_synth_report_utilization_0] "" ] } {
+  create_report_config -report_name synth_1_copy_1_synth_report_utilization_0 -report_type report_utilization:1.0 -steps synth_design -runs synth_1_copy_1
+}
+set obj [get_report_configs -of_objects [get_runs synth_1_copy_1] synth_1_copy_1_synth_report_utilization_0]
+if { $obj != "" } {
+set_property -name "display_name" -value "Utilization - Synth Design" -objects $obj
+
+}
+set obj [get_runs synth_1_copy_1]
+set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp" -objects $obj
+set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
+set_property -name "auto_incremental_checkpoint.directory" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/synth_1_copy_1" -objects $obj
 set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
 
 # set the current synth run
