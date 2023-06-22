@@ -116,11 +116,17 @@ Control_Phasor_Generation_map: Control_Phasor_Generation port map(
 create_reset: process (clk)
     begin
     if rising_edge(clk) then
-
-            sub_reset1 <= reset or (not input_Phasor_calc_valid);
+            if(reset='0' and input_Phasor_calc_valid='1' ) then
+            sub_reset1 <= '0' ;
             sub_reset2 <= sub_reset1;
             sub_reset3 <= sub_reset2 ;
             sub_reset <= sub_reset3 or sub_reset2 or sub_reset1;
+            else
+            sub_reset1 <= '1';
+            sub_reset2 <= '1';
+            sub_reset3 <= '1';
+            sub_reset <= '1';
+            end if;
     end if;
     end process;
 end Behavioral;

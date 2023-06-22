@@ -37,7 +37,8 @@ architecture bench of control_and_math_tb is
           gen_frequencies              : out custom_fp_array_32_bit(FREQ_DIM-1 downto 0);
           gen_phasor_magnitudes        : out custom_fp_array(FREQ_DIM-1 downto 0);
           gen_phasor_phases            : out custom_fp_array(FREQ_DIM-1 downto 0);
-          bin_update                   : out std_logic;
+          bin_update                   : in std_logic;
+          bin_calc_en                  : in std_logic;
           bin_extra_feature            : out std_logic_vector(FP_SIZE-1 downto 0);
           bin_model_id                 : out std_logic_vector(13 downto 0)
       );
@@ -97,6 +98,7 @@ architecture bench of control_and_math_tb is
   signal gen_phasor_magnitudes          : custom_fp_array(FREQ_DIM-1 downto 0);
   signal gen_phasor_phases              : custom_fp_array(FREQ_DIM-1 downto 0);
   signal bin_update                     : std_logic;
+  signal bin_calc_en                    : std_logic;
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
 
@@ -105,6 +107,7 @@ architecture bench of control_and_math_tb is
   
     -- siggen signals
   signal DAC_IN : std_logic_vector(15 downto 0);
+  signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
 
 begin
 
@@ -133,6 +136,7 @@ begin
                                  gen_phasor_magnitudes        => gen_phasor_magnitudes,
                                  gen_phasor_phases            => gen_phasor_phases,
                                  bin_update                   => bin_update,
+                                 bin_calc_en                  => bin_calc_en,
                                  bin_extra_feature            => bin_extra_feature,
                                  bin_model_id                 => bin_model_id);
 
@@ -233,4 +237,23 @@ siggen: Multiple_time_signal_generation
     wait;
   end process;
 
+  bin_counter: process(clk)
+    begin
+        if reset = '1' then                      
+            bin_size_counter    <= 0;
+        elsif rising_edge(clk) then
+            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
+                bin_update <= '1';
+                bin_size_counter <= 0;
+            else
+                bin_update <= '0';
+                bin_size_counter <= bin_size_counter + 1;
+            end if;
+            if bin_size_counter <= SETTLING_CYCLES then
+                bin_calc_en <= '1';
+            else
+                bin_calc_en <= '0';
+            end if;
+        end if;
+    end process;
 end;

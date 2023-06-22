@@ -26,6 +26,7 @@ architecture Behavioral of Control_Phasor_Generation is
 component fp_subtract_X_bit is
   Port (
     aclk : in STD_LOGIC;
+    aresetn : in std_logic;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR (FP_SIZE-1 downto 0);
     s_axis_b_tvalid : in STD_LOGIC;
@@ -39,6 +40,7 @@ end component;
 component fp_divider_X_bit is
   Port (
     aclk : in STD_LOGIC;
+    aresetn : in std_logic;
     s_axis_a_tvalid : in STD_LOGIC;
     s_axis_a_tdata : in STD_LOGIC_VECTOR ( FP_SIZE-1 downto 0 );
     s_axis_b_tvalid : in STD_LOGIC;
@@ -49,15 +51,16 @@ component fp_divider_X_bit is
 
 end component;
 
-signal subtract_valid, divide_valid: std_logic;
+signal aresetn, subtract_valid, divide_valid: std_logic;
 begin
-
+aresetn <= not reset;
 
 
 subtract_phase: fp_subtract_X_bit
     port map (
       -- Global signals
       aclk                    => clk,
+      aresetn => aresetn ,
     -- AXI4-Stream slave channel for operand A
       s_axis_a_tvalid         => input_ready,
       s_axis_a_tdata          => input_Phase,
@@ -73,6 +76,7 @@ divide_gain: fp_divider_X_bit
     port map (
       -- Global signals
       aclk                    => clk,
+      aresetn                 => aresetn ,
     -- AXI4-Stream slave channel for operand A
       s_axis_a_tvalid         => input_ready,
       s_axis_a_tdata          => input_gain,
