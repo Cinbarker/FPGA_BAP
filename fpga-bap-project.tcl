@@ -50,11 +50,11 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/Time_Signal_Generation.vhd"]"\
  "[file normalize "$origin_dir/src/design/Vector_Vector_Scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/control_module.vhd"]"\
- "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/uart.vhd"]"\
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
+ "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
@@ -228,7 +228,6 @@ set_property -name "webtalk.vcs_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xcelium_export_sim" -value "8" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xsim_launch_sim" -value "365" -objects $obj
-set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sources_1] ""]} {
@@ -260,11 +259,11 @@ set files [list \
  [file normalize "${origin_dir}/src/design/Time_Signal_Generation.vhd"] \
  [file normalize "${origin_dir}/src/design/Vector_Vector_Scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/control_module.vhd"] \
- [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/uart.vhd"] \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
+ [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
  [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
  [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
@@ -435,11 +434,6 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/design/dac_buffer.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/uart.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -456,6 +450,11 @@ set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/design/project_toplevel.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/dac_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -839,6 +838,7 @@ if { $obj != "" } {
 
 }
 set obj [get_runs synth_1]
+set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
@@ -1091,6 +1091,7 @@ set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
 set obj [get_runs impl_1]
+set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
 set_property -name "steps.write_bitstream.args.bin_file" -value "1" -objects $obj

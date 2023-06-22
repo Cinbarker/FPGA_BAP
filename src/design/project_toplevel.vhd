@@ -11,7 +11,7 @@ entity project_toplevel is
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
         led                 : out std_logic_vector(7 downto 0);
-        dac_clk             : in std_logic;
+        dac_clk             : out std_logic;
         dac_out             : out std_logic_vector(13 downto 0));
 end project_toplevel;
 
@@ -225,11 +225,13 @@ reset <= NOT(rst_n);
            Control_Gain            => math_result_phasor_magnitude,
            Control_Phasor_valid    => math_valid);
            
-  dac_buff: dac_buffer port map (   clk         => clk,
-                                    rst_n       => rst_n,
-                                    dac_clk     => dac_clk,
-                                    dac_data    => dac_data,
-                                    dac_out     => dac_out);
+--  dac_buff: dac_buffer port map (   clk         => clk,
+--                                    rst_n       => rst_n,
+--                                    dac_clk     => dac_clk,
+--                                    dac_data    => dac_data,
+--                                    dac_out     => dac_out);
+  dac_clk <= clk;
+  dac_out <= dac_data;
   process(clk)
     begin
         if rst_n = '0' then                      
