@@ -18,7 +18,7 @@
 proc checkRequiredFiles { origin_dir} {
   set status true
   set files [list \
- "[file normalize "$origin_dir/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp"]"\
+ "[file normalize "$origin_dir/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp"]"\
   ]
   foreach ifile $files {
     if { ![file isfile $ifile] } {
@@ -28,6 +28,7 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
+ "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"]"\
@@ -55,37 +56,37 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
  "[file normalize "$origin_dir/src/design/pulse_synchronizer.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_stream_headers.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
  "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
+ "[file normalize "$origin_dir/../../Report/uart_control_and_siggen_tb_behav.wcfg"]"\
+ "[file normalize "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/adc_to_usb_stream_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"]"\
+ "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/usb_dip_counter_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/usb_communication_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/adc_buffer_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"]"\
@@ -230,7 +231,7 @@ set_property -name "webtalk.riviera_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xcelium_export_sim" -value "8" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "20" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "365" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "366" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -241,6 +242,7 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
  [file normalize "${origin_dir}/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"] \
  [file normalize "${origin_dir}/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"] \
  [file normalize "${origin_dir}/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"] \
@@ -268,18 +270,27 @@ set files [list \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
- [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
- [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
  [file normalize "${origin_dir}/src/design/pulse_synchronizer.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_stream_headers.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
 set file "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -463,24 +474,6 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
 set file "$origin_dir/src/design/adc_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -511,26 +504,16 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
 
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset properties
-set obj [get_filesets sources_1]
-set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
-set_property -name "elab_link_dcps" -value "0" -objects $obj
-set_property -name "top" -value "project_toplevel" -objects $obj
-set_property -name "top_auto_set" -value "0" -objects $obj
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -542,6 +525,13 @@ if { ![get_property "is_locked" $file_obj] } {
 
 # Set 'sources_1' fileset file properties for local files
 # None
+
+# Set 'sources_1' fileset properties
+set obj [get_filesets sources_1]
+set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $obj
+set_property -name "elab_link_dcps" -value "0" -objects $obj
+set_property -name "top" -value "project_toplevel" -objects $obj
+set_property -name "top_auto_set" -value "0" -objects $obj
 
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {
@@ -614,19 +604,15 @@ if {[string equal [get_filesets -quiet integration_tbs] ""]} {
 set obj [get_filesets integration_tbs]
 set files [list \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/adc_buffer_and_usb_comm_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_and_control_tb.vhd"] \
+ [file normalize "${origin_dir}/../../Report/uart_control_and_siggen_tb_behav.wcfg"] \
+ [file normalize "${origin_dir}/src/testbench/adc_buffer_and_usb_comm_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'integration_tbs' fileset file properties for remote files
 set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -637,6 +623,11 @@ set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -660,24 +651,29 @@ if {[string equal [get_filesets -quiet individual_tbs] ""]} {
 # Set 'individual_tbs' fileset object
 set obj [get_filesets individual_tbs]
 set files [list \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/adc_to_usb_stream_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/Multiple_time_signal_generation_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Feature_Gen_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/DDS_TB.vhd"] \
  [file normalize "${origin_dir}/src/testbench/individual_tbs/control_module_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_communication_tb.vhd"] \
+ [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/usb_dip_counter_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/usb_communication_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/adc_buffer_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/DDS_TB.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_communication_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/uart_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/individual_tbs/Feature_Gen_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'individual_tbs' fileset file properties for remote files
+set file "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 set file "$origin_dir/src/testbench/individual_tbs/adc_to_usb_stream_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
@@ -688,7 +684,42 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
+set file "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 set file "$origin_dir/src/testbench/individual_tbs/control_module_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -708,53 +739,13 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/testbench/individual_tbs/DDS_TB.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Phasor_Calc_Toplevel_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Vector_Vector_Scalar_multiplier_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/uart_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Map_inputs_DDS_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/System_Phasor_Calc_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/individual_tbs/Feature_Gen_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets individual_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 
 # Set 'individual_tbs' fileset file properties for local files
 # None
 
 # Set 'individual_tbs' fileset properties
 set obj [get_filesets individual_tbs]
-set_property -name "top" -value "adc_to_usb_stream_tb" -objects $obj
+set_property -name "top" -value "Phasor_Calc_Toplevel_tb" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 
@@ -776,7 +767,7 @@ add_files -norecurse -fileset $obj $files
 
 # Add local files from the original project (-no_copy_sources specified)
 set files [list \
- [file normalize "${origin_dir}/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp" ]\
+ [file normalize "${origin_dir}/vivado_project/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" ]\
 ]
 set added_files [add_files -fileset utils_1 $files]
 
@@ -833,7 +824,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 
 # Set 'utils_1' fileset file properties for local files
-set file "synth_1/usb_stream_headers.dcp"
+set file "synth_1/uart_communication.dcp"
 set file_obj [get_files -of_objects [get_filesets utils_1] [list "*$file"]]
 set_property -name "netlist_only" -value "0" -objects $file_obj
 
@@ -867,11 +858,66 @@ if { $obj != "" } {
 
 }
 set obj [get_runs synth_1]
-set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
-set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/usb_stream_headers.dcp" -objects $obj
+set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
 set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
+
+# Create 'synth_1_copy_1' run (if not found)
+if {[string equal [get_runs -quiet synth_1_copy_1] ""]} {
+    create_run -name synth_1_copy_1 -part xc7a100tftg256-1 -flow {Vivado Synthesis 2022} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
+} else {
+  set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1_copy_1]
+  set_property flow "Vivado Synthesis 2022" [get_runs synth_1_copy_1]
+}
+set obj [get_runs synth_1_copy_1]
+set_property set_report_strategy_name 1 $obj
+set_property report_strategy {Vivado Synthesis Default Reports} $obj
+set_property set_report_strategy_name 0 $obj
+# Create 'synth_1_copy_1_synth_report_utilization_0' report (if not found)
+if { [ string equal [get_report_configs -of_objects [get_runs synth_1_copy_1] synth_1_copy_1_synth_report_utilization_0] "" ] } {
+  create_report_config -report_name synth_1_copy_1_synth_report_utilization_0 -report_type report_utilization:1.0 -steps synth_design -runs synth_1_copy_1
+}
+set obj [get_report_configs -of_objects [get_runs synth_1_copy_1] synth_1_copy_1_synth_report_utilization_0]
+if { $obj != "" } {
+
+}
+set obj [get_runs synth_1_copy_1]
+set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" -objects $obj
+set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
+set_property -name "auto_incremental_checkpoint.directory" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/synth_1_copy_1" -objects $obj
+set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
+
+# Create 'synth_1_copy_2' run (if not found)
+if {[string equal [get_runs -quiet synth_1_copy_2] ""]} {
+    create_run -name synth_1_copy_2 -part xc7a100tftg256-1 -flow {Vivado Synthesis 2022} -strategy "Flow_PerfThresholdCarry" -report_strategy {No Reports} -constrset constrs_1
+} else {
+  set_property strategy "Flow_PerfThresholdCarry" [get_runs synth_1_copy_2]
+  set_property flow "Vivado Synthesis 2022" [get_runs synth_1_copy_2]
+}
+set obj [get_runs synth_1_copy_2]
+set_property set_report_strategy_name 1 $obj
+set_property report_strategy {Vivado Synthesis Default Reports} $obj
+set_property set_report_strategy_name 0 $obj
+# Create 'synth_1_copy_2_synth_report_utilization_0' report (if not found)
+if { [ string equal [get_report_configs -of_objects [get_runs synth_1_copy_2] synth_1_copy_2_synth_report_utilization_0] "" ] } {
+  create_report_config -report_name synth_1_copy_2_synth_report_utilization_0 -report_type report_utilization:1.0 -steps synth_design -runs synth_1_copy_2
+}
+set obj [get_report_configs -of_objects [get_runs synth_1_copy_2] synth_1_copy_2_synth_report_utilization_0]
+if { $obj != "" } {
+
+}
+set obj [get_runs synth_1_copy_2]
+set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
+set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" -objects $obj
+set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
+set_property -name "auto_incremental_checkpoint.directory" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/synth_1_copy_2" -objects $obj
+set_property -name "strategy" -value "Flow_PerfThresholdCarry" -objects $obj
+set_property -name "steps.synth_design.args.directive" -value "FewerCarryChains" -objects $obj
+set_property -name "steps.synth_design.args.keep_equivalent_registers" -value "1" -objects $obj
+set_property -name "steps.synth_design.args.resource_sharing" -value "off" -objects $obj
+set_property -name "steps.synth_design.args.no_lc" -value "1" -objects $obj
 
 # set the current synth run
 current_run -synthesis [get_runs synth_1]
@@ -1092,7 +1138,6 @@ set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
 set obj [get_runs impl_1]
-set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
 set_property -name "steps.write_bitstream.args.bin_file" -value "1" -objects $obj

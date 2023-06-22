@@ -102,20 +102,28 @@ begin
                     else
                         next_state <=done;
                     end if;
+                    
                     Feature_Gen_Done <= '0';
                     
                 else
                     next_state <= calc;
 --                    input_mult_vect <= temp_feat_partial; Leads to error when first coming from start because input should be input features
---                    input_mult1 <= extra_feature_value;
+                    input_mult1 <= extra_feature_value;
                     input_mult_valid <= '1';
                 end if;
                 
                 
 			when done =>
+			     
 			     final_features <= output_features_temp;
 			     Feature_Gen_Done <= '1';
 			when others =>
+			    next_state <= start;
+                Feature_Gen_Done <= '0';
+                input_mult_vect <= input_features;
+                input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
+                next_count <= "00000";
+                input_mult_valid <= '0';
 
 
 		end case;

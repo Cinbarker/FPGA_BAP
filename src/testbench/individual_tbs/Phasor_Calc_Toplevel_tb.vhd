@@ -101,7 +101,7 @@ begin
     reset <= '1';
     wait for 20ns;
     reset <= '0';
-    wait for 1500 ns;
+    wait for 6500 ns;
     input_Phasor_calc_valid <= '0';
     wait for 100 ns;
     stop_the_clock <= true;
