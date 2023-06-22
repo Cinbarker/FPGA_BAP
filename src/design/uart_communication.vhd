@@ -217,6 +217,7 @@ begin
                     end if;
 
                 when RX_PARAM =>
+                    led <= "00100100";
                     count_index             <= count_index;
                     original_count_index    <= original_count_index;
                     count2_index            <= count2_index;
@@ -245,6 +246,7 @@ begin
                                         when PARAM_MODEL_ID =>
                                             reg_model_id(((count_byte*8)-1) downto ((count_byte-1)*8)) <= rx_data;
                                         when NONE =>
+                                            led <= "11100111";
                                             state <= WAIT_RX_CMD;
                                     end case;
                                     count_byte <= count_byte - 1;
@@ -265,6 +267,7 @@ begin
 
                 when SEND_UPDATE =>     -- Send signal to Control Module to update model parameters
                     reg_update <= '1';
+                    led <= "11000011";
                     state <= WAIT_RX_CMD;
 
                 when TX_AMPLITUDE =>    -- Send amplitude estimation over UART
@@ -287,7 +290,6 @@ begin
                     else
                         state <= RX_LED;
                     end if;
-
             end case;
         end if;
     end process;

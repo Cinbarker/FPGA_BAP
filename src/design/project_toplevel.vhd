@@ -154,12 +154,11 @@ component uart_communication
 begin
 reset <= NOT(rst_n);
 
-led <= math_extra_feature(15 downto 8);
-dac_data(13 downto 6) <= new_extra_feature(15 downto 8);
+dac_data(13 downto 6) <= new_extra_feature(7 downto 0);
 dac_data(5) <= new_update;
 dac_data(4) <= math_start;
 dac_data(3) <= math_valid;
-dac_data(2) <= bin_update;
+dac_data(2) <= rst_n;
 dac_data(1) <= bin_calc_en;
 dac_data(0) <= '1';
   -- Insert values for generic parameters !!
@@ -169,7 +168,7 @@ dac_data(0) <= '1';
                                         rst_n               => rst_n,
                                         uart_tx             => uart_tx,
                                         uart_rx             => uart_rx,
-                                        led                 => eight_empty,
+                                        led                 => led,
                                         frequencies         => new_frequencies,
                                         update              => new_update,
                                         polynomial_features => new_polynomial_features,
