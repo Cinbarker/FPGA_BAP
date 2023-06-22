@@ -2,8 +2,9 @@
 create_clock -period 10.000 -name clk_0 -waveform {0.000 5.000} [get_ports clk]
 create_clock -period 10.000 -name clk_dac -waveform {0.000 5.000} [get_ports dac_clk]
 
-set_output_delay -max -clock clk_dac 2  [get_ports dac_out]
-set_output_delay -min -clock clk_dac 0.1  [get_ports dac_out]
+set_output_delay -max -clock clk_dac 9  [get_ports dac_out]
+set_output_delay -min -clock clk_dac -1.5  [get_ports dac_out]
+set_multicycle_path -setup -from [get_clocks clk_dac] -to [get_ports dac_out] 2
 
 set_false_path -from [get_clocks clk_0] -to [get_clocks clk_dac]
 set_false_path -from [get_ports rst_n]
@@ -49,6 +50,6 @@ set_property PACKAGE_PIN B2 [get_ports {dac_out[10]}]
 set_property PACKAGE_PIN E1 [get_ports {dac_out[11]}]
 set_property PACKAGE_PIN F2 [get_ports {dac_out[12]}]
 set_property PACKAGE_PIN F3 [get_ports {dac_out[13]}]
-set_property PACKAGE_PIN K3 [get_ports {dac_out[14]}]
-set_property PACKAGE_PIN K2 [get_ports {dac_out[15]}]
+#set_property PACKAGE_PIN K3 [get_ports {dac_out[14]}]
+#set_property PACKAGE_PIN K2 [get_ports {dac_out[15]}]
 set_property IOSTANDARD LVCMOS33 [get_ports dac_out]
