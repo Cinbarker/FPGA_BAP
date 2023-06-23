@@ -102,7 +102,7 @@ architecture bench of control_and_math_tb is
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
 
-  constant clock_period : time := 50 ns;
+  constant clock_period : time := 10 ns;
   signal stop_the_clock : boolean;
   
     -- siggen signals

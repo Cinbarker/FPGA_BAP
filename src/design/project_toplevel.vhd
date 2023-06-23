@@ -97,6 +97,7 @@ component uart_communication
         weights_phase : in custom_fp_array(POLY_DIM*EXTRA_DIM-1 downto 0);
         input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
         input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
+        mult_valid_feat: out std_logic;
         sub_valid   : out std_logic_vector(1 downto 0);
         Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
         Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
@@ -144,6 +145,7 @@ component uart_communication
   signal bin_model_id                   : std_logic_vector(13 downto 0);
   
   signal sub_valid  : std_logic_vector(1 downto 0);
+  signal mult_valid_feat : std_logic;
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
   signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
@@ -230,6 +232,7 @@ dac_data(0) <= new_update;
            weights_phase           => math_phase_weights,
            input_Phase             => math_phasor_phase,
            input_Gain              => math_phasor_magnitude,
+           mult_valid_feat         => mult_valid_feat,
            sub_valid               => sub_valid,
            Control_Phase           => math_result_phasor_phase,
            Control_Gain            => math_result_phasor_magnitude,
