@@ -121,17 +121,6 @@ update_state: process (clk, reset, input_ready)
                 output_phasorcalc_ready <= '1';
                 System_phase<=phase_sum;
                 System_gain<=gain_sum;
-			when others =>
-			    input_mult_vect_a(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
-                input_mult_vect_b(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
-			    count <= (others=>'0');
-                gain_sum <= (others=>'0');
-                phase_sum <= (others=>'0');
-                input_scalar_mult_valid <= '0';
-                next_state <= calc_gain;
-                output_phasorcalc_ready <= '0';
-                System_phase<=(others=>'0');
-                System_gain<=(others=>'0');
 
 		end case;
   	end if;

@@ -26,8 +26,14 @@ port(
     input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
 	input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
     
+    
     mult_valid_feat: out std_logic;
     feature_gen_state: out std_logic_vector(1 downto 0);
+    
+    final_features   : inout  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
+    System_phase : inout std_logic_vector(FP_SIZE-1 downto 0);
+  	System_gain  : inout std_logic_vector(FP_SIZE-1 downto 0);
+  	
     sub_valid : out std_logic_vector(1 downto 0);
 	Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
 	Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
@@ -79,9 +85,7 @@ port(
   	Control_Phasor_valid : out std_logic);
 end component;
 
-signal final_features: custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
 signal Feature_Gen_Done, output_phasorcalc_ready : std_logic;
-signal System_gain, System_phase : std_logic_vector(FP_SIZE-1 downto 0);
 signal sub_reset, sub_reset1, sub_reset2, sub_reset3: std_logic;
 
 begin
