@@ -15,7 +15,8 @@ entity Feature_Gen is
 	input_features : in   custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
 	extra_feature_value : in  std_logic_vector(FP_SIZE-1 downto 0);
 	final_features   : out  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
-	Feature_Gen_Done : out std_logic
+	Feature_Gen_Done : out std_logic;
+	mult_valid_feat : out std_logic
     );
 end Feature_Gen;
 
@@ -45,7 +46,7 @@ architecture behavior of Feature_Gen is
     signal mult_valid, input_mult_valid: std_logic;
 
 begin
-
+mult_valid_feat<= mult_valid;
   update_state: process (clk, reset)
   begin
   if(reset='1' or Generate_Features='0') then
@@ -117,13 +118,7 @@ begin
 			     
 			     final_features <= output_features_temp;
 			     Feature_Gen_Done <= '1';
-			when others =>
-			    next_state <= start;
-                Feature_Gen_Done <= '0';
-                input_mult_vect <= input_features;
-                input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
-                next_count <= "00000";
-                input_mult_valid <= '0';
+
 
 
 		end case;

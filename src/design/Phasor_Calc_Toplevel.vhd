@@ -26,7 +26,7 @@ port(
     input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
 	input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
     
-    
+    mult_valid_feat: out std_logic;
     sub_valid : out std_logic_vector(1 downto 0);
 	Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
 	Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
@@ -45,7 +45,8 @@ component Feature_Gen is
 	input_features : in   custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
 	extra_feature_value : in  std_logic_vector(FP_SIZE-1 downto 0);
 	final_features   : out  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
-	Feature_Gen_Done : out std_logic
+	Feature_Gen_Done : out std_logic;
+	mult_valid_feat : out std_logic
     );
 end component;
 
@@ -82,6 +83,7 @@ signal System_gain, System_phase : std_logic_vector(FP_SIZE-1 downto 0);
 signal sub_reset, sub_reset1, sub_reset2, sub_reset3: std_logic;
 
 begin
+
 Feature_Gen_map: Feature_Gen port map
                 ( clk                 => clk,
                   reset               => sub_reset,
@@ -89,7 +91,9 @@ Feature_Gen_map: Feature_Gen port map
                   input_features      => input_features,
                   extra_feature_value => extra_feature_value,
                   final_features     => final_features,
-                  Feature_Gen_Done    => Feature_Gen_Done );
+                  Feature_Gen_Done    => Feature_Gen_Done,
+                   mult_valid_feat => mult_valid_feat);
+                   
 sub_valid(0) <= Feature_Gen_Done;
 System_Phasor_calc_map: System_Phasor_Calc port map
                 ( clk                     => clk,
