@@ -37,7 +37,8 @@ entity uart_communication is
         model_id            : out std_logic_vector(13 downto 0);
 
         -- Connections to Pre-processing Module
-        amplitude_estimate  : in std_logic_vector(FP_SIZE-1 downto 0)
+        tx_param   : in std_logic_vector(FP_SIZE-1 downto 0);
+        tx_select  : out std_logic_vector(7 downto 0)
     );
 end uart_communication;
 
@@ -90,9 +91,9 @@ architecture rtl of uart_communication is
                          PARAM_MAGNITUDE_WEIGHTS, PARAM_PHASE_WEIGHTS, PARAM_PHASOR_MAGNITUDE, PARAM_PHASOR_PHASE, PARAM_MODEL_ID, NONE);
     signal parameter : param_types;
 
-    type state_types is (WAIT_RX_CMD, RX_PARAM, SEND_UPDATE, TX_AMPLITUDE, RX_LED);
+    type state_types is (WAIT_RX_CMD, RX_PARAM, SEND_UPDATE, TX_AMPLITUDE, RX_LED, SEL_TX);
     signal state : state_types;
-
+    
 begin
     -- Connect uart componenet
     uart_component : uart
@@ -160,6 +161,8 @@ begin
                         case rx_data is         -- Execute command
                             when "01100001" =>  -- CMD: RX_LED                  [ascii: a]
                                 state <= RX_LED;
+                            when "01101100" =>  -- CMD: SEL_TX                  [ascii: l]
+                                state <= SEL_TX;
                             when "01100010" =>  -- CMD: TX_AMPLITUDE            [ascii: b]
                                 state <= TX_AMPLITUDE;
                             when "01100011" =>  -- CMD: RX frequencies          [ascii: c]
@@ -273,10 +276,12 @@ begin
                 when TX_AMPLITUDE =>    -- Send amplitude estimation over UART
                 if count_byte > 0 then
                     tx_data_stb <= '1'; -- Request TX
-                    tx_data <= amplitude_estimate(((count_byte*8) -1) downto ((count_byte-1)*8)); -- Send sections of data 1 byte at a time
+                    tx_data <= tx_param(((count_byte*8) -1) downto ((count_byte-1)*8)); -- Send sections of data 1 byte at a time
                     if tx_data_ack = '1' then   -- If TX ack received
                         count_byte <= count_byte - 1;
                         tx_data_stb <= '0';
+                    else
+                        count_byte <= count_byte;
                     end if;
                     state <= TX_AMPLITUDE;
                 else
@@ -289,6 +294,13 @@ begin
                         state <= WAIT_RX_CMD;
                     else
                         state <= RX_LED;
+                    end if;
+                when SEL_TX =>
+                    if rx_data_stb = '1' then   -- If value available
+                        tx_select <= rx_data;   
+                        state <= WAIT_RX_CMD;
+                    else
+                        state <= SEL_TX;
                     end if;
             end case;
         end if;

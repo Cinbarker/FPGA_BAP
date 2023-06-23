@@ -88,7 +88,8 @@ constant model_id_cmds: variable_array(2 downto 0) := ("01101010", "00000100", "
 begin
 
   -- Insert values for generic parameters !!
-  uut: uart_communication generic map ( baud                => 115200,
+  uut: uart_communication generic map ( baud          
+        => 115200,
                                         clock_frequency     => 100000000)
                              port map ( clk                 => clk,
                                         rst_n               => rst_n,

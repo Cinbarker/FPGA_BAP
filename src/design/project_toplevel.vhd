@@ -37,7 +37,8 @@ component uart_communication
           phasor_magnitude    : out custom_fp_array(FREQ_DIM-1 downto 0);
           phasor_phase        : out custom_fp_array(FREQ_DIM-1 downto 0);
           model_id            : out std_logic_vector(13 downto 0);
-          amplitude_estimate  : in std_logic_vector(FP_SIZE-1 downto 0)
+          tx_param            : in std_logic_vector(FP_SIZE-1 downto 0);
+          tx_select           : out std_logic_vector(7 downto 0)
       );
   end component;
 
@@ -147,9 +148,11 @@ component uart_communication
   
   signal sub_valid, feature_gen_state  : std_logic_vector(1 downto 0);
   signal mult_valid_feat : std_logic;
+  
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
-  signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
+  signal tx_param: std_logic_vector(FP_SIZE-1 downto 0);
+  signal tx_select: std_logic_vector(7 downto 0);
   
   signal dac_data : std_logic_vector(15 downto 0);
   signal dac_data_long : std_logic_vector(15 downto 0);
@@ -158,7 +161,30 @@ component uart_communication
   signal eight_empty    : std_logic_vector(7 downto 0);
 begin
 reset <= NOT(rst_n);
-amplitude_estimate <= gen_phasor_magnitudes(0);
+with tx_select select tx_param <=
+    gen_frequencies(0)(15 downto 0)          when x"01",
+    gen_frequencies(1)(15 downto 0)          when x"02",
+    gen_frequencies(2)(15 downto 0)          when x"03",
+    gen_phasor_magnitudes(0)    when x"04",
+    gen_phasor_magnitudes(1)    when x"05",
+    gen_phasor_magnitudes(2)    when x"06",
+    gen_phasor_phases(0)        when x"07",
+    gen_phasor_phases(1)        when x"08",
+    gen_phasor_phases(2)        when x"09",
+    bin_extra_feature           when x"10",
+    "00" & bin_model_id                when x"11",
+    new_frequencies(0)(15 downto 0)          when x"12",
+    new_frequencies(1)(15 downto 0)          when x"13",
+    new_frequencies(2)(15 downto 0)          when x"14",
+    new_polynomial_features(0,0)when x"15",
+    new_extra_feature           when x"16",
+    new_magnitude_weights(0)    when x"17",
+    new_phase_weights(0)        when x"18",
+    new_phasor_magnitude(0)     when x"19",
+    new_phasor_phase(0)         when x"20",
+    "00" & new_model_id                when x"21",
+    x"1234"                     when others;
+
 dac_data <= math_result_phasor_magnitude;
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
@@ -177,7 +203,8 @@ dac_data <= math_result_phasor_magnitude;
                                         phasor_magnitude    => new_phasor_magnitude,
                                         phasor_phase        => new_phasor_phase,
                                         model_id            => new_model_id,
-                                        amplitude_estimate  => amplitude_estimate );
+                                        tx_param            => tx_param,
+                                        tx_select           => tx_select);
                                         
   ctrl: control_module port map (clk                          => clk,
                                  reset                        => reset,
@@ -228,7 +255,7 @@ dac_data <= math_result_phasor_magnitude;
            weights_phase           => math_phase_weights,
            input_Phase             => math_phasor_phase,
            input_Gain              => math_phasor_magnitude,
-           feature_gen_state       =>feature_gen_state,
+           feature_gen_state       => feature_gen_state,
            mult_valid_feat         => mult_valid_feat,
            sub_valid               => sub_valid,
            Control_Phase           => math_result_phasor_phase,
