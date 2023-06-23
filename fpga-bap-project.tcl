@@ -28,7 +28,8 @@ proc checkRequiredFiles { origin_dir} {
   }
 
   set files [list \
- "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/X_X_Multiplier/X_X_Multiplier.xci"]"\
@@ -49,11 +50,12 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/Time_Signal_Generation.vhd"]"\
  "[file normalize "$origin_dir/src/design/Vector_Vector_Scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/control_module.vhd"]"\
- "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/uart.vhd"]"\
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
+ "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
  "[file normalize "$origin_dir/src/design/pulse_synchronizer.vhd"]"\
@@ -62,8 +64,6 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
  "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
- "[file normalize "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"]"\
- "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
  "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
@@ -240,7 +240,8 @@ if {[string equal [get_filesets -quiet sources_1] ""]} {
 # Set 'sources_1' fileset object
 set obj [get_filesets sources_1]
 set files [list \
- [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
+ [file normalize "${origin_dir}/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"] \
+ [file normalize "${origin_dir}/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"] \
  [file normalize "${origin_dir}/src/IP/fp_adder_16_bit/fp_adder_16_bit.xci"] \
  [file normalize "${origin_dir}/src/IP/fp_mult_16_bit/fp_mult_16_bit.xci"] \
  [file normalize "${origin_dir}/src/IP/X_X_Multiplier/X_X_Multiplier.xci"] \
@@ -261,11 +262,12 @@ set files [list \
  [file normalize "${origin_dir}/src/design/Time_Signal_Generation.vhd"] \
  [file normalize "${origin_dir}/src/design/Vector_Vector_Scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/control_module.vhd"] \
- [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/uart.vhd"] \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
+ [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
  [file normalize "${origin_dir}/src/design/pulse_synchronizer.vhd"] \
@@ -278,7 +280,16 @@ set files [list \
 add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+set file "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -427,11 +438,6 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/design/dac_buffer.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/uart.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
@@ -448,6 +454,20 @@ set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/design/project_toplevel.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+set file "$origin_dir/src/design/dac_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -510,48 +530,6 @@ set_property -name "dataflow_viewer_settings" -value "min_width=16" -objects $ob
 set_property -name "elab_link_dcps" -value "0" -objects $obj
 set_property -name "top" -value "project_toplevel" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
-
-# Set 'sources_1' fileset object
-set obj [get_filesets sources_1]
-set files [list \
- [file normalize "${origin_dir}/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"] \
-]
-add_files -norecurse -fileset $obj $files
-
-# Set 'sources_1' fileset file properties for remote files
-set file "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-
-# Set 'sources_1' fileset file properties for local files
-# None
 
 # Create 'constrs_1' fileset (if not found)
 if {[string equal [get_filesets -quiet constrs_1] ""]} {

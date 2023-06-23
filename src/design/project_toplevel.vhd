@@ -11,13 +11,8 @@ entity project_toplevel is
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
         led                 : out std_logic_vector(7 downto 0);
-<<<<<<< HEAD
         dac_clk             : out std_logic;
         dac_out             : out std_logic_vector(15 downto 0));
-=======
-        dac_clk             : in std_logic;
-        dac_out             : out std_logic_vector(13 downto 0));
->>>>>>> da3537fb3685f04b4f67ef50b48570db36ab8775
 end project_toplevel;
 
 architecture behavioral of project_toplevel is
@@ -102,19 +97,11 @@ component uart_communication
         weights_phase : in custom_fp_array(POLY_DIM*EXTRA_DIM-1 downto 0);
         input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
         input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
+        sub_valid   : out std_logic_vector(1 downto 0);
         Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
         Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
     	Control_Phasor_valid : out std_logic
   	);
-  end component;
-  
-  component clk_wiz_0 is
-  Port ( 
-    clk_out1 : out STD_LOGIC;
-    reset : in STD_LOGIC;
-    locked : out STD_LOGIC;
-    clk_in1 : in STD_LOGIC
-  );
   end component;
   
   component dac_buffer is
@@ -156,30 +143,25 @@ component uart_communication
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
   
+  signal sub_valid  : std_logic_vector(1 downto 0);
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
   signal amplitude_estimate: std_logic_vector(FP_SIZE-1 downto 0);
-<<<<<<< HEAD
   
   signal dac_data : std_logic_vector(15 downto 0);
-=======
-  signal dac_clk_PLL, clock_PLL_locked: std_logic;
-  signal dac_data : std_logic_vector(13 downto 0);
->>>>>>> da3537fb3685f04b4f67ef50b48570db36ab8775
   signal dac_data_long : std_logic_vector(15 downto 0);
- signal sub_valid_phasor: std_logic_vector(1 downto 0);
+  
+  signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
+  signal eight_empty    : std_logic_vector(7 downto 0);
 begin
 reset <= NOT(rst_n);
-<<<<<<< HEAD
 
-dac_data(15 downto 4) <= bin_model_id(13 downto 2);
+dac_data(15 downto 6) <= math_phasor_magnitude(13 downto 4);
+dac_data(5 downto 4) <= sub_valid;
 dac_data(3) <= math_start;
 dac_data(2) <= math_valid;
 dac_data(1) <= bin_calc_en;
 dac_data(0) <= new_update;
-=======
-  dac_data <= dac_data_long(15 downto 2);
->>>>>>> da3537fb3685f04b4f67ef50b48570db36ab8775
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)
@@ -248,22 +230,35 @@ dac_data(0) <= new_update;
            weights_phase           => math_phase_weights,
            input_Phase             => math_phasor_phase,
            input_Gain              => math_phasor_magnitude,
-           sub_valid               => sub_valid_phasor,
+           sub_valid               => sub_valid,
            Control_Phase           => math_result_phasor_phase,
            Control_Gain            => math_result_phasor_magnitude,
            Control_Phasor_valid    => math_valid);
            
-  DACclock_PLL : clk_wiz_0 port map(
-                                        clk_out1 => dac_clk_PLL,
-                                        reset => reset,
-                                        locked => clock_PLL_locked,
-                                        clk_in1 => dac_clk
-                                    );
-  
-  dac_buff: dac_buffer port map (   clk         => clk,
-                                    rst_n       => rst_n,
-                                    dac_clk     => dac_clk_PLL,
-                                    dac_data    => dac_data,
-                                    dac_out     => dac_out);
-                                    
+--  dac_buff: dac_buffer port map (   clk         => clk,
+--                                    rst_n       => rst_n,
+--                                    dac_clk     => dac_clk,
+--                                    dac_data    => dac_data,
+--                                    dac_out     => dac_out);
+  dac_clk <= clk;
+  dac_out <= dac_data;
+  process(clk)
+    begin
+        if rst_n = '0' then                      
+            bin_size_counter    <= 0;
+        elsif rising_edge(clk) then
+            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
+                bin_update <= '1';
+                bin_size_counter <= 0;
+            else
+                bin_update <= '0';
+                bin_size_counter <= bin_size_counter + 1;
+            end if;
+            if bin_size_counter <= SETTLING_CYCLES then
+                bin_calc_en <= '1';
+            else
+                bin_calc_en <= '0';
+            end if;
+        end if;
+    end process;  
 end behavioral;
