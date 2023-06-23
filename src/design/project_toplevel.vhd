@@ -158,15 +158,8 @@ component uart_communication
   signal eight_empty    : std_logic_vector(7 downto 0);
 begin
 reset <= NOT(rst_n);
-
-dac_data(15 downto 9) <= math_result_phasor_magnitude(13 downto 7);
-dac_data(8 downto 7) <= feature_gen_state;
-dac_data(6) <= mult_valid_feat;
-dac_data(5 downto 4) <= sub_valid;
-dac_data(3) <= math_start;
-dac_data(2) <= math_valid;
-dac_data(1) <= bin_calc_en;
-dac_data(0) <= new_update;
+amplitude_estimate <= gen_phasor_magnitudes(0);
+dac_data <= math_result_phasor_magnitude;
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)

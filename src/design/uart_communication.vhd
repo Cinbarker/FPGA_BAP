@@ -273,7 +273,7 @@ begin
                 when TX_AMPLITUDE =>    -- Send amplitude estimation over UART
                 if count_byte > 0 then
                     tx_data_stb <= '1'; -- Request TX
-                    tx_data <= x"52"; -- amplitude_estimate(((count_byte*8) -1) downto ((count_byte-1)*8)); -- Send sections of data 1 byte at a time
+                    tx_data <= amplitude_estimate(((count_byte*8) -1) downto ((count_byte-1)*8)); -- Send sections of data 1 byte at a time
                     if tx_data_ack = '1' then   -- If TX ack received
                         count_byte <= count_byte - 1;
                         tx_data_stb <= '0';

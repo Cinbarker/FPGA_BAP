@@ -1,7 +1,7 @@
 library IEEE;
 use IEEE.Std_logic_1164.all;
 use IEEE.Numeric_Std.all;
-use work.mytypes_pkg.all;
+use work.my_types_pkg.all;
 
 entity uart_communication_tb is
 end;
@@ -84,6 +84,7 @@ constant model_id_cmds: variable_array(2 downto 0) := ("01101010", "00000100", "
 
 
 
+
 begin
 
   -- Insert values for generic parameters !!
@@ -111,7 +112,7 @@ begin
     -- Put initialisation code here
 
     rst_n <= '1';
-    amplitude_estimate <= "10011001000100011010101000101000"; -- 10011001 00010001 10101010 00101000
+    amplitude_estimate <= "1001100100010001"; -- 10011001 00010001
     transmit_data <= "00000000";
     uart_rx <= '1'; -- UART Idle
     wait for bit_period;
