@@ -159,7 +159,9 @@ component uart_communication
 begin
 reset <= NOT(rst_n);
 
-dac_data(15 downto 6) <= math_result_phasor_magnitude(13 downto 4);
+dac_data(15 downto 9) <= math_result_phasor_magnitude(13 downto 7);
+dac_data(8 downto 7) <= feature_gen_state;
+dac_data(6) <= mult_valid_feat;
 dac_data(5 downto 4) <= sub_valid;
 dac_data(3) <= math_start;
 dac_data(2) <= math_valid;
