@@ -16,7 +16,8 @@ entity Feature_Gen is
 	extra_feature_value : in  std_logic_vector(FP_SIZE-1 downto 0);
 	final_features   : out  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
 	Feature_Gen_Done : out std_logic;
-	mult_valid_feat : out std_logic
+	mult_valid_feat : out std_logic;
+	feature_gen_state: out std_logic_vector(1 downto 0)
     );
 end Feature_Gen;
 
@@ -78,6 +79,7 @@ mult_valid_feat<= mult_valid;
                 input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
                 next_count <= "00000";
                 input_mult_valid <= '0';
+                feature_gen_state <= "00";
 			when start =>
 
                 input_mult_vect <= input_features;
@@ -87,6 +89,7 @@ mult_valid_feat<= mult_valid;
                 next_state <= calc;
                 input_mult_valid <= '1';
                 next_count <= count+1;
+                feature_gen_state <= "01";
                 
     		when calc =>
     		    if mult_valid='1' then
@@ -105,7 +108,7 @@ mult_valid_feat<= mult_valid;
                     end if;
                     
                     Feature_Gen_Done <= '0';
-                    
+                    feature_gen_state <= "10";
                 else
                     next_state <= calc;
 --                    input_mult_vect <= temp_feat_partial; Leads to error when first coming from start because input should be input features
@@ -115,7 +118,7 @@ mult_valid_feat<= mult_valid;
                 
                 
 			when done =>
-			     
+			     feature_gen_state <= "11";
 			     final_features <= output_features_temp;
 			     Feature_Gen_Done <= '1';
 

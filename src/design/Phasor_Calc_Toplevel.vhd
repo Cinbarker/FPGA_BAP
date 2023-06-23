@@ -27,6 +27,7 @@ port(
 	input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
     
     mult_valid_feat: out std_logic;
+    feature_gen_state: out std_logic_vector(1 downto 0);
     sub_valid : out std_logic_vector(1 downto 0);
 	Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
 	Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
@@ -46,7 +47,8 @@ component Feature_Gen is
 	extra_feature_value : in  std_logic_vector(FP_SIZE-1 downto 0);
 	final_features   : out  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
 	Feature_Gen_Done : out std_logic;
-	mult_valid_feat : out std_logic
+	mult_valid_feat : out std_logic;
+	feature_gen_state: out std_logic_vector(1 downto 0)
     );
 end component;
 
@@ -92,6 +94,7 @@ Feature_Gen_map: Feature_Gen port map
                   extra_feature_value => extra_feature_value,
                   final_features     => final_features,
                   Feature_Gen_Done    => Feature_Gen_Done,
+                  feature_gen_state   => feature_gen_state,
                    mult_valid_feat => mult_valid_feat);
                    
 sub_valid(0) <= Feature_Gen_Done;
