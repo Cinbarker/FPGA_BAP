@@ -25,7 +25,9 @@ port(
 	weights_phase : in custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
     input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
 	input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
-
+    
+    
+    sub_valid : out std_logic_vector(1 downto 0);
 	Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
 	Control_Gain : out std_logic_vector(FP_SIZE-1 downto 0);
   	Control_Phasor_valid : out std_logic
@@ -88,7 +90,7 @@ Feature_Gen_map: Feature_Gen port map
                   extra_feature_value => extra_feature_value,
                   final_features     => final_features,
                   Feature_Gen_Done    => Feature_Gen_Done );
-
+sub_valid(0) <= Feature_Gen_Done;
 System_Phasor_calc_map: System_Phasor_Calc port map
                 ( clk                     => clk,
                  reset                   => sub_reset,
@@ -99,6 +101,8 @@ System_Phasor_calc_map: System_Phasor_Calc port map
                  System_phase                   => System_phase,
                  System_gain                    => System_gain,
                  output_phasorcalc_ready => output_phasorcalc_ready );
+                 
+sub_valid(1) <= output_phasorcalc_ready;
 
 Control_Phasor_Generation_map: Control_Phasor_Generation port map(
                     clk => clk,
