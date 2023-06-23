@@ -99,6 +99,11 @@ component uart_communication
         input_Phase   : in  std_logic_vector(FP_SIZE-1 downto 0);
         input_Gain : in std_logic_vector(FP_SIZE-1 downto 0);
         feature_gen_state : out std_logic_vector(1 downto 0);
+
+        final_features   : inout  custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
+        System_phase : inout std_logic_vector(FP_SIZE-1 downto 0);
+        System_gain  : inout std_logic_vector(FP_SIZE-1 downto 0);
+
         mult_valid_feat: out std_logic;
         sub_valid   : out std_logic_vector(1 downto 0);
         Control_Phase   : out  std_logic_vector(FP_SIZE-1 downto 0);
@@ -148,7 +153,11 @@ component uart_communication
   
   signal sub_valid, feature_gen_state  : std_logic_vector(1 downto 0);
   signal mult_valid_feat : std_logic;
-  
+
+  signal final_features   : custom_fp_array(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
+  signal System_phase :  std_logic_vector(FP_SIZE-1 downto 0);
+  signal System_gain  :  std_logic_vector(FP_SIZE-1 downto 0);
+
   -- comm signals
   signal transmit_data: std_logic_vector(7 downto 0);
   signal tx_param: std_logic_vector(FP_SIZE-1 downto 0);
