@@ -61,9 +61,8 @@ update_state: process (clk, reset, input_ready)
 		if(current_state /= phase_done) then
 		count <= count + 1;
 		end if;
-  	end if;
-  	
-  	   case (current_state) is
+		
+		case (current_state) is
 			when start =>
 			    input_mult_vect_a(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
                 input_mult_vect_b(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
@@ -135,6 +134,9 @@ update_state: process (clk, reset, input_ready)
                 System_gain<=(others=>'0');
 
 		end case;
+  	end if;
+  	
+  	   
 		
   end if;
   end process update_state;
