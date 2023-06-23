@@ -35,10 +35,10 @@ architecture behavior of Feature_Gen is
       );
   end component;
 
-	type state is (idle,start, calc, done);
+	type state is (idle,start, calc, wait_result, done);
 	signal current_state : state ;
 	signal next_state : state;
-	signal count, next_count : unsigned(4 downto 0);
+	signal count, next_count : integer;
 	signal input_mult_vect : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0); -- partial features
 	signal input_mult1 : std_logic_vector(FP_SIZE-1 downto 0);                  -- the extra feature
 	signal feat_partial, temp_feat_partial : custom_fp_array((INPUT_FEATURE_LENGTH-1) downto 0);
@@ -47,85 +47,95 @@ architecture behavior of Feature_Gen is
     signal mult_valid, input_mult_valid: std_logic;
 
 begin
+
 mult_valid_feat<= mult_valid;
-  update_state: process (clk, reset)
+
+  update_state: process (clk)
   begin
-  if(reset='1' or Generate_Features='0') then
-    current_state <= idle;
-    count <= "00000";
-    output_features_temp<= (others => (others=>'0'));
-  else
- 	if rising_edge(clk) then
-
-		if(current_state /= done) then
-		  output_features_temp <= output_features_next(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
-		else
-		end if;
-		count <= next_count;
-		current_state <= next_state;
-
+    if rising_edge(clk) then
+        if(reset='1' or Generate_Features='0') then
+            current_state <= idle;
+            count <= 0;
+            output_features_temp<= (others => (others=>'0'));
+        else
+            count <= next_count;
+            current_state <= next_state;
+            
+            if(current_state /= done) then
+              output_features_temp <= output_features_next(INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE-1 downto 0);
+            end if;
   	end if;
+        case (current_state) is
+                when idle =>
+                    next_state <= start;
+                    Feature_Gen_Done <= '0';
+                    input_mult_vect <= input_features;
+                    input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
+                    next_count <= 0;
+                    input_mult_valid <= '0';
+                    feature_gen_state <= "00";
+                when start =>
+    
+                    input_mult_vect <= input_features;
+                    input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
+                    
+                    Feature_Gen_Done <= '0';
+                    next_state <= calc;
+                    input_mult_valid <= '1';
+                    next_count <= count+1;
+                    feature_gen_state <= "01";
+                    
+                when calc =>
+                        next_count <= count + 1;
+
+                        temp_feat_partial <= feat_partial;
+                        input_mult_vect <= feat_partial; --temp_feat_partial;
+                        input_mult_valid <= '1';
+                        input_mult1 <= extra_feature_value;
+                        next_state <= wait_result;
+                when wait_result=>
+                    
+                    if mult_valid='1' and input_mult_valid = '1'  then
+                            
+                            output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
+                            output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
+                            temp_feat_partial <= feat_partial;
+    
+                            input_mult_valid <= '0';
+    
+                            Feature_Gen_Done <= '0';
+                            feature_gen_state <= "10";
+                            
+                        elsif input_mult_valid = '0' and mult_valid ='0' then
+                            if(count<ORDER_EXTRA_FEATURE+1)then
+                                next_state <= calc;
+                            else
+                                next_state <=done;
+                            end if;
+        --                  input_mult_vect <= temp_feat_partial; Leads to error when first coming from start because input should be input features
+                            input_mult1 <= extra_feature_value;
+                            input_mult_valid <= '0';
+                        else
+                            --input_mult_valid <= '1';
+                        end if;
+                    
+                    
+                when done =>
+                     feature_gen_state <= "11";
+                     final_features <= output_features_temp;
+                     Feature_Gen_Done <= '1';
+    
+            end case;
   end if;
   end process update_state;
 
 
-  execute_state: process (reset,current_state,mult_valid)
-  begin
-   case (current_state) is
-            when idle =>
-                next_state <= start;
-                Feature_Gen_Done <= '0';
-                input_mult_vect <= input_features;
-                input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
-                next_count <= "00000";
-                input_mult_valid <= '0';
-                feature_gen_state <= "00";
-			when start =>
-
-                input_mult_vect <= input_features;
-                input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
-                
-                Feature_Gen_Done <= '0';
-                next_state <= calc;
-                input_mult_valid <= '1';
-                next_count <= count+1;
-                feature_gen_state <= "01";
-                
-    		when calc =>
-    		    if mult_valid='1' then
-    		  		next_count <= count + 1;
-                    output_features_next(INPUT_FEATURE_LENGTH*(ORDER_EXTRA_FEATURE+1)-1 downto INPUT_FEATURE_LENGTH) <= output_features_temp;
-                    output_features_next(INPUT_FEATURE_LENGTH-1 downto 0) <= feat_partial;
-                    temp_feat_partial <= feat_partial;
-                    input_mult_vect <= feat_partial; --temp_feat_partial;
-                    input_mult_valid <= '0';
-                    input_mult1 <= extra_feature_value;
-                    
-                    if(count<ORDER_EXTRA_FEATURE)then
-                        next_state <= calc;
-                    else
-                        next_state <=done;
-                    end if;
-                    
-                    Feature_Gen_Done <= '0';
-                    feature_gen_state <= "10";
-                else
-                    next_state <= calc;
---                    input_mult_vect <= temp_feat_partial; Leads to error when first coming from start because input should be input features
-                    input_mult1 <= extra_feature_value;
-                    input_mult_valid <= '1';
-                end if;
-                
-                
-			when done =>
-			     feature_gen_state <= "11";
-			     final_features <= output_features_temp;
-			     Feature_Gen_Done <= '1';
-
-
-
-		end case;
-		end process execute_state;
+--  execute_state: process (reset,clk)
+--  begin
+--  if rising_edge(clk) then
+   
+--		end if;
+--		end process execute_state;
 
 uu1: vector_scalar_multiplier port map(
     clk => clk,
