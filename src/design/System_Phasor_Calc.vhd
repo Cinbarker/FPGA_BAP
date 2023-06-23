@@ -62,13 +62,8 @@ update_state: process (clk, reset, input_ready)
 		count <= count + 1;
 		end if;
   	end if;
-  end if;
-  end process update_state;
-
-
-  execute_state: process (reset,current_state,count, in_features, weights_gain, weights_phase, output_scalar_mult_valid)
-  begin
-   case (current_state) is
+  	
+  	   case (current_state) is
 			when start =>
 			    input_mult_vect_a(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
                 input_mult_vect_b(VECTOR_WIDTH-1 downto INPUT_FEATURE_LENGTH*ORDER_EXTRA_FEATURE)<= (others => (others =>'0'));
@@ -140,7 +135,15 @@ update_state: process (clk, reset, input_ready)
                 System_gain<=(others=>'0');
 
 		end case;
-		end process execute_state;
+		
+  end if;
+  end process update_state;
+
+
+--  execute_state: process (reset,current_state,count, in_features, weights_gain, weights_phase, output_scalar_mult_valid)
+--  begin
+
+--		end process execute_state;
 
 multiplier_feat_weight: Vector_Vector_Scalar_multiplier
 		port map(
