@@ -23,18 +23,18 @@ package my_types_pkg is
 
   constant NUM_FREQS : integer := 3;
   -- Vector Vector scalar multiplier only works for 64>ORDER_EXTRA_FEATURE*INPUT_FEATURE_LENGTH
-  constant ORDER_EXTRA_FEATURE : integer := 5;
-  constant INPUT_FEATURE_LENGTH : integer := 10;
+  constant ORDER_EXTRA_FEATURE : integer := 8;
+  constant INPUT_FEATURE_LENGTH : integer := 8;
   constant VECTOR_WIDTH : integer := 64; --Max value is 64
   constant ADDER_TREE_DEPTH_SCALAR: integer := 6;
   constant INPUT_SIZE_ADDER_TREE: integer := 2**ADDER_TREE_DEPTH_SCALAR;
 
   -- Nic's types
-  constant POLY_DIM : integer := 10;  -- Order of initial feature vector polynomial
-  constant EXTRA_DIM : integer := 5;  -- Amount of times to multiply the initial feature vector with the extra feature
+  constant POLY_DIM : integer := 8;  -- Order of initial feature vector polynomial
+  constant EXTRA_DIM : integer := 8;  -- Amount of times to multiply the initial feature vector with the extra feature
   constant FREQ_DIM : integer := 3;   -- Amount of frequencies used
-  constant BIN_SIZE : integer := 4096; -- Size of FFT bin on PC
-  constant SETTLING_CYCLES : integer := 50; -- Amount of extra cycles to include in each bin for settling
+  constant BIN_SIZE : integer := 16384; -- Size of FFT bin on PC
+  constant SETTLING_CYCLES : integer := 2000; -- Amount of extra cycles to include in each bin for settling
   type custom_fp_array_2D is array (natural range <>, natural range <>) of std_logic_vector(FP_SIZE-1 downto 0);
 
 end package;
