@@ -91,6 +91,9 @@ architecture bench of uart_and_control_tb is
   signal bin_update                     : std_logic;
   signal bin_extra_feature              : std_logic_vector(FP_SIZE-1 downto 0);
   signal bin_model_id                   : std_logic_vector(13 downto 0);
+  
+      signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
+    signal bin_calc_en : std_logic;
 
   constant clock_period: time := 10 ns;
   constant bit_period : time := ((1.0 / real(115200)) * real(1e9)) * 1 ns;
@@ -370,6 +373,25 @@ rst_n <= NOT(reset);
     stop_the_clock <= TRUE;
     wait;
   end process;
+process(clk)
+    begin
+        if rst_n = '0' then                      
+            bin_size_counter    <= 0;
+        elsif rising_edge(clk) then
+            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
+                bin_update <= '1';
+                bin_size_counter <= 0;
+            else
+                bin_update <= '0';
+                bin_size_counter <= bin_size_counter + 1;
+            end if;
+            if bin_size_counter <= SETTLING_CYCLES then
+                bin_calc_en <= '1';
+            else
+                bin_calc_en <= '0';
+            end if;
+        end if;
+    end process;  
 
   clocking: process
   begin

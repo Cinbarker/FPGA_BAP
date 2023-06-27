@@ -56,12 +56,22 @@ port(
     S : out STD_LOGIC_VECTOR ( 17 downto 0 )
   );
   end component;
+  
+    component Adder_For_DC_Comp is
+  Port ( 
+    A : in STD_LOGIC_VECTOR ( 17 downto 0 );
+    CLK : in STD_LOGIC;
+    CE : in STD_LOGIC;
+    S : out STD_LOGIC_VECTOR ( 18 downto 0 )
+  );
+  end component;
 
   	signal single_freq_sig: custom_fp_array_16_bit(NUM_FREQS-1 downto 0);
   	--signal single_freq_sig_VALID: custom_array_1_bit(NUM_FREQS-1 downto 0);
   	signal double_freq_sig1: std_logic_vector(16 downto 0);
   	signal double_freq_sig2: std_logic_vector(16 downto 0);
   	signal quad_freq_sig: std_logic_vector(17 downto 0);
+  	signal quad_freq_sig_plus_DC: std_logic_vector(18 downto 0);
 begin
 
 generate_time_sigs: for i in NUM_FREQS-1 downto 0 generate
@@ -96,6 +106,14 @@ clk => clk,
     S => quad_freq_sig
 );
 
-DAC_IN <= quad_freq_sig(17 downto 2);
+add_DC_COMP:   Adder_For_DC_Comp port map ( 
+    A => quad_freq_sig,
+    CLK  => clk,
+    CE  => '1',
+    S  => quad_freq_sig_plus_DC
+  );
+  
+
+DAC_IN <= quad_freq_sig_plus_DC(17 downto 2);
 
 end Behavioral;

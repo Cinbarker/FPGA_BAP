@@ -242,7 +242,7 @@ siggen: Multiple_time_signal_generation
     wait for clock_period;
     new_update <= '0';
 
-    wait for clock_period*5500;
+    wait for clock_period*20000;
     stop_the_clock <= TRUE;
     wait;
   end process;

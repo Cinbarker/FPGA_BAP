@@ -64,6 +64,7 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_divider_X_bit/fp_divider_X_bit.xci"]"\
  "[file normalize "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"]"\
+ "[file normalize "$origin_dir/src/IP/Adder_For_DC_Comp/Adder_For_DC_Comp.xci"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
@@ -232,7 +233,7 @@ set_property -name "webtalk.questa_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "20" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "511" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "521" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -544,6 +545,27 @@ add_files -norecurse -fileset $obj $files
 
 # Set 'sources_1' fileset file properties for remote files
 set file "$origin_dir/src/IP/fp_subtract_X_bit/fp_subtract_X_bit.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+
+# Set 'sources_1' fileset file properties for local files
+# None
+
+# Set 'sources_1' fileset object
+set obj [get_filesets sources_1]
+set files [list \
+ [file normalize "${origin_dir}/src/IP/Adder_For_DC_Comp/Adder_For_DC_Comp.xci"] \
+]
+add_files -norecurse -fileset $obj $files
+
+# Set 'sources_1' fileset file properties for remote files
+set file "$origin_dir/src/IP/Adder_For_DC_Comp/Adder_For_DC_Comp.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj

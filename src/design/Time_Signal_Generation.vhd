@@ -38,7 +38,7 @@ component dds_compiler_0
     s_axis_phase_tvalid : in STD_LOGIC;
     s_axis_phase_tdata : in STD_LOGIC_VECTOR ( 63 downto 0 );
     m_axis_data_tvalid : out STD_LOGIC;
-    m_axis_data_tdata : out STD_LOGIC_VECTOR ( 15 downto 0 )
+    m_axis_data_tdata : out STD_LOGIC_VECTOR ( 15 downto 0 ) -- 2s complemetn 16 bit
   );
   end component;
 
