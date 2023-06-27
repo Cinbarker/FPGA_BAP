@@ -242,7 +242,7 @@ siggen: Multiple_time_signal_generation
         if reset = '1' then                      
             bin_size_counter    <= 0;
         elsif rising_edge(clk) then
-            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
+            if bin_size_counter >= 1024 + SETTLING_CYCLES - 1 then
                 bin_update <= '1';
                 bin_size_counter <= 0;
             else

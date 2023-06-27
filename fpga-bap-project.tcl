@@ -54,23 +54,26 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/src/design/uart_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/vector_scalar_multiplier.vhd"]"\
  "[file normalize "$origin_dir/src/design/project_toplevel.vhd"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
- "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
+ "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
+ "[file normalize "$origin_dir/src/design/raw_adc_usb_stream.vhd"]"\
+ "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
  "[file normalize "$origin_dir/src/design/adc_buffer.vhd"]"\
  "[file normalize "$origin_dir/src/design/adc_to_usb_stream.vhd"]"\
  "[file normalize "$origin_dir/src/design/pulse_synchronizer.vhd"]"\
- "[file normalize "$origin_dir/src/design/usb_communication.vhd"]"\
  "[file normalize "$origin_dir/src/design/usb_stream_headers.vhd"]"\
- "[file normalize "$origin_dir/src/design/usb_dip_counter.vhd"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"]"\
- "[file normalize "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"]"\
+ "[file normalize "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"]"\
+ "[file normalize "$origin_dir/src/design/dac_buffer.vhd"]"\
  "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"\
  "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"\
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
+ "[file normalize "$origin_dir/constraints/project_toplevel_v2.xdc"]"\
+ "[file normalize "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"]"\
+ "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"]"\
- "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/individual_tbs/uart_communication_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/usb_communication_tb.vhd"]"\
@@ -229,7 +232,7 @@ set_property -name "webtalk.questa_export_sim" -value "22" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "22" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "22" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "22" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "416" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "419" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -266,16 +269,17 @@ set files [list \
  [file normalize "${origin_dir}/src/design/uart_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/vector_scalar_multiplier.vhd"] \
  [file normalize "${origin_dir}/src/design/project_toplevel.vhd"] \
- [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
- [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
+ [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
+ [file normalize "${origin_dir}/src/design/raw_adc_usb_stream.vhd"] \
+ [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
  [file normalize "${origin_dir}/src/design/adc_buffer.vhd"] \
  [file normalize "${origin_dir}/src/design/adc_to_usb_stream.vhd"] \
  [file normalize "${origin_dir}/src/design/pulse_synchronizer.vhd"] \
- [file normalize "${origin_dir}/src/design/usb_communication.vhd"] \
  [file normalize "${origin_dir}/src/design/usb_stream_headers.vhd"] \
- [file normalize "${origin_dir}/src/design/usb_dip_counter.vhd"] \
- [file normalize "${origin_dir}/src/IP/fifo_generator_1/fifo_generator_1.xci"] \
- [file normalize "${origin_dir}/src/IP/fifo_generator_0/fifo_generator_0.xci"] \
+ [file normalize "${origin_dir}/src/IP/fifo_generator_2/fifo_generator_2.xci"] \
+ [file normalize "${origin_dir}/src/design/dac_buffer.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
@@ -458,7 +462,7 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
@@ -467,10 +471,29 @@ if { ![get_property "is_locked" $file_obj] } {
   set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
 }
 
-set file "$origin_dir/src/design/dac_buffer.vhd"
+set file "$origin_dir/src/design/usb_communication.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/raw_adc_usb_stream.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/design/usb_dip_counter.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
+set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
 
 set file "$origin_dir/src/design/adc_buffer.vhd"
 set file [file normalize $file]
@@ -487,38 +510,24 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/design/usb_communication.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
 set file "$origin_dir/src/design/usb_stream_headers.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
-set file "$origin_dir/src/design/usb_dip_counter.vhd"
+set file "$origin_dir/src/IP/fifo_generator_2/fifo_generator_2.xci"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
+set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
+set_property -name "registered_with_manager" -value "1" -objects $file_obj
+if { ![get_property "is_locked" $file_obj] } {
+  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
+}
+
+set file "$origin_dir/src/design/dac_buffer.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/IP/fifo_generator_1/fifo_generator_1.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
-
-set file "$origin_dir/src/IP/fifo_generator_0/fifo_generator_0.xci"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
-set_property -name "generate_files_for_reference" -value "0" -objects $file_obj
-set_property -name "registered_with_manager" -value "1" -objects $file_obj
-if { ![get_property "is_locked" $file_obj] } {
-  set_property -name "synth_checkpoint_mode" -value "Singular" -objects $file_obj
-}
 
 
 # Set 'sources_1' fileset file properties for local files
@@ -546,6 +555,7 @@ set file "$origin_dir/constraints/project_toplevel.xdc"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
+set_property -name "is_enabled" -value "0" -objects $file_obj
 
 # Add/Import constrs file and set constrs file properties
 set file "[file normalize "$origin_dir/constraints/au_plus_uart_led.xdc"]"
@@ -574,11 +584,26 @@ set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
 set_property -name "is_enabled" -value "0" -objects $file_obj
 
+# Add/Import constrs file and set constrs file properties
+set file "[file normalize "$origin_dir/constraints/project_toplevel_v2.xdc"]"
+set file_added [add_files -norecurse -fileset $obj [list $file]]
+set file "$origin_dir/constraints/project_toplevel_v2.xdc"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
+set_property -name "file_type" -value "XDC" -objects $file_obj
+
+# Add/Import constrs file and set constrs file properties
+set file "[file normalize "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"]"
+set file_added [add_files -norecurse -fileset $obj [list $file]]
+set file "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
+set_property -name "file_type" -value "XDC" -objects $file_obj
+set_property -name "is_enabled" -value "0" -objects $file_obj
+
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
-set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
-set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -603,25 +628,25 @@ if {[string equal [get_filesets -quiet integration_tbs] ""]} {
 # Set 'integration_tbs' fileset object
 set obj [get_filesets integration_tbs]
 set files [list \
+ [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/adc_buffer_and_usb_comm_tb.vhd"] \
- [file normalize "${origin_dir}/src/testbench/integration_tbs/control_and_math_tb.vhd"] \
  [file normalize "${origin_dir}/src/testbench/integration_tbs/uart_and_control_tb.vhd"] \
 ]
 add_files -norecurse -fileset $obj $files
 
 # Set 'integration_tbs' fileset file properties for remote files
+set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
+set_property -name "file_type" -value "VHDL" -objects $file_obj
+
 set file "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 set file "$origin_dir/src/testbench/adc_buffer_and_usb_comm_tb.vhd"
-set file [file normalize $file]
-set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
-set_property -name "file_type" -value "VHDL" -objects $file_obj
-
-set file "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets integration_tbs] [list "*$file"]]
 set_property -name "file_type" -value "VHDL" -objects $file_obj
@@ -637,8 +662,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
-set_property -name "sim_mode" -value "post-implementation" -objects $obj
-set_property -name "top" -value "uart_control_and_siggen_tb" -objects $obj
+set_property -name "top" -value "control_and_math_tb" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
 

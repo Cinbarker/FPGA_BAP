@@ -11,8 +11,9 @@ entity project_toplevel is
         uart_rx             : in std_logic;
         uart_tx             : out std_logic;
         led                 : out std_logic_vector(7 downto 0);
+        status_led          : out std_logic;
         dac_clk             : out std_logic;
-        dac_out             : out std_logic_vector(15 downto 0));
+        dac_out             : out std_logic_vector(13 downto 0));
 end project_toplevel;
 
 architecture behavioral of project_toplevel is
@@ -163,7 +164,7 @@ component uart_communication
   signal tx_param: std_logic_vector(FP_SIZE-1 downto 0);
   signal tx_select: std_logic_vector(7 downto 0);
   
-  signal dac_data : std_logic_vector(15 downto 0);
+  signal dac_data : std_logic_vector(13 downto 0);
   signal dac_data_long : std_logic_vector(15 downto 0);
   
   signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
@@ -201,7 +202,9 @@ with tx_select select tx_param <=
     final_features(0)           when x"28",
     x"1234"                     when others;
 
-dac_data <= math_result_phasor_magnitude;
+status_led <= bin_calc_en;
+dac_data <= dac_data_long(15 downto 2);
+     
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)
