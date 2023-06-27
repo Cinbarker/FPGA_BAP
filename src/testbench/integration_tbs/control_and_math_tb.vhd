@@ -200,18 +200,18 @@ siggen: Multiple_time_signal_generation
     new_model_id <= (others => '0');
 
     for i in POLY_DIM*EXTRA_DIM-1 downto 0 loop
-        new_magnitude_weights(i) <=  x"3C00"; --1 ;
+        new_magnitude_weights(i) <=  x"34CC"; --0.3 ;
         new_phase_weights(i) <= x"251E";--0.02 ;
     end loop;
 
     for i in FREQ_DIM-1 downto 0 loop
         new_phasor_phase(i) <= x"3C00"; --1 ;
-        new_phasor_magnitude(i)  <= x"70E2"; --10000
+        new_phasor_magnitude(i)  <= x"7065"; --9000
         for j in POLY_DIM-1 downto 0 loop
             new_polynomial_features(i, j)<=  x"4200"; --3 ;
         end loop;
     end loop;
-    new_extra_feature <= x"3C66"; --1.1
+    new_extra_feature <= x"3E00"; --1
     wait for clock_period;
     new_update <= '0';
     -- Process math
@@ -223,7 +223,7 @@ siggen: Multiple_time_signal_generation
     wait for clock_period;
     new_update <= '0';
 
-    wait for clock_period*2500;
+    wait for clock_period*5500;
     stop_the_clock <= TRUE;
     wait;
   end process;

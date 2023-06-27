@@ -33,7 +33,7 @@ package my_types_pkg is
   constant POLY_DIM : integer := 10;  -- Order of initial feature vector polynomial
   constant EXTRA_DIM : integer := 5;  -- Amount of times to multiply the initial feature vector with the extra feature
   constant FREQ_DIM : integer := 3;   -- Amount of frequencies used
-  constant BIN_SIZE : integer := 1024; -- Size of FFT bin on PC
+  constant BIN_SIZE : integer := 16384; -- Size of FFT bin on PC
   constant SETTLING_CYCLES : integer := 50; -- Amount of extra cycles to include in each bin for settling
   type custom_fp_array_2D is array (natural range <>, natural range <>) of std_logic_vector(FP_SIZE-1 downto 0);
 

@@ -230,7 +230,7 @@ set_property -name "webtalk.questa_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "20" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "478" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "500" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -661,6 +661,7 @@ set_property -name "file_type" -value "VHDL" -objects $file_obj
 
 # Set 'integration_tbs' fileset properties
 set obj [get_filesets integration_tbs]
+set_property -name "nl.mode" -value "funcsim" -objects $obj
 set_property -name "top" -value "control_and_math_tb" -objects $obj
 set_property -name "top_auto_set" -value "0" -objects $obj
 set_property -name "top_lib" -value "xil_defaultlib" -objects $obj
@@ -1164,6 +1165,10 @@ set obj [get_runs impl_1]
 set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
+set_property -name "steps.opt_design.args.directive" -value "RuntimeOptimized" -objects $obj
+set_property -name "steps.place_design.args.directive" -value "RuntimeOptimized" -objects $obj
+set_property -name "steps.phys_opt_design.args.directive" -value "RuntimeOptimized" -objects $obj
+set_property -name "steps.route_design.args.directive" -value "RuntimeOptimized" -objects $obj
 set_property -name "steps.post_route_phys_opt_design.is_enabled" -value "1" -objects $obj
 set_property -name "steps.write_bitstream.args.bin_file" -value "1" -objects $obj
 set_property -name "steps.write_bitstream.args.readback_file" -value "0" -objects $obj
