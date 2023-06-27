@@ -54,7 +54,7 @@ update_state: process (clk, reset, input_ready)
   begin
   if(reset='1' or input_ready ='0') then
       current_state <= start;
-      output_scalar_mult_valid <= '0';
+     
     count <= (others=>'0');
     gain_sum <= (others=>'0');
     phase_sum <= (others=>'0');
