@@ -13,7 +13,16 @@ entity project_toplevel is
         led                 : out std_logic_vector(7 downto 0);
         status_led          : out std_logic;
         dac_clk             : out std_logic;
-        dac_out             : out std_logic_vector(13 downto 0));
+        dac_out             : out std_logic_vector(13 downto 0);
+        adc_clk             : in std_logic;
+        adc_data_in         : in std_logic_vector(13 downto 0);
+        ft_clk              : in std_logic;
+        ft_data             : out std_logic_vector(15 downto 0);
+        ft_wr_n             : out std_logic;
+        ft_rd_n             : out std_logic;
+        ft_be               : out std_logic_vector(1 downto 0);
+        ft_oe_n             : out std_logic;
+        ft_txe_n            : in std_logic);
 end project_toplevel;
 
 architecture behavioral of project_toplevel is
@@ -119,7 +128,24 @@ component uart_communication
             dac_clk : in std_logic;
             dac_data: in std_logic_vector(13 downto 0);
             dac_out : out std_logic_vector(13 downto 0));
-            
+  end component;
+  
+  component adc_to_usb_stream
+      port( clk                 : in std_logic;
+            rst_n               : in std_logic;
+            adc_clk             : in std_logic;
+            adc_data_in         : in std_logic_vector(13 downto 0);
+            ft_clk              : in std_logic;
+            ft_data             : out std_logic_vector(15 downto 0);
+            ft_wr_n             : out std_logic;
+            ft_rd_n             : out std_logic;
+            ft_be               : out std_logic_vector(1 downto 0);
+            ft_oe_n             : out std_logic;
+            ft_txe_n            : in std_logic;
+            bin_update          : out std_logic;
+            bin_calc_en         : out std_logic;
+            bin_extra_feature   : in std_logic_vector(FP_SIZE-1 downto 0);
+            bin_model_id        : in std_logic_vector(13 downto 0));
   end component;
 
   -- ctrl signals
@@ -280,6 +306,22 @@ dac_data <= dac_data_long(15 downto 2);
            Control_Phase           => math_result_phasor_phase,
            Control_Gain            => math_result_phasor_magnitude,
            Control_Phasor_valid    => math_valid);
+   
+   usb: adc_to_usb_stream port map( clk                 => clk,
+                                    rst_n               => rst_n,
+                                    adc_clk             => adc_clk,
+                                    adc_data_in         => adc_data_in,
+                                    ft_clk              => ft_clk,
+                                    ft_data             => ft_data,
+                                    ft_wr_n             => ft_wr_n,
+                                    ft_rd_n             => ft_rd_n,
+                                    ft_be               => ft_be,
+                                    ft_oe_n             => ft_oe_n,
+                                    ft_txe_n            => ft_txe_n,
+                                    bin_update          => bin_update,
+                                    bin_calc_en         => bin_calc_en,
+                                    bin_extra_feature   => bin_extra_feature, --x"1234", -- 18, 52
+                                    bin_model_id        => bin_model_id); --"000000" & x"69"); -- 105
            
 --  dac_buff: dac_buffer port map (   clk         => clk,
 --                                    rst_n       => rst_n,
@@ -288,23 +330,4 @@ dac_data <= dac_data_long(15 downto 2);
 --                                    dac_out     => dac_out);
   dac_clk <= clk;
   dac_out <= dac_data;
-  process(clk)
-    begin
-        if rst_n = '0' then                      
-            bin_size_counter    <= 0;
-        elsif rising_edge(clk) then
-            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
-                bin_update <= '1';
-                bin_size_counter <= 0;
-            else
-                bin_update <= '0';
-                bin_size_counter <= bin_size_counter + 1;
-            end if;
-            if bin_size_counter <= SETTLING_CYCLES then
-                bin_calc_en <= '1';
-            else
-                bin_calc_en <= '0';
-            end if;
-        end if;
-    end process;  
 end behavioral;

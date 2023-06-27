@@ -33,6 +33,7 @@ architecture Behavioral of usb_stream_headers is
             ft_txe_n            : in std_logic;
             led                 : out std_logic_vector(7 downto 0);
             bin_update          : out std_logic;
+            bin_calc_en         : out std_logic;
             bin_extra_feature   : in std_logic_vector(FP_SIZE-1 downto 0);
             bin_model_id        : in std_logic_vector(13 downto 0));
   end component;

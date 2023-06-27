@@ -95,7 +95,7 @@ add_freqs1: adder_16_bit port map(
 add_freqs2: adder_16_bit port map(
 clk => clk,
     A => single_freq_sig(2),
-    B => "0000000000000000",
+    B => single_freq_sig(3),
     S => double_freq_sig2
 );
 
