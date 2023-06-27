@@ -197,6 +197,7 @@ siggen: Multiple_time_signal_generation
     new_frequencies(0) <= (x"10000000"); -- FIXED 
     new_frequencies(1) <= (x"20000000"); 
     new_frequencies(2) <= (x"09000000"); 
+    new_frequencies(2) <= (x"01900000");
     new_model_id <= (others => '0');
 
     for i in POLY_DIM*EXTRA_DIM-1 downto 0 loop
