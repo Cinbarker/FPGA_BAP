@@ -80,7 +80,7 @@ mult_valid_feat<= mult_valid;
                     input_mult1 <= "0011110000000000";--"00111111100000000000000000000000";
                     
                     Feature_Gen_Done <= '0';
-                    next_state <= calc;
+                    next_state <= wait_result;
                     input_mult_valid <= '1';
                     next_count <= count+1;
                     feature_gen_state <= "01";
@@ -107,7 +107,7 @@ mult_valid_feat<= mult_valid;
                             feature_gen_state <= "10";
                             
                         elsif input_mult_valid = '0' and mult_valid ='0' then
-                            if(count<ORDER_EXTRA_FEATURE+1)then
+                            if(count<ORDER_EXTRA_FEATURE)then
                                 next_state <= calc;
                             else
                                 next_state <=done;
