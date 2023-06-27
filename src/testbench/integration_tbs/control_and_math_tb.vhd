@@ -207,9 +207,28 @@ siggen: Multiple_time_signal_generation
     for i in FREQ_DIM-1 downto 0 loop
         new_phasor_phase(i) <= x"3C00"; --1 ;
         new_phasor_magnitude(i)  <= x"7065"; --9000
-        for j in POLY_DIM-1 downto 0 loop
-            new_polynomial_features(i, j)<=  x"4200"; --3 ;
-        end loop;
+        
+        case i is 
+        when 0 =>
+            for j in POLY_DIM-1 downto 0 loop
+                new_polynomial_features(i, j)<=  x"4200"; --3 ;
+            end loop;
+
+        when 1 =>
+            for j in POLY_DIM-1 downto 0 loop
+                new_polynomial_features(i, j)<=  x"4400"; --4 ;
+            end loop;
+        when 2 =>
+            for j in POLY_DIM-1 downto 0 loop
+                new_polynomial_features(i, j)<=  x"4600"; --6 ;
+            end loop;            
+        when 3 =>
+            for j in POLY_DIM-1 downto 0 loop
+                new_polynomial_features(i, j)<=  x"4800"; --8 ;
+            end loop;            
+        end case;
+        
+   
     end loop;
     new_extra_feature <= x"3E00"; --1
     wait for clock_period;
@@ -242,7 +261,7 @@ siggen: Multiple_time_signal_generation
         if reset = '1' then                      
             bin_size_counter    <= 0;
         elsif rising_edge(clk) then
-            if bin_size_counter >= 1024 + SETTLING_CYCLES - 1 then
+            if bin_size_counter >= BIN_SIZE + SETTLING_CYCLES - 1 then
                 bin_update <= '1';
                 bin_size_counter <= 0;
             else

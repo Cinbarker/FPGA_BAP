@@ -68,6 +68,8 @@ proc checkRequiredFiles { origin_dir} {
  "[file normalize "$origin_dir/constraints/adc_to_usb_stream.xdc"]"\
  "[file normalize "$origin_dir/constraints/usb_dip_counter.xdc"]"\
  "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]"\
+ "[file normalize "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"]"\
+ "[file normalize "$origin_dir/constraints/project_toplevel_v2.xdc"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/control_and_math_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_control_and_siggen_tb.vhd"]"\
  "[file normalize "$origin_dir/src/testbench/integration_tbs/uart_and_control_tb.vhd"]"\
@@ -230,7 +232,7 @@ set_property -name "webtalk.questa_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.riviera_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.vcs_export_sim" -value "20" -objects $obj
 set_property -name "webtalk.xsim_export_sim" -value "20" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "500" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "511" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -596,12 +598,28 @@ set file "$origin_dir/constraints/project_toplevel.xdc"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
 set_property -name "file_type" -value "XDC" -objects $file_obj
+set_property -name "is_enabled" -value "0" -objects $file_obj
+
+# Add/Import constrs file and set constrs file properties
+set file "[file normalize "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"]"
+set file_added [add_files -norecurse -fileset $obj [list $file]]
+set file "$origin_dir/constraints/adc_to_usb_stream_v2.xdc"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
+set_property -name "file_type" -value "XDC" -objects $file_obj
+set_property -name "is_enabled" -value "0" -objects $file_obj
+
+# Add/Import constrs file and set constrs file properties
+set file "[file normalize "$origin_dir/constraints/project_toplevel_v2.xdc"]"
+set file_added [add_files -norecurse -fileset $obj [list $file]]
+set file "$origin_dir/constraints/project_toplevel_v2.xdc"
+set file [file normalize $file]
+set file_obj [get_files -of_objects [get_filesets constrs_1] [list "*$file"]]
+set_property -name "file_type" -value "XDC" -objects $file_obj
 
 # Set 'constrs_1' fileset properties
 set obj [get_filesets constrs_1]
-set_property -name "target_constrs_file" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 set_property -name "target_part" -value "xc7a100tftg256-1" -objects $obj
-set_property -name "target_ucf" -value "[file normalize "$origin_dir/constraints/project_toplevel.xdc"]" -objects $obj
 
 # Create 'sim_1' fileset (if not found)
 if {[string equal [get_filesets -quiet sim_1] ""]} {
@@ -881,7 +899,6 @@ if { $obj != "" } {
 
 }
 set obj [get_runs synth_1]
-set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "incremental_checkpoint" -value "$proj_dir/fpga-bap-project.srcs/utils_1/imports/synth_1/uart_communication.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
@@ -1162,7 +1179,6 @@ set_property -name "options.warn_on_violation" -value "1" -objects $obj
 
 }
 set obj [get_runs impl_1]
-set_property -name "needs_refresh" -value "1" -objects $obj
 set_property -name "part" -value "xc7a100tftg256-1" -objects $obj
 set_property -name "strategy" -value "Vivado Implementation Defaults" -objects $obj
 set_property -name "steps.opt_design.args.directive" -value "RuntimeOptimized" -objects $obj

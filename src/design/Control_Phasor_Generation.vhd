@@ -89,7 +89,7 @@ divide_gain: fp_divider_X_bit
       );
 
 
-        Control_Phasor_valid <= divide_valid and subtract_valid;
+        Control_Phasor_valid <= divide_valid and subtract_valid and not reset;
 
 end Behavioral;
 

@@ -57,6 +57,7 @@ mult_valid_feat<= mult_valid;
             current_state <= idle;
             count <= 0;
             output_features_temp<= (others => (others=>'0'));
+            Feature_Gen_Done <= '0';
         else
             count <= next_count;
             current_state <= next_state;
@@ -123,7 +124,7 @@ mult_valid_feat<= mult_valid;
                 when done =>
                      feature_gen_state <= "11";
                      final_features <= output_features_temp;
-                     Feature_Gen_Done <= '1';
+                     Feature_Gen_Done <= '1' and not reset;
     
             end case;
   end if;
