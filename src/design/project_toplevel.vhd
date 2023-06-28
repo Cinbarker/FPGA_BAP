@@ -193,44 +193,67 @@ component uart_communication
   signal dac_data : std_logic_vector(13 downto 0);
   signal dac_data_long : std_logic_vector(15 downto 0);
   
+  signal new_update_latch : std_logic:= '0';
+  
   signal bin_size_counter       : integer range 0 to (BIN_SIZE+SETTLING_CYCLES-1);
-  signal eight_empty    : std_logic_vector(7 downto 0);
 begin
 reset <= NOT(rst_n);
 with tx_select select tx_param <=
-    gen_frequencies(0)(15 downto 0)          when x"01",
-    gen_frequencies(1)(15 downto 0)          when x"02",
-    gen_frequencies(2)(15 downto 0)          when x"03",
-    gen_phasor_magnitudes(0)    when x"04",
-    gen_phasor_magnitudes(1)    when x"05",
-    gen_phasor_magnitudes(2)    when x"06",
-    gen_phasor_phases(0)        when x"07",
-    gen_phasor_phases(1)        when x"08",
-    gen_phasor_phases(2)        when x"09",
-    bin_extra_feature           when x"10",
-    "00" & bin_model_id         when x"11",
-    new_frequencies(0)(15 downto 0) when x"12",
-    new_frequencies(1)(15 downto 0) when x"13",
-    new_frequencies(2)(15 downto 0) when x"14",
-    new_polynomial_features(0,0)when x"15",
-    new_extra_feature           when x"16",
-    new_magnitude_weights(0)    when x"17",
-    new_phase_weights(0)        when x"18",
-    new_phasor_magnitude(0)     when x"19",
-    new_phasor_magnitude(1)     when x"20",
-    new_phasor_magnitude(2)     when x"21",
-    new_phasor_phase(0)         when x"22",
-    new_phasor_phase(1)         when x"23",
-    new_phasor_phase(2)         when x"24",
-    "00" & new_model_id         when x"25",
-    System_gain                 when x"26",
-    System_phase                when x"27",
-    final_features(0)           when x"28",
-    x"1234"                     when others;
+    gen_frequencies(0)(15 downto 0) when x"01",
+    gen_frequencies(1)(15 downto 0) when x"02",
+    gen_frequencies(2)(15 downto 0) when x"03",
+    gen_frequencies(3)(15 downto 0) when x"04",
+    gen_phasor_magnitudes(0)        when x"05",
+    gen_phasor_magnitudes(1)        when x"06",
+    gen_phasor_magnitudes(2)        when x"07",
+    gen_phasor_magnitudes(3)        when x"08",
+    gen_phasor_phases(0)            when x"09",
+    gen_phasor_phases(1)            when x"10",
+    gen_phasor_phases(2)            when x"11",
+    gen_phasor_phases(3)            when x"12",
+    bin_extra_feature               when x"13",
+    "00" & bin_model_id             when x"14",
+    new_frequencies(0)(15 downto 0) when x"15",
+    new_frequencies(1)(15 downto 0) when x"16",
+    new_frequencies(2)(15 downto 0) when x"17",
+    new_frequencies(3)(15 downto 0) when x"18",
+    new_polynomial_features(0,0)    when x"19",
+    new_extra_feature               when x"20",
+    new_magnitude_weights(0)        when x"21",
+    new_phase_weights(0)            when x"22",
+    new_phasor_magnitude(0)         when x"23",
+    new_phasor_magnitude(1)         when x"24",
+    new_phasor_magnitude(2)         when x"25",
+    new_phasor_magnitude(3)         when x"26",
+    new_phasor_phase(0)             when x"27",
+    new_phasor_phase(1)             when x"28",
+    new_phasor_phase(2)             when x"29",
+    new_phasor_phase(3)             when x"30",
+    "00" & new_model_id             when x"31",
+    System_gain                     when x"32",
+    System_phase                    when x"33",
+    final_features(0)               when x"34",
+    x"1234"                         when others;
 
-status_led <= bin_calc_en;
+process(clk)
+begin
+if rising_edge(clk) then
+    if rst_n = '0' then
+        new_update_latch <= '0';
+    elsif new_update = '1' then
+    new_update_latch <= '1';
+    else
+        new_update_latch <= new_update_latch;
+    end if;
+end if;
+end process;
+status_led <= new_update_latch;
+
+dac_clk <= clk;
 dac_data <= dac_data_long(15 downto 2);
-     
+dac_out <= dac_data;
+
+
   -- Insert values for generic parameters !!
   comm: uart_communication generic map ( baud               => 115200,
                                         clock_frequency     => 100000000)
@@ -328,6 +351,5 @@ dac_data <= dac_data_long(15 downto 2);
 --                                    dac_clk     => dac_clk,
 --                                    dac_data    => dac_data,
 --                                    dac_out     => dac_out);
-  dac_clk <= clk;
-  dac_out <= dac_data;
+  
 end behavioral;
