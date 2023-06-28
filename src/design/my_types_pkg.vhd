@@ -21,7 +21,7 @@ package my_types_pkg is
   type int_array is array (natural range <>) of integer range -2**15 to 2**15 -1;
 
 
-  constant NUM_FREQS : integer := 3;
+  constant NUM_FREQS : integer := 4;
   -- Vector Vector scalar multiplier only works for 64>ORDER_EXTRA_FEATURE*INPUT_FEATURE_LENGTH
   constant ORDER_EXTRA_FEATURE : integer := 8;
   constant INPUT_FEATURE_LENGTH : integer := 8;
@@ -32,7 +32,7 @@ package my_types_pkg is
   -- Nic's types
   constant POLY_DIM : integer := 8;  -- Order of initial feature vector polynomial
   constant EXTRA_DIM : integer := 8;  -- Amount of times to multiply the initial feature vector with the extra feature
-  constant FREQ_DIM : integer := 3;   -- Amount of frequencies used
+  constant FREQ_DIM : integer := 4;   -- Amount of frequencies used
   constant BIN_SIZE : integer := 65536; -- Size of FFT bin on PC
   constant SETTLING_CYCLES : integer := 2000; -- Amount of extra cycles to include in each bin for settling
   type custom_fp_array_2D is array (natural range <>, natural range <>) of std_logic_vector(FP_SIZE-1 downto 0);
